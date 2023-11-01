@@ -31,7 +31,7 @@ Gestionnaire de recettes et de garde-manger intégré. Ajoutez vos aliments, obt
 1. **Clonez le dépôt**
 
    ```bash
-   git clone [https://github.com/...](https://github.com/sadicoman/Ingredio.git)
+   git clone https://github.com/sadicoman/Ingredio.git
    ```
 
 2. **Installez les dépendances**
