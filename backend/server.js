@@ -1,40 +1,37 @@
-// Import des différentes lib
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const dbUtils = require("./utils/db.utils");
 
-// Management de la base de données
-dbUtils.testDbConnection();
-
-// Configuration de l'application
 const app = express();
 
+// Test de la connexion à la base de données
+dbUtils.testDbConnection();
+
+// Synchronisation des modèles avec la base de données
+dbUtils.syncDb();
+
 // Middlewares
-app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Routage
-const baseRouter = require("./base.router");
-app.use("/api", baseRouter);
-
+// Routage (Assurez-vous d'avoir configuré les routers nécessaires)
+const baseRouter = require("./routes/base.router");
+app.use("/", baseRouter);
 
 // Gestion des 404
 app.all("*", (req, res) => {
-	res.status(404).send("Page introuvable");
+    res.status(404).send("Page introuvable");
 });
 
-// Gestion des erreurs globales
+// Autre erreur global
 app.use((error, req, res, next) => {
-	console.log("Error URL : ", req.url);
-	console.log("Error Message : ", error.message);
-	res.status(500).send("Erreur interne du serveur");
+    console.error("Error URL : ", req.url);
+    console.error("Error Message : ", error.message);
+    res.status(500).send("Erreur interne du serveur");
 });
 
-// Démarrage du serveur
-const port = process.env.PORT || 8002;
-app.listen(port, () => {
-	console.log(`Serveur Web démarré sur le port : http://localhost:${port}`);
+const PORT = process.env.PORT || 8002;
+app.listen(PORT, () => {
+    console.log(`Serveur Web démarré sur le port : http://localhost:${PORT}`);
 });

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const alimentController = require('../controllers/aliment.controller');
 
 // GET : Liste de tous les aliments disponibles
 router.get("/", (req, res) => {
