@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { registerUser } = require("../controllers/user.controller");
 const { loginUser } = require("../controllers/user.controller");
+const userController = require("../controllers/user.controller");
+const verifyToken = require("../middleware/verifyToken");
 
 // POST : Inscription
 router.post("/register", registerUser);
@@ -10,8 +12,10 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // GET : Profil de l'utilisateur
-router.get("/profile", (req, res) => {
-    // Logique pour récupérer le profil de l'utilisateur
-});
+// Route pour obtenir les informations du profil
+router.get("/profile", verifyToken, userController.getUserProfile);
+
+// Route pour mettre à jour le profil
+router.put("/profile", verifyToken, userController.updateUserProfile);
 
 module.exports = router;

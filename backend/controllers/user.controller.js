@@ -74,3 +74,41 @@ exports.loginUser = async (req, res) => {
         res.status(500).json({ message: "Il y a eu un problème à se connecter." });
     }
 };
+
+exports.getUserProfile = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.userId);
+        if (!user) return res.status(404).send({ message: "Utilisateur non trouvé." });
+
+        // Sélectionner les informations spécifiques à renvoyer
+        const userProfile = {
+            pseudo: user.Pseudo,
+            email: user.Email,
+            role: user.RoleID,
+        };
+
+        res.status(200).send(userProfile);
+    } catch (error) {
+        res.status(500).send({
+            message: "Erreur lors de la récupération du profil de l'utilisateur.",
+        });
+    }
+};
+
+exports.updateUserProfile = async (req, res) => {
+    try {
+        const { Pseudo, Email } = req.body;
+        const user = await User.findByPk(req.userId);
+        if (!user) return res.status(404).send({ message: "Utilisateur non trouvé." });
+
+        user.Pseudo = Pseudo || user.Pseudo;
+        user.Email = Email || user.Email;
+
+        await user.save();
+        res.status(200).send({ message: "Profil mis à jour avec succès." });
+    } catch (error) {
+        res.status(500).send({
+            message: "Erreur lors de la mise à jour du profil de l'utilisateur.",
+        });
+    }
+};
