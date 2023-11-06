@@ -18,4 +18,10 @@ router.get("/profile", verifyToken, userController.getUserProfile);
 // Route pour mettre à jour le profil
 router.put("/profile", verifyToken, userController.updateUserProfile);
 
+// POST : Demande de réinitialisation de mot de passe
+router.post("/requestReset", userController.requestPasswordReset);
+
+// POST : Réinitialisation de mot de passe
+router.post("/resetPassword", userController.resetPassword);
+
 module.exports = router;

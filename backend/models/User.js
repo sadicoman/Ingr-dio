@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const { Sequelize, DataTypes, ModelStatic } = require("sequelize");
 const { sequelize } = require("../utils/db.utils");
 const Role = require("./Role");
@@ -27,7 +27,7 @@ const User = sequelize.define("User", {
         allowNull: false, // ne doit pas être nul
         validate: {
             isEmail: true, // valide le format de l'email
-        }
+        },
     },
     MotDePasse: {
         type: DataTypes.STRING,
@@ -35,16 +35,24 @@ const User = sequelize.define("User", {
         set(value) {
             const salt = bcrypt.genSaltSync(10);
             const hashedPassword = bcrypt.hashSync(value, salt);
-            this.setDataValue('MotDePasse', hashedPassword);
-        }
-    },    
+            this.setDataValue("MotDePasse", hashedPassword);
+        },
+    },
     RoleID: {
         type: DataTypes.INTEGER,
         references: {
             model: Role, // clé étrangère vers la table Role
-            key: 'RoleID',
+            key: "RoleID",
         },
         defaultValue: 3, //  l'ID de rôle pour 'users'
+    },
+    ResetPasswordToken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    ResetPasswordExpires: {
+        type: DataTypes.DATE,
+        allowNull: true,
     },
 });
 
