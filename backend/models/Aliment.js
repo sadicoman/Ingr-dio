@@ -17,6 +17,12 @@ const Aliment = sequelize.define("Aliment", {
     Nom: {
         type: DataTypes.STRING(50),
         allowNull: false,
+        unique: true,
+    },
+    UserID: {
+        // Pour savoir qui a créé l'aliment
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
 });
 

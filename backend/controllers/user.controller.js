@@ -136,10 +136,6 @@ exports.requestPasswordReset = async (req, res) => {
         await user.save();
         console.log("ici en bas");
         // Envoyer l'email avec le lien de réinitialisation
-        // Ici vous devez implémenter la logique d'envoi d'email.
-        // À l'intérieur de requestPasswordReset
-        // ...
-        // restif send email.
         sendEmail(
             user.Email,
             "Demande de réinitialisation de mot de passe",
