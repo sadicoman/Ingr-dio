@@ -16,6 +16,9 @@ router.get("/:id", verifyToken, asyncHandler(alimentController.getAlimentById));
 // Route pour créer un nouvel aliment
 router.post("/", verifyToken, asyncHandler(alimentController.createAliment));
 
+// Route pour créer plusieurs aliments
+router.post("/createMultiple", verifyToken, alimentController.createMultipleAliments);
+
 // Route pour mettre à jour un aliment par ID
 router.put("/:id", verifyToken, asyncHandler(alimentController.updateAliment));
 

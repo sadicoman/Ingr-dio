@@ -1,33 +1,69 @@
-exports.getAll = (req, res) => {
-    // Récupérer tous les ingredientsRecettes de la base de données
-    // Et renvoyer une réponse
-    res.status(200).json({ message: "Liste de tous les ingredientsRecettes" });
+const IngredientsRecette = require("../models/IngredientsRecette");
+
+const IngredientsRecetteController = {
+    // Ajouter un ingrédient à une recette
+    addIngredientToRecette: async (req, res) => {
+        try {
+            const ingredient = await IngredientsRecette.create(req.body);
+            res.status(201).json(ingredient);
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    },
+
+    // Lister les ingrédients d'une recette spécifique
+    getIngredientsByRecette: async (req, res) => {
+        try {
+            const ingredients = await IngredientsRecette.findAll({
+                where: { RecetteID: req.params.recetteId },
+            });
+            res.json(ingredients);
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    },
+
+    // Mettre à jour un ingrédient dans une recette
+    updateIngredientInRecette: async (req, res) => {
+        try {
+            const ingredient = await IngredientsRecette.findOne({
+                where: { IngredientRecetteID: req.params.id },
+            });
+            if (!ingredient) {
+                return res.status(404).send("Ingrédient non trouvé.");
+            }
+            await ingredient.update(req.body);
+            res.json(ingredient);
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    },
+
+    // Supprimer un ingrédient d'une recette
+    deleteIngredientFromRecette: async (req, res) => {
+        try {
+            const result = await IngredientsRecette.destroy({
+                where: { IngredientRecetteID: req.params.id },
+            });
+            if (result === 0) {
+                return res.status(404).send("Ingrédient non trouvé ou déjà supprimé.");
+            }
+            res.status(204).send();
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    },
+
+    // Ajouter plusieurs ingrédients à une recette
+    ajouterPlusieursIngredients: async (req, res) => {
+        try {
+            const ingredients = req.body; // Un tableau d'objets ingrédients
+            const ingredientsAjoutes = await IngredientsRecette.bulkCreate(ingredients);
+            res.status(201).json(ingredientsAjoutes);
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    },
 };
 
-exports.getById = (req, res) => {
-    // Récupérer un ingredientsRecette spécifique en utilisant req.params.id
-    // Et renvoyer une réponse
-    res.status(200).json({ message: `ingredientsRecette avec l'id ${req.params.id}` });
-};
-
-exports.create = (req, res) => {
-    // Créer un nouveau ingredientsRecette avec les informations de req.body
-    // Et renvoyer une réponse
-    res.status(201).json({ message: "ingredientsRecette créé" });
-};
-
-exports.update = (req, res) => {
-    // Mettre à jour un ingredientsRecette spécifique en utilisant req.params.id
-    // Et renvoyer une réponse
-    res.status(200).json({
-        message: `ingredientsRecette avec l'id ${req.params.id} mis à jour`,
-    });
-};
-
-exports.delete = (req, res) => {
-    // Supprimer un ingredientsRecette spécifique en utilisant req.params.id
-    // Et renvoyer une réponse
-    res.status(200).json({
-        message: `ingredientsRecette avec l'id ${req.params.id} supprimé`,
-    });
-};
+module.exports = IngredientsRecetteController;

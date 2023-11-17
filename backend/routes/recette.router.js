@@ -1,14 +1,21 @@
 const express = require("express");
 const router = express.Router();
+const recetteController = require("../controllers/recette.controller");
+const verifyToken = require("../middleware/verifyToken");
 
-// GET : Liste de toutes les recettes
-router.get("/", (req, res) => {
-	// Logique pour récupérer toutes les recettes
-});
+// Créer une nouvelle recette
+router.post("/ajouter", verifyToken, recetteController.createRecette);
 
-// POST : Ajouter une nouvelle recette
-router.post("/ajouter", (req, res) => {
-	// Logique pour ajouter une nouvelle recette
-});
+// Obtenir toutes les recettes
+router.get("/", verifyToken, recetteController.getAllRecettes);
+
+// Obtenir une recette spécifique par ID
+router.get("/:id", verifyToken, recetteController.getRecetteById);
+
+// Mettre à jour une recette spécifique
+router.put("/:id", verifyToken, recetteController.updateRecette);
+
+// Supprimer une recette spécifique
+router.delete("/:id", verifyToken, recetteController.deleteRecette);
 
 module.exports = router;

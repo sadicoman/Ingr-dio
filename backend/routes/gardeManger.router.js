@@ -9,6 +9,13 @@ router.get("/", verifyToken, gardeMangerController.obtenirContenu);
 // Ajouter un nouvel aliment au garde-manger pour un utilisateur
 router.post("/ajouter", verifyToken, gardeMangerController.ajouterAliment);
 
+// Route pour ajouter plusieurs aliments au garde-manger
+router.post(
+    "/ajouter-multiples",
+    verifyToken,
+    gardeMangerController.ajouterPlusieursAliments,
+);
+
 // Mettre à jour un aliment existant dans le garde-manger pour un utilisateur
 router.put("/mettre-a-jour/:id", verifyToken, gardeMangerController.mettreAJourAliment);
 

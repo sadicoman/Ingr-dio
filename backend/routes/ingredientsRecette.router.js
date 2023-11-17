@@ -1,22 +1,33 @@
 const express = require("express");
 const router = express.Router();
-
-// Importez le contrôleur que vous utiliserez pour gérer les requêtes
 const ingredientsRecetteController = require("../controllers/ingredientsRecettes.controller");
+const verifyToken = require("../middleware/verifyToken");
 
-// Exemple de route pour obtenir tous les ingredientsRecette
-router.get("/", ingredientsRecetteController.getAll);
+// Ajouter un ingrédient à une recette
+router.post("/ajouter", verifyToken, ingredientsRecetteController.addIngredientToRecette);
 
-// Exemple de route pour obtenir un ingredientsRecette par ID
-router.get("/:id", ingredientsRecetteController.getById);
+// Obtenir tous les ingrédients d'une recette spécifique
+router.get(
+    "/recette/:recetteId",
+    verifyToken,
+    ingredientsRecetteController.getIngredientsByRecette,
+);
 
-// Exemple de route pour créer un nouveau ingredientsRecette
-router.post("/", ingredientsRecetteController.create);
+// Mettre à jour un ingrédient spécifique dans une recette
+router.put("/:id", verifyToken, ingredientsRecetteController.updateIngredientInRecette);
 
-// Exemple de route pour mettre à jour un ingredientsRecette
-router.put("/:id", ingredientsRecetteController.update);
+// Supprimer un ingrédient spécifique d'une recette
+router.delete(
+    "/:id",
+    verifyToken,
+    ingredientsRecetteController.deleteIngredientFromRecette,
+);
 
-// Exemple de route pour supprimer un ingredientsRecette
-router.delete("/:id", ingredientsRecetteController.delete);
+// Ajout multiple d'ingrédient à une recette
+router.post(
+    "/ajouter-multiples",
+    verifyToken,
+    ingredientsRecetteController.ajouterPlusieursIngredients,
+);
 
 module.exports = router;

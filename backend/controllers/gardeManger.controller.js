@@ -31,6 +31,21 @@ const gardeMangerController = {
         }
     },
 
+    ajouterPlusieursAliments: async (req, res) => {
+        try {
+            const userId = req.userId;
+            const aliments = req.body; // Un tableau d'objets aliment
+            const alimentsAvecUserId = aliments.map((aliment) => ({
+                ...aliment,
+                UserID: userId,
+            }));
+            const nouveauxAliments = await GardeManger.bulkCreate(alimentsAvecUserId);
+            res.status(201).json(nouveauxAliments);
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    },
+
     // Mettre à jour un aliment dans le garde-manger de l'utilisateur
     mettreAJourAliment: async (req, res) => {
         try {

@@ -1,21 +1,21 @@
 const express = require("express");
 const router = express.Router();
-
 const etapeController = require("../controllers/etape.controller");
+const verifyToken = require("../middleware/verifyToken");
 
-// Route pour récupérer toutes les étapes
-router.get("/", etapeController.getAllEtapes);
+// Ajouter une nouvelle étape à une recette
+router.post("/ajouter", verifyToken, etapeController.addEtapeToRecette);
 
-// Route pour récupérer une étape spécifique par ID
-router.get("/:id", etapeController.getEtapeById);
+// Ajouter multiple de nouvelle étapes à une recette
+router.post("/ajouter-multiples", verifyToken, etapeController.ajouterPlusieursEtapes);
 
-// Route pour ajouter une nouvelle étape
-router.post("/", etapeController.createEtape);
+// Obtenir toutes les étapes d'une recette spécifique
+router.get("/recette/:recetteId", verifyToken, etapeController.getEtapesByRecette);
 
-// Route pour mettre à jour une étape par ID
-router.put("/:id", etapeController.updateEtape);
+// Mettre à jour une étape spécifique
+router.put("/:id", verifyToken, etapeController.updateEtapeInRecette);
 
-// Route pour supprimer une étape par ID
-router.delete("/:id", etapeController.deleteEtape);
+// Supprimer une étape spécifique
+router.delete("/:id", verifyToken, etapeController.deleteEtapeFromRecette);
 
 module.exports = router;

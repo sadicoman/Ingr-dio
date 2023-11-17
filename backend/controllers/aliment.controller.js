@@ -40,6 +40,30 @@ exports.createAliment = async (req, res) => {
     }
 };
 
+// Créer plusieurs nouveaux aliments
+exports.createMultipleAliments = async (req, res) => {
+    try {
+        // Récupération de la liste des aliments depuis la requête
+        const alimentsList = req.body; // Cela doit être un tableau d'objets aliment
+
+        // Traitement de chaque aliment
+        const processedAliments = alimentsList.map((aliment) => {
+            return {
+                ...aliment,
+                Nom: normalizeName(aliment.Nom),
+                UserID: req.userId, // Assurez-vous que req.userId est disponible
+            };
+        });
+
+        // Création des aliments en base de données
+        const createdAliments = await Aliment.bulkCreate(processedAliments);
+
+        res.status(201).json(createdAliments);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
 // Récupérer tous les aliments
 exports.getAllAliments = async (req, res) => {
     try {
