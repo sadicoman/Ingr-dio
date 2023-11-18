@@ -4,9 +4,11 @@ const { registerUser } = require("../controllers/user.controller");
 const { loginUser } = require("../controllers/user.controller");
 const userController = require("../controllers/user.controller");
 const verifyToken = require("../middleware/verifyToken");
+const passwordValidator = require("../middleware/passwordValidator");
+const emailValidator = require("../middleware/emailValidator");
 
 // POST : Inscription
-router.post("/register", registerUser);
+router.post("/register", passwordValidator, emailValidator, registerUser);
 
 // POST : Connexion
 router.post("/login", loginUser);
