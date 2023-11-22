@@ -69,7 +69,7 @@ Gestionnaire de recettes et de garde-manger intégré. Ajoutez vos aliments, obt
      npm run dev
      ```
 
-Votre application devrait maintenant être en cours d'exécution sur `http://localhost:3000` (Frontend) et `http://localhost:5000` (Backend).
+Votre application devrait maintenant être en cours d'exécution sur `http://localhost:5173` (Frontend) et `http://localhost:8000` (Backend).
 
 ## Utilisation :wrench:
 
