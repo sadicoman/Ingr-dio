@@ -43,6 +43,10 @@ exports.loginUser = async (req, res) => {
     try {
         const { login, MotDePasse } = req.body; // login peut être soit l'email, soit le pseudo
 
+        // Log les valeurs spécifiques extraites de la requête
+        console.log("Login: ", login);
+        console.log("MotDePasse: ", MotDePasse);
+
         // Trouvez l'utilisateur par email ou pseudo
         const user = await User.findOne({
             where: {
@@ -63,6 +67,9 @@ exports.loginUser = async (req, res) => {
                 message: "Mot de passe invalide.",
             });
         }
+
+        // Log le résultat de la comparaison du mot de passe
+        console.log("Mot de passe valide: ", passwordIsValid);
 
         // Si le mot de passe est correct, générez un token
         const token = jwt.sign({ id: user.UserID }, process.env.JWT_SECRET, {
