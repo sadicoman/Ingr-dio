@@ -1,9 +1,17 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const dbUtils = require("./utils/db.utils");
 
 const app = express();
+
+// Configuration de CORS pour accepter les requêtes de votre frontend
+app.use(
+    cors({
+        origin: "http://127.0.0.1:5173", // URL de votre frontend
+    }),
+);
 
 // Test de la connexion à la base de données
 dbUtils.testDbConnection();

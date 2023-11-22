@@ -17,6 +17,8 @@ exports.registerUser = async (req, res) => {
     try {
         const { Pseudo, Email, MotDePasse } = req.body;
 
+        console.log("Inscription reçue:", req.body);
+
         // Vérifier si l'utilisateur existe déjà
         const userExists = await User.findOne({ where: { Email } });
         if (userExists) {
@@ -35,6 +37,7 @@ exports.registerUser = async (req, res) => {
 
         res.status(201).send({ auth: true, token });
     } catch (error) {
+        console.error("Erreur lors de l'inscription:", error);
         res.status(500).json({ message: error.message });
     }
 };
