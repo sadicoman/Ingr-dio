@@ -1,6 +1,7 @@
 // Dans LandingPage.jsx
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../../../services/auth.service";
+import Menu from "../../templates/Menu/Menu";
 
 const LandingPage = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -22,13 +23,10 @@ const LandingPage = () => {
     }, []);
 
     return (
-        <div>
-            {userInfo ? (
-                <h2>Bienvenue, {userInfo.pseudo}</h2>
-            ) : (
-                "Chargement du profil utilisateur..."
-            )}
-        </div>
+        <>
+            <Menu />
+            {userInfo ? <h2>Bienvenue, {userInfo.pseudo}</h2> : <h2>Bienvenue,</h2>}
+        </>
     );
 };
 
