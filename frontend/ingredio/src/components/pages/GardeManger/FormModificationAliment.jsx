@@ -40,12 +40,17 @@ const FormModificationAliment = ({ aliment, onModifier, onAnnuler }) => {
             <div>
                 <label htmlFor="unite">Unité:</label>
                 <select id="unite" {...register("unite", { required: true })}>
-                    <option value="gramme">Gramme</option>
-                    <option value="litre">Litre</option>
-                    <option value="piece">Pièce</option>
-                    <option value="cuillere a soupe">Cuillère à soupe</option>
-                    <option value="cuillere a cafe">Cuillère à café</option>
+                    <option value="g">g - Gramme</option>
+                    <option value="l">l - Litre</option>
+                    <option value="pcs">pcs - Pièce</option>
+                    <option value="cs">cs - Cuillère à soupe</option>
+                    <option value="cc">cc - Cuillère à café</option>
+                    <option value="kg">kg - Kilogramme</option>
+                    <option value="ml">ml - Millilitre</option>
+                    <option value="tasse">tasse - Tasse</option>
+                    <option value="pincée">pincée - Pincée</option>
                 </select>
+
                 {errors.unite && <span>Ce champ est requis</span>}
             </div>
             <button type="submit">Sauvegarder</button>

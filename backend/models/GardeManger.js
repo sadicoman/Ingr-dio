@@ -25,11 +25,15 @@ const GardeManger = sequelize.define("GardeManger", {
     Quantite: DataTypes.INTEGER,
     Unite: {
         type: DataTypes.ENUM(
-            "gramme",
-            "litre",
-            "piece",
-            "cuillere a soupe",
-            "cuillere a cafe",
+            "g", // pour gramme
+            "l", // pour litre
+            "pcs", // pour pièce
+            "cs", // pour cuillère à soupe
+            "cc", // pour cuillère à café
+            "kg", // pour kilogramme
+            "ml", // pour millilitre
+            "tasse", // pour tasse
+            "pincée", // pour pincée
         ),
         allowNull: false,
     },

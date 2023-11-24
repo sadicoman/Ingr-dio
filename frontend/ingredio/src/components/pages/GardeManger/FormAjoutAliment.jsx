@@ -17,11 +17,15 @@ const FormAjoutAliment = ({ onAjout }) => {
             />
             <input {...register("Quantite")} type="number" placeholder="Quantité" />
             <select {...register("Unite")}>
-                <option value="gramme">Gramme</option>
-                <option value="litre">Litre</option>
-                <option value="piece">Pièce</option>
-                <option value="cuillere a soupe">Cuillère à soupe</option>
-                <option value="cuillere a cafe">Cuillère à café</option>
+                <option value="g">g - Gramme</option>
+                <option value="l">l - Litre</option>
+                <option value="pcs">pcs - Pièce</option>
+                <option value="cs">cs - Cuillère à soupe</option>
+                <option value="cc">cc - Cuillère à café</option>
+                <option value="kg">kg - Kilogramme</option>
+                <option value="ml">ml - Millilitre</option>
+                <option value="tasse">tasse - Tasse</option>
+                <option value="pincée">pincée - Pincée</option>
             </select>
             <button type="submit">Ajouter Aliment</button>
         </form>
