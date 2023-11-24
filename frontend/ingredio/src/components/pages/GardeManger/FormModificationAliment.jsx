@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 
@@ -53,6 +54,20 @@ const FormModificationAliment = ({ aliment, onModifier, onAnnuler }) => {
             </button>
         </form>
     );
+};
+
+// Définition des PropTypes pour FormModificationAliment
+FormModificationAliment.propTypes = {
+    // `aliment` est un objet avec des propriétés spécifiques
+    aliment: PropTypes.shape({
+        GardeMangerID: PropTypes.number.isRequired,
+        AlimentID: PropTypes.number.isRequired,
+        Quantite: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        Unite: PropTypes.string.isRequired,
+    }).isRequired,
+    // `onModifier` et `onAnnuler` sont des fonctions
+    onModifier: PropTypes.func.isRequired,
+    onAnnuler: PropTypes.func.isRequired,
 };
 
 export default FormModificationAliment;
