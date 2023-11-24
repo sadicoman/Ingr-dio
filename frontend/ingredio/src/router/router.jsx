@@ -8,6 +8,7 @@ import Recettes from "../components/pages/Recettes/Recettes.jsx"; // Assurez-vou
 import GardeManger from "../components/pages/GardeManger/GardeManger.jsx"; // Assurez-vous d'avoir ce composant
 import Profil from "../components/pages/Profil/Profil.jsx"; // Assurez-vous d'avoir ce composant
 import PrivateRoute from "./PrivateRoute.jsx";
+import Aliments from "../components/pages/Aliments/Aliments.jsx";
 
 const router = createBrowserRouter([
     {
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
                 element: (
                     <PrivateRoute>
                         <GardeManger />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "aliments",
+                element: (
+                    <PrivateRoute>
+                        <Aliments />
                     </PrivateRoute>
                 ),
             },

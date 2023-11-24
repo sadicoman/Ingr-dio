@@ -95,6 +95,7 @@ exports.getUserProfile = async (req, res) => {
 
         // Sélectionner les informations spécifiques à renvoyer
         const userProfile = {
+            id: user.UserID,
             pseudo: user.Pseudo,
             email: user.Email,
             role: user.RoleID,
