@@ -1,12 +1,32 @@
 const GardeManger = require("../models/GardeManger");
+const Aliment = require("../models/Aliment");
 
 const gardeMangerController = {
     // Obtenir le contenu du garde-manger de l'utilisateur
+    // obtenirContenu: async (req, res) => {
+    //     try {
+    //         const userId = req.userId;
+    //         const contenu = await GardeManger.findAll({
+    //             where: { UserID: userId },
+    //         });
+    //         res.json(contenu);
+    //     } catch (error) {
+    //         res.status(500).send(error.message);
+    //     }
+    // },
+
     obtenirContenu: async (req, res) => {
         try {
             const userId = req.userId;
             const contenu = await GardeManger.findAll({
                 where: { UserID: userId },
+                include: [
+                    {
+                        model: Aliment,
+                        as: "aliment",
+                        attributes: ["Nom"],
+                    },
+                ],
             });
             res.json(contenu);
         } catch (error) {
@@ -15,18 +35,55 @@ const gardeMangerController = {
     },
 
     // Ajouter un aliment au garde-manger de l'utilisateur
+    // ajouterAliment: async (req, res) => {
+    //     try {
+    //         const userId = req.userId;
+    //         const { AlimentID, Quantite, Unite } = req.body;
+    //         const nouvelAliment = await GardeManger.create({
+    //             UserID: userId,
+    //             AlimentID,
+    //             Quantite,
+    //             Unite,
+    //         });
+    //         res.status(201).json(nouvelAliment);
+    //     } catch (error) {
+    //         res.status(500).send(error.message);
+    //     }
+    // },
+
     ajouterAliment: async (req, res) => {
+        console.log("Données reçues:", req.body);
         try {
             const userId = req.userId;
-            const { AlimentID, Quantite, Unite } = req.body;
+            const { nomAliment, Quantite, Unite } = req.body;
+
+            console.log("Nom Aliment:", nomAliment); // Log individuel
+            console.log("Quantite:", Quantite);
+            console.log("Unite:", Unite);
+
+            // Log pour déboguer
+            console.log("Requête reçue :", nomAliment, Quantite, Unite);
+
+            // Trouver l'ID de l'aliment basé sur son nom
+            const aliment = await Aliment.findOne({ where: { Nom: nomAliment } });
+
+            // Log pour déboguer
+            console.log("Aliment trouvé :", aliment);
+
+            if (!aliment) {
+                return res.status(404).send("Aliment non trouvé.");
+            }
+
             const nouvelAliment = await GardeManger.create({
                 UserID: userId,
-                AlimentID,
+                AlimentID: aliment.AlimentID, // Assurez-vous que c'est bien AlimentID
                 Quantite,
                 Unite,
             });
+
             res.status(201).json(nouvelAliment);
         } catch (error) {
+            console.error("Erreur lors de l'ajout de l'aliment :", error);
             res.status(500).send(error.message);
         }
     },

@@ -35,6 +35,7 @@ exports.registerUser = async (req, res) => {
             expiresIn: 86400, // 24 heures
         });
 
+        // res.status(200).json({ auth: true, token, user: { pseudo: user.Pseudo } });
         res.status(201).send({ auth: true, token });
     } catch (error) {
         console.error("Erreur lors de l'inscription:", error);
@@ -80,7 +81,8 @@ exports.loginUser = async (req, res) => {
         });
 
         // Répondez avec un token
-        res.status(200).json({ auth: true, token });
+        res.status(200).json({ auth: true, token, user: { pseudo: user.Pseudo } });
+        // res.status(200).json({ auth: true, token });
     } catch (error) {
         res.status(500).json({ message: "Il y a eu un problème à se connecter." });
     }

@@ -18,7 +18,8 @@ Aliment.belongsTo(User, { foreignKey: "UserID" });
 User.hasMany(GardeManger, { foreignKey: "UserID" });
 Aliment.hasMany(GardeManger, { foreignKey: "AlimentID" });
 GardeManger.belongsTo(User, { foreignKey: "UserID" });
-GardeManger.belongsTo(Aliment, { foreignKey: "AlimentID" });
+// GardeManger.belongsTo(Aliment, { foreignKey: "AlimentID" });
+GardeManger.belongsTo(Aliment, { foreignKey: "AlimentID", as: "aliment" });
 
 // Relations IngredientsRecettes, Aliments et Recettes
 Aliment.hasMany(IngredientsRecettes, { foreignKey: "AlimentID" });

@@ -14,6 +14,7 @@ export const logins = async (login, MotDePasse) => {
         console.log("Réponse reçue : ", response.data);
         if (response.data.token && response.data.user) {
             localStorage.setItem("userToken", response.data.token);
+            console.log(localStorage.getItem("userToken"));
             localStorage.setItem("userInfo", JSON.stringify(response.data.user)); // Stocker les infos de l'utilisateur
         }
         return response.data;

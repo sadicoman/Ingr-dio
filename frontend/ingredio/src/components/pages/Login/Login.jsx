@@ -17,7 +17,7 @@ const Login = () => {
         try {
             const response = await logins(datas.login, datas.MotDePasse);
             if (response && response.token) {
-                navigate("/LandingPage");
+                navigate("/landingPage");
             } else {
                 setErreur("Erreur lors de la connexion. Veuillez vérifier vos login.");
             }
