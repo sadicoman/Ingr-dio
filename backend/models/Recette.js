@@ -17,6 +17,11 @@ const Recette = sequelize.define("Recette", {
         type: DataTypes.STRING(50),
         allowNull: false,
     },
+    UserID: {
+        // Pour savoir qui a créé la recette
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
     TempsDePreparation: DataTypes.INTEGER,
     TempsDeCuisson: DataTypes.INTEGER,
     NiveauDeDifficulte: {

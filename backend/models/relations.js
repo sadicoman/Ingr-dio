@@ -31,6 +31,10 @@ IngredientsRecettes.belongsTo(Recette, { foreignKey: "RecetteID" });
 Recette.hasMany(Etape, { foreignKey: "RecetteID" });
 Etape.belongsTo(Recette, { foreignKey: "RecetteID" });
 
+// Relations Recettes et User
+User.hasMany(Recette, { foreignKey: "UserID" });
+Recette.belongsTo(User, { foreignKey: "UserID" });
+
 module.exports = {
     User,
     Role,

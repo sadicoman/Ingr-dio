@@ -4,7 +4,8 @@ const RecetteController = {
     // Créer une nouvelle recette
     createRecette: async (req, res) => {
         try {
-            const recette = await Recette.create(req.body);
+            const userId = req.userId;
+            const recette = await Recette.create({ ...req.body, UserID: userId });
             res.status(201).json(recette);
         } catch (error) {
             res.status(500).send(error.message);

@@ -4,11 +4,12 @@ import Home from "../components/pages/Home/Home.jsx";
 import Login from "../components/pages/Login/Login.jsx";
 import Register from "../components/pages/Register/Register.jsx";
 import LandingPage from "../components/pages/LandingPage/LandingPage.jsx";
-import Recettes from "../components/pages/Recettes/Recettes.jsx"; // Assurez-vous d'avoir ce composant
-import GardeManger from "../components/pages/GardeManger/GardeManger.jsx"; // Assurez-vous d'avoir ce composant
-import Profil from "../components/pages/Profil/Profil.jsx"; // Assurez-vous d'avoir ce composant
+import Recettes from "../components/pages/Recettes/Recettes.jsx";
+import GardeManger from "../components/pages/GardeManger/GardeManger.jsx";
+import Profil from "../components/pages/Profil/Profil.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import Aliments from "../components/pages/Aliments/Aliments.jsx";
+import RecetteDetails from "../components/pages/Recettes/RecetteDetails.jsx";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,16 @@ const router = createBrowserRouter([
                         <Recettes />
                     </PrivateRoute>
                 ),
+                children: [
+                    {
+                        path: ":id",
+                        element: (
+                            <PrivateRoute>
+                                <RecetteDetails />
+                            </PrivateRoute>
+                        ),
+                    },
+                ],
             },
             {
                 path: "garde-manger",
