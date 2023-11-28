@@ -152,6 +152,21 @@ const gardeMangerController = {
             });
         }
     },
+    obtenirAlimentsGardeManger: async (userId) => {
+        try {
+            const gardeManger = await GardeManger.findAll({
+                where: { UserID: userId },
+                include: [{ model: Aliment, as: "aliment" }],
+            });
+            return gardeManger.map((item) => item.alimentID);
+        } catch (error) {
+            console.error(
+                "Erreur lors de la récupération des aliments du garde-manger:",
+                error,
+            );
+            throw error;
+        }
+    },
 };
 
 module.exports = gardeMangerController;

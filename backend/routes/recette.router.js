@@ -18,4 +18,7 @@ router.put("/:id", verifyToken, recetteController.updateRecette);
 // Supprimer une recette spécifique
 router.delete("/:id", verifyToken, recetteController.deleteRecette);
 
+// Route pour obtenir des suggestions de recettes
+router.post("/suggestions", verifyToken, recetteController.getSuggestionsRecettes);
+
 module.exports = router;

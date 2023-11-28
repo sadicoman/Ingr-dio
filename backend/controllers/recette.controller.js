@@ -1,4 +1,5 @@
 const Recette = require("../models/Recette");
+const IngredientsRecette = require("../models/IngredientsRecette");
 
 const RecetteController = {
     // Créer une nouvelle recette
@@ -61,6 +62,50 @@ const RecetteController = {
             res.status(500).send(error.message);
         }
     },
+
+    getSuggestionsRecettes: async (req, res) => {
+        try {
+            console.log("Aliments reçus:", req.body.aliments);
+            // Liste des ID d'aliments du garde-manger de l'utilisateur
+            const alimentsGardeManger = req.body.aliments;
+            console.log("Aliments du garde-manger:", alimentsGardeManger);
+
+            // Recherche des recettes qui utilisent ces aliments
+            const recettesPotentielles = await Recette.findAll({
+                include: [
+                    {
+                        model: IngredientsRecette,
+                        where: {
+                            AlimentID: alimentsGardeManger,
+                        },
+                    },
+                ],
+            });
+
+            console.log("Recettes potentielles trouvées:", recettesPotentielles);
+
+            // Filtrer et trier les recettes selon vos critères
+            const recettesSuggerees = filtrerEtTrierRecettes(
+                recettesPotentielles,
+                alimentsGardeManger,
+            );
+
+            console.log("Recettes suggérées:", recettesSuggerees);
+
+            res.json(recettesSuggerees);
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+    },
 };
+
+function filtrerEtTrierRecettes(recettes, alimentsGardeManger) {
+    return recettes.filter((recette) => {
+        const ingredientsRecette = recette.IngredientsRecettes.map(
+            (ing) => ing.AlimentID,
+        );
+        return ingredientsRecette.every((ing) => alimentsGardeManger.includes(ing));
+    });
+}
 
 module.exports = RecetteController;

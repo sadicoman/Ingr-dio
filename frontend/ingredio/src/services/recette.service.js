@@ -14,6 +14,12 @@ export const recetteService = {
     mettreAJourRecette: (id, data) =>
         axios.put(`${API_URL}/recettes/${id}`, data, config),
     supprimerRecette: (id) => axios.delete(`${API_URL}/recettes/${id}`, config),
+    obtenirSuggestionsRecettes: (alimentsGardeManger) =>
+        axios.post(
+            `${API_URL}/recettes/suggestions`,
+            { aliments: alimentsGardeManger },
+            config,
+        ),
 };
 
 export const ingredientsRecetteService = {

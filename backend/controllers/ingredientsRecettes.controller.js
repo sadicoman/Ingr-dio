@@ -1,4 +1,5 @@
 const IngredientsRecette = require("../models/IngredientsRecette");
+const Aliment = require("../models/Aliment");
 
 const IngredientsRecetteController = {
     // Ajouter un ingrédient à une recette
@@ -16,6 +17,13 @@ const IngredientsRecetteController = {
         try {
             const ingredients = await IngredientsRecette.findAll({
                 where: { RecetteID: req.params.recetteId },
+                include: [
+                    {
+                        model: Aliment,
+                        as: "aliment",
+                        attributes: ["Nom"],
+                    },
+                ],
             });
             res.json(ingredients);
         } catch (error) {

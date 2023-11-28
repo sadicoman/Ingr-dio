@@ -21,7 +21,12 @@ ListeAliments.propTypes = {
     aliments: PropTypes.arrayOf(
         PropTypes.shape({
             GardeMangerID: PropTypes.number.isRequired,
-            // Vous pouvez ajouter d'autres propriétés attendues de l'objet `aliment` ici
+            aliment: PropTypes.shape({
+                // Ici, vous définissez les propriétés attendues de l'objet `aliment`
+                // Par exemple:
+                Nom: PropTypes.string.isRequired,
+                // Ajoutez d'autres propriétés de l'objet `aliment` ici
+            }),
         }),
     ).isRequired,
     // `onSupprimer` et `onModifier` sont des fonctions
