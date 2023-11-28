@@ -8,7 +8,11 @@ import { getUserProfile } from "../../../services/auth.service";
 import { fetchGardeManger } from "../../../services/gardeManger.service";
 
 const FormulaireRecette = ({ recette, onSubmit }) => {
-    const { register, handleSubmit, setValue } = useForm();
+    const { register, handleSubmit, reset } = useForm();
+    const [ingredients, setIngredients] = useState([
+        { AlimentID: "", Quantite: "", Unite: "" },
+    ]);
+    const [etapes, setEtapes] = useState([{ Description: "", Position: "" }]);
 
     useEffect(() => {
         if (recette) {
@@ -19,7 +23,8 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
     }, [recette, setValue]);
 
     const handleFormSubmit = (data) => {
-        onSubmit(data);
+        onSubmit({ ...data, ingredients, etapes });
+        reset(); // Réinitialiser le formulaire après la soumission
     };
 
     return (
@@ -42,6 +47,7 @@ const Recettes = () => {
     const [recetteAModifier, setRecetteAModifier] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const [recettesRecommandees, setRecettesRecommandees] = useState([]);
+    const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
         const chargerRecettesEtProfil = async () => {
@@ -103,6 +109,11 @@ const Recettes = () => {
         }
     };
 
+    const handleAddClick = () => {
+        setRecetteAModifier(null);
+        setShowForm(true);
+    };
+
     return (
         <>
             <Menu />
@@ -158,13 +169,9 @@ const Recettes = () => {
                         )}
                     </div>
                 ))}
-                {recetteAModifier ? (
-                    <FormulaireRecette
-                        recette={recetteAModifier}
-                        onSubmit={modifierRecette}
-                    />
-                ) : (
-                    <FormulaireRecette onSubmit={ajouterRecette} />
+                <button onClick={handleAddClick}>Nouvelle Recette</button>
+                {showForm && (
+                    <FormulaireRecette onSubmit={ajouterRecette} formType={"add"} />
                 )}
             </section>
             <Outlet />
