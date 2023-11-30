@@ -2,18 +2,6 @@ const GardeManger = require("../models/GardeManger");
 const Aliment = require("../models/Aliment");
 
 const gardeMangerController = {
-    // Obtenir le contenu du garde-manger de l'utilisateur
-    // obtenirContenu: async (req, res) => {
-    //     try {
-    //         const userId = req.userId;
-    //         const contenu = await GardeManger.findAll({
-    //             where: { UserID: userId },
-    //         });
-    //         res.json(contenu);
-    //     } catch (error) {
-    //         res.status(500).send(error.message);
-    //     }
-    // },
 
     obtenirContenu: async (req, res) => {
         try {
@@ -33,23 +21,6 @@ const gardeMangerController = {
             res.status(500).send(error.message);
         }
     },
-
-    // Ajouter un aliment au garde-manger de l'utilisateur
-    // ajouterAliment: async (req, res) => {
-    //     try {
-    //         const userId = req.userId;
-    //         const { AlimentID, Quantite, Unite } = req.body;
-    //         const nouvelAliment = await GardeManger.create({
-    //             UserID: userId,
-    //             AlimentID,
-    //             Quantite,
-    //             Unite,
-    //         });
-    //         res.status(201).json(nouvelAliment);
-    //     } catch (error) {
-    //         res.status(500).send(error.message);
-    //     }
-    // },
 
     ajouterAliment: async (req, res) => {
         console.log("Données reçues:", req.body);
