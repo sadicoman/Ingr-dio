@@ -45,15 +45,43 @@ const IngredientsRecetteController = {
 	},
 
 	// Mettre à jour un ingrédient dans une recette
+	// updateIngredientInRecette: async (req, res) => {
+	// 	try {
+	// 		const ingredient = await IngredientsRecette.findOne({
+	// 			where: { IngredientRecetteID: req.params.id },
+	// 		});
+	// 		if (!ingredient) {
+	// 			return res.status(404).send("Ingrédient non trouvé.");
+	// 		}
+	// 		await ingredient.update(req.body);
+	// 		res.json(ingredient);
+	// 	} catch (error) {
+	// 		res.status(500).send(error.message);
+	// 	}
+	// },
+
+	// Mettre à jour un ingrédient dans une recette
 	updateIngredientInRecette: async (req, res) => {
+		console.log("Mise à jour de l'ingrédient - Requête reçue:", req.body);
 		try {
+			const { nomAliment, RecetteID, Quantite, Unite } = req.body;
+			const aliment = await Aliment.findOne({ where: { Nom: nomAliment } });
+			if (!aliment) {
+				console.log("Aliment non trouvé pour:", nomAliment);
+				return res.status(404).send("Aliment non trouvé.");
+			}
+
 			const ingredient = await IngredientsRecette.findOne({
-				where: { IngredientRecetteID: req.params.id },
+				where: { AlimentID: aliment.AlimentID, RecetteID: RecetteID },
 			});
+
 			if (!ingredient) {
+				console.log("Ingrédient non trouvé pour:", aliment.AlimentID, RecetteID);
 				return res.status(404).send("Ingrédient non trouvé.");
 			}
-			await ingredient.update(req.body);
+
+			console.log("Mise à jour de l'ingrédient:", ingredient);
+			await ingredient.update({ Quantite, Unite });
 			res.json(ingredient);
 		} catch (error) {
 			res.status(500).send(error.message);

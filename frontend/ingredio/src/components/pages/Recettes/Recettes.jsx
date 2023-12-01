@@ -16,7 +16,7 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
 	const { register, handleSubmit, control, reset } = useForm({
 		// Initialisation des champs par défaut
 		defaultValues: {
-			ingredients: [{ nomAliment: "", Quantite: "", Unite: "" }],
+			ingredients: [{ nomAliment: "", Quantite: "", Unite: "g" }],
 			etapes: [{ Description: "" }],
 		},
 	});
@@ -44,40 +44,6 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
 			// Initialiser les valeurs du formulaire ici si nécessaire
 		}
 	}, [recette]);
-
-	// const handleFormSubmit = async data => {
-	// 	// Envoie des données de base de la recette
-	// 	const recetteData = {
-	// 		Nom: data.nom,
-	// 		TempsDePreparation: data.TempsDePreparation,
-	// 		TempsDeCuisson: data.TempsDeCuisson,
-	// 		NiveauDeDifficulte: data.NiveauDeDifficulte,
-	// 		NombreDePersonnes: data.NombreDePersonnes,
-	// 		CaloriesParPersonne: data.CaloriesParPersonne,
-	// 	};
-
-	// 	// Envoie des ingrédients
-	// 	const ingredientsData = data.ingredients.map(ingredient => ({
-	// 		AlimentID: ingredient.nomAliment, // Assurez-vous que cela correspond à l'ID réel de l'aliment
-	// 		Quantite: ingredient.Quantite,
-	// 		Unite: ingredient.Unite,
-	// 	}));
-
-	// 	// Envoie des étapes
-	// 	const etapesData = data.etapes.map((etape, index) => ({
-	// 		Description: etape.Description,
-	// 		Position: index + 1, // Position commence à 1
-	// 	}));
-
-	// 	try {
-	// 		// Appel de l'API pour créer la recette, ajouter des ingrédients et des étapes
-	// 		await onSubmit(recetteData, ingredientsData, etapesData);
-	// 	} catch (error) {
-	// 		console.error("Erreur lors de la soumission du formulaire :", error);
-	// 	}
-
-	// 	reset(); // Réinitialiser le formulaire après la soumission
-	// };
 
 	const handleFormSubmit = async formData => {
 		try {
@@ -111,6 +77,7 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
 
 			reset(); // Réinitialiser le formulaire après la soumission
 			// Actualiser la liste des recettes ou rediriger l'utilisateur si nécessaire
+			onSubmit(formData);
 		} catch (error) {
 			console.error("Erreur lors de l'ajout de la recette: ", error);
 		}
@@ -119,17 +86,32 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
 	return (
 		<form onSubmit={handleSubmit(handleFormSubmit)}>
 			<input {...register("nom")} placeholder="Nom de la recette" />
-			<input {...register("TempsDePreparation")} placeholder="Temps de préparation" />
-			<input {...register("TempsDeCuisson")} placeholder="Temps de cuisson" />
-			{/* <input {...register("NiveauDeDifficulte")} placeholder="Niveau de difficulté" /> */}
+			<input
+				{...register("TempsDePreparation")}
+				placeholder="Temps de préparation"
+				type="number"
+			/>
+			<input
+				{...register("TempsDeCuisson")}
+				placeholder="Temps de cuisson"
+				type="number"
+			/>
 			<select {...register("NiveauDeDifficulte")} placeholder="Niveau de difficulté">
 				<option value="facile">Facile</option>
 				<option value="moyen">Moyen</option>
 				<option value="difficile">Difficile</option>
 				<option value="expert">Expert</option>
 			</select>
-			<input {...register("NombreDePersonnes")} placeholder="Nombre de personnes" />
-			<input {...register("CaloriesParPersonne")} placeholder="Calories par personne" />
+			<input
+				{...register("NombreDePersonnes")}
+				placeholder="Nombre de personnes"
+				type="number"
+			/>
+			<input
+				{...register("CaloriesParPersonne")}
+				placeholder="Calories par personne"
+				type="number"
+			/>
 
 			{/* Champs dynamiques pour les ingrédients */}
 			{ingredientsFields.map((field, index) => (
@@ -143,7 +125,7 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
 						type="number"
 						placeholder="Quantité"
 					/>
-					<select {...register(`ingredients.${index}.Unite`)}>
+					<select {...register(`ingredients.${index}.Unite`)} placeholder="Unité">
 						<option value="g">g - Gramme</option>
 						<option value="l">l - Litre</option>
 						<option value="pcs">pcs - Pièce</option>
@@ -192,6 +174,42 @@ FormulaireRecette.propTypes = {
 	formType: PropTypes.string,
 };
 
+// Formulaire pour modifier une recette existante
+const FormulaireModificationRecette = ({ recette, onSubmit }) => {
+	const { register, handleSubmit, reset } = useForm({
+		defaultValues: {
+			nom: recette.Nom,
+			TempsDePreparation: recette.TempsDePreparation,
+			TempsDeCuisson: recette.TempsDeCuisson,
+			NiveauDeDifficulte: recette.NiveauDeDifficulte,
+			NombreDePersonnes: recette.NombreDePersonnes,
+			CaloriesParPersonne: recette.CaloriesParPersonne,
+		},
+	});
+
+	const handleFormSubmit = async formData => {
+		try {
+			await recetteService.mettreAJourRecette(recette.RecetteID, formData);
+			reset();
+			onSubmit();
+		} catch (error) {
+			console.error("Erreur lors de la modification de la recette: ", error);
+		}
+	};
+
+	return (
+		<form onSubmit={handleSubmit(handleFormSubmit)}>
+			{/* Champs du formulaire */}
+			<button type="submit">Sauvegarder</button>
+		</form>
+	);
+};
+
+FormulaireModificationRecette.propTypes = {
+	recette: PropTypes.object.isRequired,
+	onSubmit: PropTypes.func.isRequired,
+};
+
 const Recettes = () => {
 	const [recettes, setRecettes] = useState([]);
 	const [recetteAModifier, setRecetteAModifier] = useState(null);
@@ -215,11 +233,20 @@ const Recettes = () => {
 		chargerRecettesEtProfil();
 	}, []);
 
+	const chargerRecettes = async () => {
+		try {
+			const responseRecettes = await recetteService.obtenirToutesRecettes();
+			setRecettes(responseRecettes.data);
+		} catch (error) {
+			console.error("Erreur lors du chargement des recettes: ", error);
+		}
+	};
+
 	const ajouterRecette = async data => {
 		try {
 			await recetteService.creerRecette(data);
-			setRecetteAModifier(null);
-			// Recharger la liste des recettes
+			chargerRecettes(); // Recharger la liste des recettes
+			setShowForm(false); // Fermer le formulaire
 		} catch (error) {
 			console.error("Erreur lors de l'ajout de la recette: ", error);
 		}
@@ -238,7 +265,7 @@ const Recettes = () => {
 	const supprimerRecette = async id => {
 		try {
 			await recetteService.supprimerRecette(id);
-			// Recharger la liste des recettes
+			chargerRecettes(); // Recharger la liste des recettes après la suppression
 		} catch (error) {
 			console.error("Erreur lors de la suppression de la recette: ", error);
 		}
@@ -261,6 +288,10 @@ const Recettes = () => {
 
 	const handleAddClick = () => {
 		setRecetteAModifier(null);
+		setShowForm(true);
+	};
+	const handleEditClick = recette => {
+		setRecetteAModifier(recette);
 		setShowForm(true);
 	};
 
@@ -299,14 +330,14 @@ const Recettes = () => {
 								<p>Nombre De Personnes : {recette.NombreDePersonnes}</p>
 							</div>
 						</Link>
-						{recette.UserID === userInfo?.id && (
+						{/* {recette.UserID === userInfo?.id && (
 							<>
-								<button onClick={() => setRecetteAModifier(recette)}>Modifier</button>
+								<button onClick={() => handleEditClick(recette)}>Modifier</button>
 								<button onClick={() => supprimerRecette(recette.RecetteID)}>
 									Supprimer
 								</button>
 							</>
-						)}
+						)} */}
 					</div>
 				))}
 			</section>
