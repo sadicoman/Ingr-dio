@@ -5,10 +5,12 @@ import {
     supprimerAlimentGardeManger,
     mettreAJourAlimentGardeManger,
 } from "../../../services/gardeManger.service";
-import Menu from "../../templates/Menu/Menu";
 import FormAjoutAliment from "./FormAjoutAliment";
 import ListeAliments from "./ListeAliments";
 import FormModificationAliment from "./FormModificationAliment";
+import Header from "../../templates/Header/Header";
+import "../../formulaire/formulaire.scss";
+import "./GardeManger.scss";
 
 const GardeManger = () => {
     const [aliments, setAliments] = useState([]);
@@ -89,8 +91,8 @@ const GardeManger = () => {
 
     return (
         <div>
-            <Menu />
-            <h1>Garde-Manger</h1>
+            <Header />
+            <h1 className="title">Garde-Manger</h1>
             <FormAjoutAliment onAjout={handleAjoutAliment} />
             <ListeAliments
                 aliments={aliments}

@@ -1,0 +1,12 @@
+.menu-pc {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .menu-pc {
+        display: block; // Afficher MenuPc pour les écrans plus larges
+    }
+    .menu-mobile {
+        display: none; // Cacher Menu pour les écrans plus larges
+    }
+}

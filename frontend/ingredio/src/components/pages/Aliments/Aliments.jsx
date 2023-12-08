@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../../../services/auth.service";
-import Menu from "../../templates/Menu/Menu";
 import {
     obtenirTousAliments,
     creerAliment,
@@ -9,6 +8,10 @@ import {
     supprimerAliment,
 } from "../../../services/alimentService";
 import FormModificationAliment from "./FormModificationAliment";
+import Header from "../../templates/Header/Header";
+import "../../btn/btn.scss";
+import IconeSupprimer from "../GardeManger/iconeSupprimer";
+import IconModifier from "../GardeManger/IconeModifier";
 
 const Aliments = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -78,7 +81,7 @@ const Aliments = () => {
 
     return (
         <>
-            <Menu />
+            <Header />
             <h2>Aliments</h2>
             <div>
                 <input
@@ -95,15 +98,25 @@ const Aliments = () => {
                         {aliment.Nom}
                         {aliment.UserID === userInfo?.id && (
                             <>
-                                <button onClick={() => initierModification(aliment)}>
-                                    Modifier
+                                <button
+                                    className="btn btn--modifier"
+                                    onClick={() => initierModification(aliment)}
+                                >
+                                    <span className="button__text">Modifier</span>
+                                    <span className="button__icon">
+                                        <IconModifier />
+                                    </span>
                                 </button>
                                 <button
+                                    className="btn btn--supprimer"
                                     onClick={() =>
                                         handleSuppressionAliment(aliment.AlimentID)
                                     }
                                 >
-                                    Supprimer
+                                    <span className="button__text">Supprimer</span>
+                                    <span className="button__icon">
+                                        <IconeSupprimer />
+                                    </span>
                                 </button>
                             </>
                         )}

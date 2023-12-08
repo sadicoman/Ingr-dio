@@ -1,0 +1,85 @@
+/*
+ * VARIABLES
+** =============================================================== */
+
+:root {
+    --color-primary: #1b9950; /* Un vert vif pour l'accentuation principale */
+    --color-primary-variant: #a9e7c4; /* Une nuance légèrement différente pour la variante */
+    --color-burger: #3498db; /* Un bleu pour contraster avec le vert */
+    --color-background: #ecf0f1; /* Un fond clair neutre */
+    --color-background-secondary: #c2d3de; /* Un gris clair pour les arrière-plans secondaires */
+    --color-surface: #ffffff; /* Blanc pur pour les surfaces */
+    --color-ok: #2ecc71; /* Vert pour les confirmations ou succès */
+    --color-error: #e74c3c; /* Rouge pour les erreurs */
+    --color-primary-hover: #1e8449; /* Une nuance plus foncée de vert pour le survol */
+    --color-on-burger: #ecf0f1; /* Couleur du texte ou icône sur le bouton burger */
+    --color-on-border-background: #95a5a6; /* Gris pour les bordures ou arrière-plans contrastés */
+    --color-on-primary: #ffffff; /* Texte blanc sur fond primaire */
+    --color-on-primary-variant: #2c3e50;
+    --color-on-secondary: #2c3e50; /* Texte foncé sur fond secondaire */
+    --color-on-background: #2c3e50; /* Texte foncé sur fond général */
+    --color-on-surface: #2c3e50; /* Texte foncé sur surface */
+    --color-on-error: #ffffff; /* Texte blanc sur fond d'erreur */
+    --color-on-primary-hover: #145a32; /* Texte blanc sur fond primaire au survol */
+    --color-on-footer-hover: #7f8c8d; /* Couleur au survol dans le pied de page */
+    --color-secondary: #e67e22; /* Orange comme couleur secondaire */
+    --color-secondary-variant: #d35400; /* Variante plus foncée de l'orange */
+    --color-on-secondary: #ecf0f1; /**/
+
+    --margin-mb: 1.5rem; /* 24px */
+    --margin-x-mb: 0.875rem; /* 14px */
+    --padding-mb: 0.75rem; /* 12px */
+    --padding-x-mb: 0.5rem; /* 8px */
+
+    --font-size-h1: 2.5rem;
+    --font-size-h2: 2rem;
+    --font-size-h3: 1.75rem;
+    --font-size-h4: 1.5rem;
+    --font-size-h5: 1.25rem;
+    --font-size-h6: 0.875rem;
+}
+
+// [data-theme="dark"] {
+// 	--color-primary: #4169e1;
+// 	--color-primary-variant: #2e50b0;
+// 	--color-burger: #ffffff;
+// 	--color-background: #1c1c1e;
+// 	--color-background-secondary: #27272b;
+// 	--color-surface: #2c2c2e;
+// 	--color-error: #e74c3c;
+// 	--color-primary-hover: #6a89e6;
+// 	--color-on-burger: #1c1c1e;
+// 	--color-on-border-background: #4a4a4c;
+// 	--color-on-primary: #ffffff;
+// 	--color-on-secondary: #ffffff;
+// 	--color-on-background: #f0f0f0;
+// 	--color-on-surface: #f0f0f0;
+// 	--color-on-error: #ffffff;
+// 	--color-on-primary-hover: #ffffff;
+// 	--color-on-footer-hover: #ffffff;
+// 	--color-secondary: #f2994a;
+// 	--color-secondary-variant: #b5651d;
+// 	--color-on-secondary: #1c1c1e;
+// 	--color-on-secondary-variant: #ffffff;
+// 	--color-degrader-orange: linear-gradient(180deg, #ff671f 0%, #1c1c1e 100%);
+// 	--color-ligne: hsla(0, 0%, 100%, 0.1);
+// 	--color-bulle: rgb(71, 78, 94);
+// 	--color-bulle-border:rgb(71, 78, 94);
+// 	--color-time:rgba(255, 255, 255, 0.6);
+// }
+
+/* Type */
+$font-text: "Merriweather Sans", sans-serif;
+$font-title: "Merriweather", serif;
+
+/**=============================================================== 
+                            MEDIA QUERIES
+** =============================================================== */
+// @media screen and (min-width: 1400px) {
+// 	:root {
+// 		--margin-mb: 48px;
+// 		--margin-x-mb: 28px;
+// 		--padding-mb: 24px;
+// 		--padding-x-mb: 16px;
+// 	}
+// }

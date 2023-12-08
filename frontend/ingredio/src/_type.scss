@@ -1,0 +1,81 @@
+/*
+ * TYPOGRAPHIES
+** =============================================================== */
+
+@use "_var.scss" as v;
+
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+.body,
+.footer {
+	font-family: v.$font-text;
+	font-size: 16px;
+	line-height: 1.5;
+	color: var(--color-on-background);
+	background-color: var(--color-background);
+}
+/* Styles des TITRES */
+.title {
+	font-family: v.$font-title;
+	font-size: var(--font-size-h1);
+	letter-spacing: -1.5px;
+}
+.title--niveau2 {
+	font-size: var(--font-size-h2);
+	font-weight: lighter;
+}
+.title--left {
+	text-align: left;
+}
+.title--niveau3 {
+	font-size: var(--font-size-h3);
+	font-weight: normal;
+	letter-spacing: 0px;
+}
+.title--niveau4 {
+	font-size: var(--font-size-h4);
+	font-weight: normal;
+	letter-spacing: 0.15px;
+}
+.title--niveau5 {
+	font-size: var(--font-size-h5);
+	font-weight: normal;
+}
+.title--niveau6 {
+	font-size: var(--font-size-h6);
+	font-weight: normal;
+}
+.title--primary {
+	color: var(--color-primary);
+}
+.title--primary-variant {
+	color: var(--color-primary-variant);
+
+	& a {
+		color: var(--color-primary-variant);
+	}
+}
+.text--blanc {
+	color: #f7f5f5;
+}
+.uppercase {
+	text-transform: uppercase;
+}
+.bold {
+	font-weight: bold;
+}
+.section__title {
+	width: fit-content;
+	overflow: hidden;
+}
+.title__annim--1,
+.title__annim--2 {
+	display: block;
+}
+.title__annim--2 {
+	max-width: 35rem;
+	min-height: 120px;
+}
+.text-center {
+	text-align: center;
+}

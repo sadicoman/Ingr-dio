@@ -1,0 +1,128 @@
+.navbar {
+    height: 100%;
+}
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    height: 100%;
+    position: relative;
+    // margin-left: auto;
+    margin-right: auto;
+}
+.hori-selector {
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background-color: var(--color-background);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: 10px;
+
+    .right,
+    .left {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background-color: var(--color-background);
+        bottom: 10px;
+    }
+
+    .right:before,
+    .left:before {
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--color-primary-variant);
+    }
+
+    .left {
+        left: -25px;
+
+        &:before {
+            bottom: 0;
+            left: -25px;
+        }
+    }
+
+    .right {
+        right: -25px;
+
+        &:before {
+            bottom: 0;
+            right: -25px;
+        }
+    }
+}
+.active {
+    & > a {
+        color: var(--color-primary);
+        background-color: transparent;
+        transition: all 0.7s;
+    }
+    .nav-link {
+        svg {
+            fill: var(--color-primary);
+        }
+        .carotte {
+            fill: var(--color-primary);
+            .cls-1 {
+                stroke: var(--color-primary);
+            }
+        }
+        .oeuf {
+            .oeuf--enfant {
+                stroke: var(--color-primary);
+            }
+        }
+    }
+}
+
+// .nav-item {
+//     margin: 0.5rem;
+// }
+
+.nav-item {
+    z-index: 2;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // width: 100%;
+    // height: 100%;
+    padding: 1rem;
+    gap: 0.5rem;
+    color: var(--color-on-primary-variant);
+
+    .menu__icone {
+        width: 2rem;
+    }
+
+    svg {
+        fill: var(--color-on-primary-variant);
+    }
+    .carotte {
+        fill: var(--color-on-primary-variant);
+        .cls-1 {
+            stroke: var(--color-on-primary-variant);
+        }
+    }
+    .oeuf {
+        .oeuf--enfant {
+            stroke: var(--color-on-primary-variant);
+        }
+    }
+}

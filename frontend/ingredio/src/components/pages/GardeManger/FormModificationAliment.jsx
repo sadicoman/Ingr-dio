@@ -1,45 +1,90 @@
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+// import "../../formulaire/formulaire.scss";
 
 const FormModificationAliment = ({ aliment, onModifier, onAnnuler }) => {
     const {
         register,
         handleSubmit,
         reset,
+        setValue,
         formState: { errors },
     } = useForm();
+    const [quantite, setQuantite] = useState(aliment.Quantite || 0);
 
-    // Réinitialiser les données du formulaire chaque fois que l'aliment change
     useEffect(() => {
         reset({
-            Quantite: aliment.Quantite,
+            Quantite: quantite,
             Unite: aliment.Unite,
         });
-    }, [aliment, reset]);
+    }, [aliment, reset, quantite]);
 
-    // Gérer la soumission du formulaire
+    const augmenterQuantite = () => {
+        const nouvelleQuantite = quantite + 1;
+        setQuantite(nouvelleQuantite);
+        setValue("Quantite", nouvelleQuantite); // Mettre à jour le champ dans useForm
+    };
+
+    const diminuerQuantite = () => {
+        const nouvelleQuantite = Math.max(quantite - 1, 0);
+        setQuantite(nouvelleQuantite);
+        setValue("Quantite", nouvelleQuantite); // Mettre à jour le champ dans useForm
+    };
+
     const onSubmit = (data) => {
-        // Préparer les données à envoyer, y compris AlimentID
         const updateData = {
             ...data,
-            AlimentID: aliment.AlimentID, // Ajouter AlimentID aux données
+            AlimentID: aliment.AlimentID,
         };
-
-        // Appel de la fonction onModifier avec GardeMangerID et les nouvelles données
         onModifier(aliment.GardeMangerID, updateData);
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <label htmlFor="quantite">Quantité:</label>
-                <input id="quantite" {...register("Quantite", { required: true })} />
-                {errors.quantite && <span>Ce champ est requis</span>}
+        <form className="form form--modifier" onSubmit={handleSubmit(onSubmit)}>
+            <div className="input-container ic2">
+                <div
+                    className={`containner__quantite ${
+                        quantite > 0 ? "containner__quantite--actif" : ""
+                    }`}
+                >
+                    <button
+                        className="btn--moin"
+                        type="button"
+                        onClick={diminuerQuantite}
+                    >
+                        -
+                    </button>
+                    <input
+                        className="input input--quantite"
+                        id="quantite"
+                        {...register("Quantite", { required: true })}
+                        type="number"
+                        value={quantite} // Lier l'état à l'input
+                        onChange={(e) => {
+                            const val = parseInt(e.target.value) || 0;
+                            setQuantite(val);
+                            setValue("Quantite", val); // Mettre à jour le champ dans useForm
+                        }}
+                    />
+                    <button
+                        className="btn--plus"
+                        type="button"
+                        onClick={augmenterQuantite}
+                    >
+                        +
+                    </button>
+                    <div className="cut"></div>
+                    <label className="iLabel ilabel--quantite">Quantité:</label>
+                    {errors.quantite && <span>Ce champ est requis</span>}
+                </div>
             </div>
-            <div>
-                <label htmlFor="unite">Unité:</label>
-                <select id="unite" {...register("unite", { required: true })}>
+            <div className="input-container ic2">
+                <select
+                    className="input"
+                    id="unite"
+                    {...register("unite", { required: true })}
+                >
                     <option value="g">g - Gramme</option>
                     <option value="l">l - Litre</option>
                     <option value="pcs">pcs - Pièce</option>
@@ -53,8 +98,10 @@ const FormModificationAliment = ({ aliment, onModifier, onAnnuler }) => {
 
                 {errors.unite && <span>Ce champ est requis</span>}
             </div>
-            <button type="submit">Sauvegarder</button>
-            <button type="button" onClick={onAnnuler}>
+            <button className="submit" type="submit">
+                Sauvegarder
+            </button>
+            <button className="submit submit--annuler" type="button" onClick={onAnnuler}>
                 Annuler
             </button>
         </form>

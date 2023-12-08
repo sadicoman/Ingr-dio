@@ -1,4 +1,7 @@
 import PropTypes from "prop-types";
+import IconeSupprimer from "./iconeSupprimer";
+import IconModifier from "./IconeModifier";
+import "../../btn/btn.scss";
 
 const ItemAliment = ({ aliment, onSupprimer, onModifier }) => {
     // Vérifiez que l'objet aliment et la propriété Nom imbriquée existent
@@ -7,10 +10,23 @@ const ItemAliment = ({ aliment, onSupprimer, onModifier }) => {
     }
 
     return (
-        <li>
+        <li className="aliment__card">
             {aliment.aliment.Nom} - Quantité : {aliment.Quantite} {aliment.Unite}
-            <button onClick={() => onModifier(aliment)}>Modifier</button>
-            <button onClick={() => onSupprimer(aliment.GardeMangerID)}>Supprimer</button>
+            <button className="btn btn--modifier" onClick={() => onModifier(aliment)}>
+                <span className="button__text">Modifier</span>
+                <span className="button__icon">
+                    <IconModifier />
+                </span>
+            </button>
+            <button
+                className="btn btn--supprimer"
+                onClick={() => onSupprimer(aliment.GardeMangerID)}
+            >
+                <span className="button__text">Supprimer</span>
+                <span className="button__icon">
+                    <IconeSupprimer />
+                </span>
+            </button>
         </li>
     );
 };
