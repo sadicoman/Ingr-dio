@@ -42,14 +42,16 @@ const LandingPage = () => {
             <main>
                 <section className="section">
                     {userInfo ? (
-                        <h2>Bienvenue, {userInfo.pseudo}</h2>
+                        <h2 className="title title--niveau2">
+                            Bienvenue, {userInfo.pseudo}
+                        </h2>
                     ) : (
-                        <h2>Bienvenue</h2>
+                        <h2 className="title title--niveau2">Bienvenue</h2>
                     )}
                     <p>Prêt à cuisiner quelque chose de délicieux aujourd'hui ?</p>
                 </section>
                 <section className="section">
-                    <h3>Dernières Recettes Ajoutées</h3>
+                    <h3 className="title title--niveau3">Dernières Recettes Ajoutées</h3>
                     <div className="latest-recipes">
                         {latestRecipes.map((recette) => (
                             <div key={recette.RecetteID}>

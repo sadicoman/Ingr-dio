@@ -1,0 +1,26 @@
+.profil__list {
+    display: flex;
+    flex-direction: column;
+
+    .profil__el {
+        border-bottom: 0.1rem solid;
+        border-bottom-color: #e6e6e6;
+        padding: 1rem 0 1rem 1rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .info__list {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+    }
+}
+
+.section {
+    .btn--logout {
+        justify-self: end;
+    }
+}

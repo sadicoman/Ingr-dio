@@ -92,20 +92,22 @@ const GardeManger = () => {
     return (
         <div>
             <Header />
-            <h1 className="title">Garde-Manger</h1>
-            <FormAjoutAliment onAjout={handleAjoutAliment} />
-            <ListeAliments
-                aliments={aliments}
-                onSupprimer={handleSuppressionAliment}
-                onModifier={initierModification}
-            />
-            {alimentAModifier && (
-                <FormModificationAliment
-                    aliment={alimentAModifier}
-                    onModifier={handleModificationAliment}
-                    onAnnuler={() => setAlimentAModifier(null)}
+            <section className="section section--bas">
+                <h1 className="title">Garde-Manger</h1>
+                <FormAjoutAliment onAjout={handleAjoutAliment} />
+                <ListeAliments
+                    aliments={aliments}
+                    onSupprimer={handleSuppressionAliment}
+                    onModifier={initierModification}
                 />
-            )}
+                {alimentAModifier && (
+                    <FormModificationAliment
+                        aliment={alimentAModifier}
+                        onModifier={handleModificationAliment}
+                        onAnnuler={() => setAlimentAModifier(null)}
+                    />
+                )}
+            </section>
         </div>
     );
 };

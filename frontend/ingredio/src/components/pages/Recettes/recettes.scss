@@ -1,3 +1,176 @@
-.section {
-	margin-top: 3rem;
+.recette__card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 320px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 32px;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    // background-color: var(--color-background-secondary);
+    cursor: pointer;
+
+    * > * {
+        cursor: pointer;
+    }
+
+    .recette__content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        // color: #e8e8e8;
+        color: var(--color-on-background);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 7px;
+        height: 100%;
+        // background: linear-gradient(-45deg, #f89b29 0%, #ff0f7b 100%);
+        background: linear-gradient(
+            -45deg,
+            var(--color-primary-variant) 0%,
+            var(--color-secondary-variant) 100%
+        );
+
+        z-index: -1;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    &:hover {
+        box-shadow: none;
+
+        &::before {
+            width: 100%;
+        }
+    }
+    .recette__list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding-x-mb);
+
+        .recette__el {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--padding-mb);
+
+            span::first-letter {
+                text-transform: uppercase;
+            }
+        }
+    }
+    &--recomandees {
+        cursor: inherit;
+        * > * {
+            cursor: inherit;
+        }
+    }
+}
+.recette__container {
+    display: flex;
+    gap: var(--margin-mb);
+    flex-direction: column;
+}
+
+.ingredient__list,
+.primary__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-mb);
+
+    .ingredient__el {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--padding-mb);
+        background-color: var(--color-background-secondary);
+        padding: var(--padding-mb);
+        border-radius: var(--padding-mb);
+        max-width: 39%;
+        min-width: 39%;
+        text-align: center;
+
+        .ingredient__nom::first-letter {
+            text-transform: uppercase;
+        }
+    }
+}
+.ingredient__list {
+    flex-direction: inherit;
+    flex-wrap: wrap;
+}
+
+.primary__list {
+    background-color: var(--color-background-secondary);
+    padding: var(--padding-mb);
+    border-radius: var(--padding-mb);
+
+    .primary__el {
+        .primary__difficulte {
+            &::first-letter {
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.section__recetteDetails {
+    .conainner__btn {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--padding-mb);
+    }
+    .containner__second {
+        display: flex;
+        flex-direction: column;
+        gap: var(--margin-mb);
+    }
+}
+
+.etapes__liste {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-mb);
+    background-color: var(--color-background-secondary);
+    padding: var(--padding-mb);
+    border-radius: var(--padding-mb);
+
+    .etapes__el {
+        display: flex;
+        flex-direction: column;
+        gap: var(--padding-mb);
+        background-color: var(--color-background-tertiary);
+        padding: var(--padding-mb);
+        border-radius: var(--padding-mb);
+    }
+}
+
+.ingredients__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-mb);
+    background-color: var(--color-background-tertiary);
+    padding: var(--padding-mb);
+    margin-top: var(--margin-mb);
+    border-radius: var(--padding-mb);
+}
+
+.etapes__section {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+@media screen and (min-width: 768px) {
+    .recette__container {
+        display: flex;
+        gap: var(--margin-mb);
+    }
 }

@@ -7,7 +7,8 @@
     --color-primary-variant: #a9e7c4; /* Une nuance légèrement différente pour la variante */
     --color-burger: #3498db; /* Un bleu pour contraster avec le vert */
     --color-background: #ecf0f1; /* Un fond clair neutre */
-    --color-background-secondary: #c2d3de; /* Un gris clair pour les arrière-plans secondaires */
+    --color-background-secondary: #d5e5e9; /* Un gris clair pour les arrière-plans secondaires */
+    --color-background-tertiary: #c5dfe5;
     --color-surface: #ffffff; /* Blanc pur pour les surfaces */
     --color-ok: #2ecc71; /* Vert pour les confirmations ou succès */
     --color-error: #e74c3c; /* Rouge pour les erreurs */
@@ -22,10 +23,11 @@
     --color-on-error: #ffffff; /* Texte blanc sur fond d'erreur */
     --color-on-primary-hover: #145a32; /* Texte blanc sur fond primaire au survol */
     --color-on-footer-hover: #7f8c8d; /* Couleur au survol dans le pied de page */
-    --color-secondary: #e67e22; /* Orange comme couleur secondaire */
-    --color-secondary-variant: #d35400; /* Variante plus foncée de l'orange */
+    --color-secondary: #3498db; /* Orange comme couleur secondaire */
+    --color-secondary-variant: #1abc9c; /* Variante plus foncée de l'orange */
     --color-on-secondary: #ecf0f1; /**/
 
+    --margin-bas: 3.5rem; /* 24px */
     --margin-mb: 1.5rem; /* 24px */
     --margin-x-mb: 0.875rem; /* 14px */
     --padding-mb: 0.75rem; /* 12px */

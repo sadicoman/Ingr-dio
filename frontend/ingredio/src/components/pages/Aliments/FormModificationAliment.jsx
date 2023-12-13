@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
 
@@ -9,8 +9,14 @@ const FormModificationAliment = ({ alimentAModifier, onSubmit }) => {
         reset,
         formState: { errors },
     } = useForm();
+    const labelRef = useRef(null);
+    const cutRef = useRef(null);
 
     useEffect(() => {
+        if (labelRef.current && cutRef.current) {
+            const labelWidth1 = labelRef.current.offsetWidth;
+            cutRef.current.style.width = `${labelWidth1}px`;
+        }
         reset({ Nom: alimentAModifier.Nom });
     }, [alimentAModifier, reset]);
 
@@ -19,17 +25,23 @@ const FormModificationAliment = ({ alimentAModifier, onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <div>
-                <label htmlFor="nom">Nom:</label>
+        <form className="form" onSubmit={handleSubmit(handleFormSubmit)}>
+            <div className="input-container ic1">
                 <input
+                    className="input"
                     id="nom"
                     {...register("Nom", { required: true })}
                     defaultValue={alimentAModifier.Nom}
                 />
+                <div className="cut cut--actif" ref={cutRef}></div>
+                <label className="iLabel iLabel--actif" htmlFor="nom">
+                    Nom:
+                </label>
                 {errors.Nom && <span>Ce champ est requis</span>}
             </div>
-            <button type="submit">Modifier</button>
+            <button className="submit" type="submit">
+                Modifier
+            </button>
         </form>
     );
 };

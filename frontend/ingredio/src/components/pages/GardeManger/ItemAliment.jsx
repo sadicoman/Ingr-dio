@@ -10,23 +10,28 @@ const ItemAliment = ({ aliment, onSupprimer, onModifier }) => {
     }
 
     return (
-        <li className="aliment__card">
-            {aliment.aliment.Nom} - Quantité : {aliment.Quantite} {aliment.Unite}
-            <button className="btn btn--modifier" onClick={() => onModifier(aliment)}>
-                <span className="button__text">Modifier</span>
-                <span className="button__icon">
-                    <IconModifier />
-                </span>
-            </button>
-            <button
-                className="btn btn--supprimer"
-                onClick={() => onSupprimer(aliment.GardeMangerID)}
-            >
-                <span className="button__text">Supprimer</span>
-                <span className="button__icon">
-                    <IconeSupprimer />
-                </span>
-            </button>
+        <li className="aliments__el aliment__card">
+            <h4 className="title title--niveau5 aliment__nom">{aliment.aliment.Nom}</h4>
+            <p>
+                Quantité : {aliment.Quantite} {aliment.Unite}
+            </p>
+            <div className="aliment__btn">
+                <button className="btn btn--modifier" onClick={() => onModifier(aliment)}>
+                    <span className="button__text">Modifier</span>
+                    <span className="button__icon">
+                        <IconModifier />
+                    </span>
+                </button>
+                <button
+                    className="btn btn--supprimer"
+                    onClick={() => onSupprimer(aliment.GardeMangerID)}
+                >
+                    <span className="button__text">Supprimer</span>
+                    <span className="button__icon">
+                        <IconeSupprimer />
+                    </span>
+                </button>
+            </div>
         </li>
     );
 };

@@ -1,0 +1,158 @@
+/*
+ * GRILLES + FlexBox CSS
+** =============================================================== */
+
+.section {
+    margin: auto;
+    max-width: 400px;
+    display: grid;
+    padding: 15px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 16px 8px;
+    padding-bottom: 2rem;
+
+    & > * {
+        grid-column: 1/-1;
+        max-width: 100%;
+    }
+    &--margin {
+        margin-bottom: 3em;
+    }
+}
+
+.mgrid-start1 {
+    grid-column-start: 1;
+}
+.mgrid-start2 {
+    grid-column-start: 2;
+}
+.mgrid-start4 {
+    grid-column-start: 4;
+}
+.mgrid-end3 {
+    grid-column-end: 3;
+}
+.mgrid-end4 {
+    grid-column-end: 4;
+}
+.mgrid-end5 {
+    grid-column-end: 5;
+}
+.mgridRow-start2 {
+    grid-row-start: 2;
+}
+
+/**=============================================================== 
+                            MEDIA QUERIES
+** =============================================================== */
+
+@media screen and (min-width: 768px) {
+    .section {
+        margin: auto;
+        max-width: 768px;
+        display: grid;
+        padding: 30px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 32px 32px;
+    }
+    .tgrid-start3 {
+        grid-column-start: 3;
+    }
+    .tgrid-end3 {
+        grid-column-end: 3;
+    }
+    /*Grid palcement*/
+    .column--span4 {
+        grid-column-start: span 4;
+        grid-column-end: span 4;
+    }
+    .column--span6 {
+        grid-column-start: span 6;
+        grid-column-end: span 6;
+    }
+    .column--span8 {
+        grid-column-start: span 6;
+        grid-column-end: span 6;
+    }
+    .column--span12 {
+        grid-column-start: span 12;
+        grid-column-end: span 12;
+    }
+    .container__section {
+        max-width: 768px;
+        grid-template-columns: repeat(12, 1fr);
+        grid-gap: 8px;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .container__section {
+        max-width: 1400px;
+        grid-gap: 16px;
+    }
+    .section {
+        max-width: 1400px;
+        grid-template-columns: repeat(9, 1fr);
+        padding: 5em;
+    }
+    .pgrid-start1 {
+        grid-column-start: 1;
+    }
+    .pgrid-start2 {
+        grid-column-start: 2;
+    }
+    .pgrid-start3 {
+        grid-column-start: 3;
+    }
+    .pgrid-start4 {
+        grid-column-start: 4;
+    }
+    .pgrid-start5 {
+        grid-column-start: 5;
+    }
+    .pgrid-start6 {
+        grid-column-start: 6;
+    }
+    .pgrid-end2 {
+        grid-column-end: 2;
+    }
+    .pgrid-end3 {
+        grid-column-end: 3;
+    }
+    .pgrid-end4 {
+        grid-column-end: 4;
+    }
+    .pgrid-end5 {
+        grid-column-end: 5;
+    }
+    .pgrid-end6 {
+        grid-column-end: 6;
+    }
+    .pgrid-end-1 {
+        grid-column-end: -1;
+    }
+    .pgridRow-start1 {
+        grid-row-start: 1;
+    }
+    .pgridRow-start2 {
+        grid-row-start: 2;
+    }
+    .pgridRow-start3 {
+        grid-row-start: 3;
+    }
+    .pgridRow-end4 {
+        grid-row-end: 4;
+    }
+    .pgridRow-end5 {
+        grid-row-end: 5;
+    }
+    .section--home {
+        margin-bottom: 8rem;
+    }
+}
+@media screen and (min-width: 2560px) {
+    .section {
+        max-width: 2600px;
+        padding: 10em;
+    }
+}

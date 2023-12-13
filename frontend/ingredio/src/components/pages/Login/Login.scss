@@ -1,0 +1,40 @@
+.btn__mdpOublier {
+    & > *,
+    & {
+        cursor: pointer;
+    }
+
+    &:hover {
+        background-color: #e1e9ea;
+    }
+
+    // width: 230px;
+    height: 2.5rem;
+    line-height: 1.5rem;
+    background-color: var(--color-background);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 0.2rem;
+    border: 0.1rem solid #c8c8c8;
+    box-sizing: border-box;
+
+    .button__text {
+        transform: translateX(16px);
+    }
+}
+
+.header--login {
+    align-items: center;
+
+    .header__retour {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: var(--margin-mb);
+    }
+}
+
+.container__btn {
+    display: flex;
+    align-items: center;
+    gap: var(--margin-mb);
+}

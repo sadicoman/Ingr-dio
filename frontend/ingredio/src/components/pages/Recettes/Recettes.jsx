@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { useForm, useFieldArray } from "react-hook-form";
 import {
@@ -11,8 +11,26 @@ import { getUserProfile } from "../../../services/auth.service";
 import { fetchGardeManger } from "../../../services/gardeManger.service";
 import "./recettes.scss";
 import Header from "../../templates/Header/Header";
+import IconeAjouter from "../GardeManger/IconeAjouter";
+import IconeSupprimer from "../GardeManger/iconeSupprimer";
 
 const FormulaireRecette = ({ recette, onSubmit }) => {
+    const labelRefs = useRef([]);
+    const cutRefs = useRef([]);
+
+    // Ajoutez une fonction pour initialiser les références
+    const addToLabelRefs = (el) => {
+        if (el && !labelRefs.current.includes(el)) {
+            labelRefs.current.push(el);
+        }
+    };
+
+    const addToCutRefs = (el) => {
+        if (el && !cutRefs.current.includes(el)) {
+            cutRefs.current.push(el);
+        }
+    };
+
     const { register, handleSubmit, control, reset } = useForm({
         // Initialisation des champs par défaut
         defaultValues: {
@@ -40,6 +58,12 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
     });
 
     useEffect(() => {
+        labelRefs.current.forEach((labelRef, index) => {
+            if (labelRef && cutRefs.current[index]) {
+                const labelWidth = labelRef.offsetWidth;
+                cutRefs.current[index].style.width = `${labelWidth}px`;
+            }
+        });
         if (recette) {
             // Initialiser les valeurs du formulaire ici si nécessaire
         }
@@ -84,95 +108,201 @@ const FormulaireRecette = ({ recette, onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <input {...register("nom")} placeholder="Nom de la recette" />
-            <input
-                {...register("TempsDePreparation")}
-                placeholder="Temps de préparation"
-                type="number"
-            />
-            <input
-                {...register("TempsDeCuisson")}
-                placeholder="Temps de cuisson"
-                type="number"
-            />
-            <select
-                {...register("NiveauDeDifficulte")}
-                placeholder="Niveau de difficulté"
-            >
-                <option value="facile">Facile</option>
-                <option value="moyen">Moyen</option>
-                <option value="difficile">Difficile</option>
-                <option value="expert">Expert</option>
-            </select>
-            <input
-                {...register("NombreDePersonnes")}
-                placeholder="Nombre de personnes"
-                type="number"
-            />
-            <input
-                {...register("CaloriesParPersonne")}
-                placeholder="Calories par personne"
-                type="number"
-            />
+        <form className="form" onSubmit={handleSubmit(handleFormSubmit)}>
+            <div className="input-container ic1">
+                <input
+                    className="input"
+                    {...register("nom")}
+                    // placeholder="Nom de la recette"
+                />
+                <div className="cut" ref={addToCutRefs}></div>
+                <label className="iLabel" ref={addToLabelRefs}>
+                    Nom de la recette
+                </label>
+            </div>
+            <div className="input-container ic2">
+                <input
+                    className="input"
+                    {...register("TempsDePreparation")}
+                    // placeholder="Temps de préparation"
+                    type="number"
+                />
+                <div className="cut" ref={addToCutRefs}></div>
+                <label className="iLabel" ref={addToLabelRefs}>
+                    Temps de préparation
+                </label>
+            </div>
+            <div className="input-container ic2">
+                <input
+                    className="input"
+                    {...register("TempsDeCuisson")}
+                    // placeholder="Temps de cuisson"
+                    type="number"
+                />
+                <div className="cut cut--actif" ref={addToCutRefs}></div>
+                <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
+                    Temps de cuisson
+                </label>
+            </div>
+            <div className="input-container ic2">
+                <select
+                    className="input"
+                    {...register("NiveauDeDifficulte")}
+                    // placeholder="Niveau de difficulté"
+                >
+                    <option value="facile">Facile</option>
+                    <option value="moyen">Moyen</option>
+                    <option value="difficile">Difficile</option>
+                    <option value="expert">Expert</option>
+                </select>
+                <div className="cut cut--actif" ref={addToCutRefs}></div>
+                <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
+                    Niveau de difficulté
+                </label>
+            </div>
+            <div className="input-container ic2">
+                <input
+                    className="input"
+                    {...register("NombreDePersonnes")}
+                    // placeholder="Nombre de personnes"
+                    type="number"
+                />
+                <div className="cut" ref={addToCutRefs}></div>
+                <label className="iLabel" ref={addToLabelRefs}>
+                    Nombre de personnes
+                </label>
+            </div>
+            <div className="input-container ic2">
+                <input
+                    className="input"
+                    {...register("CaloriesParPersonne")}
+                    // placeholder="Calories par personne"
+                    type="number"
+                />
+                <div className="cut" ref={addToCutRefs}></div>
+                <label className="iLabel" ref={addToLabelRefs}>
+                    Calories par personne
+                </label>
+            </div>
 
             {/* Champs dynamiques pour les ingrédients */}
             {ingredientsFields.map((field, index) => (
                 <div key={field.id}>
-                    <input
-                        {...register(`ingredients.${index}.nomAliment`)}
-                        placeholder="Nom de l'aliment"
-                    />
-                    <input
-                        {...register(`ingredients.${index}.Quantite`)}
-                        type="number"
-                        placeholder="Quantité"
-                    />
-                    <select
-                        {...register(`ingredients.${index}.Unite`)}
-                        placeholder="Unité"
-                    >
-                        <option value="g">g - Gramme</option>
-                        <option value="l">l - Litre</option>
-                        <option value="pcs">pcs - Pièce</option>
-                        <option value="cs">cs - Cuillère à soupe</option>
-                        <option value="cc">cc - Cuillère à café</option>
-                        <option value="kg">kg - Kilogramme</option>
-                        <option value="ml">ml - Millilitre</option>
-                        <option value="tasse">tasse - Tasse</option>
-                        <option value="pincée">pincée - Pincée</option>
-                    </select>
-                    <button type="button" onClick={() => removeIngredient(index)}>
-                        Supprimer
-                    </button>
+                    <div className="input-container ic2">
+                        <input
+                            className="input"
+                            {...register(`ingredients.${index}.nomAliment`)}
+                            // placeholder="Nom de l'aliment"
+                        />
+                        <div className="cut" ref={addToCutRefs}></div>
+                        <label className="iLabel" ref={addToLabelRefs}>
+                            Nom de l'aliment
+                        </label>
+                    </div>
+                    <div className="input-container ic2">
+                        <input
+                            className="input"
+                            {...register(`ingredients.${index}.Quantite`)}
+                            type="number"
+                            // placeholder="Quantité"
+                        />
+                        <div className="cut" ref={addToCutRefs}></div>
+                        <label className="iLabel" ref={addToLabelRefs}>
+                            Quantité
+                        </label>
+                    </div>
+                    <div className="input-container ic2">
+                        <select
+                            className="input"
+                            {...register(`ingredients.${index}.Unite`)}
+                            placeholder="Unité"
+                        >
+                            <option value="g">g - Gramme</option>
+                            <option value="l">l - Litre</option>
+                            <option value="pcs">pcs - Pièce</option>
+                            <option value="cs">cs - Cuillère à soupe</option>
+                            <option value="cc">cc - Cuillère à café</option>
+                            <option value="kg">kg - Kilogramme</option>
+                            <option value="ml">ml - Millilitre</option>
+                            <option value="tasse">tasse - Tasse</option>
+                            <option value="pincée">pincée - Pincée</option>
+                        </select>
+                        <div className="cut cut--actif" ref={addToCutRefs}></div>
+                        <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
+                            Unité
+                        </label>
+                    </div>
+                    <div className="input-container ic2">
+                        <button
+                            className="btn btn--supprimer"
+                            type="button"
+                            onClick={() => removeIngredient(index)}
+                        >
+                            <span className="button__text">Supprimer</span>
+                            <span className="button__icon">
+                                <IconeSupprimer />
+                            </span>
+                        </button>
+                    </div>
                 </div>
             ))}
-            <button
-                type="button"
-                onClick={() =>
-                    appendIngredient({ nomAliment: "", Quantite: "", Unite: "" })
-                }
-            >
-                + Ajouter un ingrédient
-            </button>
+            <div>
+                <button
+                    className="btn btn--add btn--ingrédient"
+                    type="button"
+                    onClick={() =>
+                        appendIngredient({ nomAliment: "", Quantite: "", Unite: "" })
+                    }
+                >
+                    <span className="button__text">Ajouter un ingrédient</span>
+                    <span className="button__icon">
+                        <IconeAjouter />
+                    </span>
+                </button>
+            </div>
 
             {/* Champs dynamiques pour les étapes */}
             {etapesFields.map((field, index) => (
                 <div key={field.id}>
-                    <textarea
-                        {...register(`etapes.${index}.Description`)}
-                        placeholder={`Description de l'étape ${index + 1}`}
-                    />
-                    <button type="button" onClick={() => removeEtape(index)}>
-                        Supprimer
-                    </button>
+                    <div className="input-container ic2">
+                        <textarea
+                            className="input"
+                            {...register(`etapes.${index}.Description`)}
+                            // placeholder={`Description de l'étape ${index + 1}`}
+                        />
+                        <div className="cut" ref={addToCutRefs}></div>
+                        <label className="iLabel" ref={addToLabelRefs}>
+                            {`Description de l'étape ${index + 1}`}
+                        </label>
+                    </div>
+                    <div className="input-container ic2">
+                        <button
+                            className="btn btn--supprimer"
+                            type="button"
+                            onClick={() => removeEtape(index)}
+                        >
+                            <span className="button__text">Supprimer</span>
+                            <span className="button__icon">
+                                <IconeSupprimer />
+                            </span>
+                        </button>
+                    </div>
                 </div>
             ))}
-            <button type="button" onClick={() => appendEtape({ Description: "" })}>
-                + Ajouter une étape
+            <button
+                className="btn btn--add btn--etapes"
+                type="button"
+                onClick={() => appendEtape({ Description: "" })}
+            >
+                <span className="button__text">Ajouter une étape</span>
+                <span className="button__icon">
+                    <IconeAjouter />
+                </span>
             </button>
 
-            <button type="submit">Sauvegarder</button>
+            <button className="submit" type="submit">
+                Sauvegarder
+            </button>
         </form>
     );
 };
@@ -208,7 +338,9 @@ const FormulaireModificationRecette = ({ recette, onSubmit }) => {
     return (
         <form onSubmit={handleSubmit(handleFormSubmit)}>
             {/* Champs du formulaire */}
-            <button type="submit">Sauvegarder</button>
+            <button className="btn btn--supprimer" type="submit">
+                Sauvegarder
+            </button>
         </form>
     );
 };
@@ -306,57 +438,96 @@ const Recettes = () => {
     return (
         <>
             <Header />
-            <section>
-                <h1>Recettes</h1>
-                <h2>Recettes recommandées :</h2>
-                {recettesRecommandees.length > 0 ? (
-                    recettesRecommandees.map((recette) => (
-                        <div key={recette.RecetteID}>
-                            <h3>{recette.Nom}</h3>
-                            <p>Temps De Preparation : {recette.TempsDePreparation} min</p>
-                            <p>Temps De Cuisson : {recette.TempsDeCuisson} min</p>
-                            <p>Niveau De Difficulte : {recette.NiveauDeDifficulte}</p>
-                            <p>Nombre De Personnes : {recette.NombreDePersonnes}</p>
+            <section className="section">
+                <h1 className="title">Recettes</h1>
+                <h2 className="title title--niveau2">Recettes recommandées :</h2>
+                <div className="recette__container">
+                    {recettesRecommandees.length > 0 ? (
+                        recettesRecommandees.map((recette) => (
+                            <div
+                                className="recette__card recette__card--recomandees"
+                                key={recette.RecetteID}
+                            >
+                                <div className="recette__content">
+                                    <h3 className="title title--niveau3">
+                                        {recette.Nom}
+                                    </h3>
+                                    <ul className="recette__list">
+                                        <li className="recette__el">
+                                            <span>Temps De Preparation :</span>
+                                            <span>{recette.TempsDePreparation}</span>
+                                        </li>
+                                        <li className="recette__el">
+                                            <span>Temps De Cuisson :</span>
+                                            <span>{recette.TempsDeCuisson}</span>
+                                        </li>
+                                        <li className="recette__el">
+                                            <span>Niveau De Difficulte :</span>
+                                            <span>{recette.NiveauDeDifficulte}</span>
+                                        </li>
+                                        <li className="recette__el">
+                                            <span>Nombre De Personnes :</span>
+                                            <span>{recette.NombreDePersonnes}</span>
+                                        </li>
+                                        <li className="recette__el">
+                                            <Link
+                                                to={`/recettes/${recette.RecetteID}`}
+                                                key={recette.RecetteID}
+                                            >
+                                                voir plus
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Aucune recette recommandée pour l'instant.</p>
+                    )}
+                </div>
+                <h2 className="title title--niveau2">Liste des recettes :</h2>
+                <div className="recette__container">
+                    {recettes.map((recette) => (
+                        <div className="recette__card" key={recette.RecetteID}>
                             <Link
+                                className="recette__content"
                                 to={`/recettes/${recette.RecetteID}`}
                                 key={recette.RecetteID}
                             >
-                                voir plus
+                                <h3 className="title title--niveau3">{recette.Nom}</h3>
+                                <ul className="recette__list">
+                                    <li className="recette__el">
+                                        <span>Temps de preparation :</span>
+                                        <span>{recette.TempsDePreparation}</span>
+                                    </li>
+                                    <li className="recette__el">
+                                        <span>Temps de cuisson : </span>
+                                        <span>{recette.TempsDeCuisson}</span>
+                                    </li>
+                                    <li className="recette__el">
+                                        <span>Niveau de difficulte :</span>
+                                        <span>{recette.NiveauDeDifficulte}</span>
+                                    </li>
+                                    <li className="recette__el">
+                                        <span>Nombre De Personnes :</span>
+                                        <span>{recette.NombreDePersonnes}</span>
+                                    </li>
+                                </ul>
                             </Link>
-                            {/* Ajoutez d'autres informations sur la recette si nécessaire */}
                         </div>
-                    ))
-                ) : (
-                    <p>Aucune recette recommandée pour l'instant.</p>
-                )}
-                <h2>Liste des recettes :</h2>
-                {recettes.map((recette) => (
-                    <div key={recette.RecetteID}>
-                        <Link
-                            to={`/recettes/${recette.RecetteID}`}
-                            key={recette.RecetteID}
-                        >
-                            <div>
-                                <h3>{recette.Nom}</h3>
-                                <p>Temps De Preparation : {recette.TempsDePreparation}</p>
-                                <p>Temps De Cuisson : {recette.TempsDeCuisson}</p>
-                                <p>Niveau De Difficulte : {recette.NiveauDeDifficulte}</p>
-                                <p>Nombre De Personnes : {recette.NombreDePersonnes}</p>
-                            </div>
-                        </Link>
-                        {/* {recette.UserID === userInfo?.id && (
-							<>
-								<button onClick={() => handleEditClick(recette)}>Modifier</button>
-								<button onClick={() => supprimerRecette(recette.RecetteID)}>
-									Supprimer
-								</button>
-							</>
-						)} */}
-                    </div>
-                ))}
+                    ))}
+                </div>
             </section>
-            <section className="section">
-                <button onClick={handleAddClick}>Nouvelle Recette</button>
+            <section className="section section--bas">
+                <div>
+                    <button className="btn btn--add" onClick={handleAddClick}>
+                        <span className="button__text">Nouvelle Recette</span>
+                        <span className="button__icon">
+                            <IconeAjouter />
+                        </span>
+                    </button>
+                </div>
+
                 {showForm && (
                     <FormulaireRecette onSubmit={ajouterRecette} formType={"add"} />
                 )}

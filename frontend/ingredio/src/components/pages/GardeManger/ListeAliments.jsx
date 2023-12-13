@@ -3,7 +3,7 @@ import ItemAliment from "./ItemAliment";
 
 const ListeAliments = ({ aliments, onSupprimer, onModifier }) => {
     return (
-        <ul>
+        <ul className="aliments__list">
             {aliments.map((aliment) => (
                 <ItemAliment
                     key={aliment.GardeMangerID}

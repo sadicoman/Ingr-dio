@@ -1,0 +1,14 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .registerLogin__list {
+        display: flex;
+        justify-content: flex-end;
+
+        .registerLogin__el {
+            margin-right: var(--margin-mb);
+        }
+    }
+}
