@@ -5,12 +5,16 @@ const cors = require("cors");
 const dbUtils = require("./utils/db.utils");
 
 const app = express();
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Configuration de CORS pour accepter les requêtes de votre frontend
 app.use(
-	cors({
-		origin: ["http://127.0.0.1:5173", "http://localhost:5173"], // URL de votre frontend
-	}),
+    cors({
+        origin: ["http://127.0.0.1:5173", "http://localhost:5173"], // URL de votre frontend
+    }),
 );
 
 // Test de la connexion à la base de données
@@ -29,19 +33,20 @@ app.use("/", baseRouter);
 
 // Gestion des 404
 app.all("*", (req, res) => {
-	res.status(404).send("Page introuvable");
+    res.status(404).send("Page introuvable");
 });
 
 // Autre erreur global
 app.use((error, req, res, next) => {
-	console.error("Error URL : ", req.url);
-	console.error("Error Message : ", error.message);
-	res.status(500).send("Erreur interne du serveur");
+    console.error("Error URL : ", req.url);
+    console.error("Error Message : ", error.message);
+    res.status(500).send("Erreur interne du serveur");
 });
 
 const PORT = process.env.PORT || 8002;
+
 app.listen(PORT, () => {
-	console.log(`Serveur Web démarré sur le port : http://localhost:${PORT}`);
+    console.log(`Serveur Web démarré sur le port : http://localhost:${PORT}`);
 });
 
 module.exports = app;

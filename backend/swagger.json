@@ -1,0 +1,1343 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mon API de Gestion de Recettes et de Garde-Manger",
+        "version": "1.0.0",
+        "description": "API pour gérer les recettes, les aliments, et les garde-mangers des utilisateurs."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "tags": [
+        {
+            "name": "users",
+            "description": "Méthodes permettant de gérer les utilisateurs"
+        },
+        {
+            "name": "authentification",
+            "description": "Toutes les opérations relatives à l'authentification et à la sécurité des utilisateurs"
+        },
+        {
+            "name": "roles",
+            "description": "Gestion des rôles des utilisateurs dans l'application"
+        },
+        {
+            "name": "aliments",
+            "description": "Opérations sur les aliments dans le système"
+        },
+        {
+            "name": "recettes",
+            "description": "Gestion des recettes de cuisine"
+        },
+        {
+            "name": "gardeManger",
+            "description": "Fonctionnalités liées au garde-manger des utilisateurs"
+        },
+        {
+            "name": "etapes",
+            "description": "Gérer les étapes individuelles des recettes"
+        },
+        {
+            "name": "ingredientsRecette",
+            "description": "Opérations liées aux ingrédients utilisés dans les recettes"
+        }
+    ],
+
+    "paths": {
+        "/aliments": {
+            "get": {
+                "tags": ["aliments"],
+                "summary": "Liste tous les aliments",
+                "responses": {
+                    "200": {
+                        "description": "Liste des aliments récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Aliment"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["aliments"],
+                "summary": "Crée un nouvel aliment",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Nom": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["Nom"]
+                            },
+                            "example": {
+                                "Nom": "Riz (sushi)"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Aliment créé avec succès"
+                    }
+                }
+            }
+        },
+        "/aliments/createMultiple": {
+            "post": {
+                "tags": ["aliments"],
+                "summary": "Crée une liste de nouveaux aliments",
+                "description": "Permet de créer plusieurs aliments en une seule requête.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Nom": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["Nom"]
+                                },
+                                "example": [
+                                    { "Nom": "Riz (sushi)" },
+                                    { "Nom": "Steak" },
+                                    { "Nom": "Saumon cru" },
+                                    { "Nom": "Edamame" }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Liste d'aliments créée avec succès"
+                    },
+                    "400": {
+                        "description": "Requête invalide"
+                    }
+                }
+            }
+        },
+        "/aliments/{alimentId}": {
+            "get": {
+                "tags": ["aliments"],
+                "summary": "Récupère un aliment par son ID",
+                "parameters": [
+                    {
+                        "name": "alimentId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aliment trouvé avec succès"
+                    },
+                    "404": {
+                        "description": "Aliment non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["aliments"],
+                "summary": "Met à jour un aliment par son ID",
+                "parameters": [
+                    {
+                        "name": "alimentId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aliment mis à jour avec succès"
+                    },
+                    "404": {
+                        "description": "Aliment non trouvé"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["aliments"],
+                "summary": "Supprime un aliment par son ID",
+                "parameters": [
+                    {
+                        "name": "alimentId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Aliment supprimé avec succès"
+                    },
+                    "404": {
+                        "description": "Aliment non trouvé"
+                    }
+                }
+            }
+        },
+        "/etapes": {
+            "get": {
+                "tags": ["etapes"],
+                "summary": "Liste toutes les étapes",
+                "description": "Récupère une liste de toutes les étapes disponibles.",
+                "responses": {
+                    "200": {
+                        "description": "Liste des étapes récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Etape"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["etapes"],
+                "summary": "Crée une nouvelle étape",
+                "description": "Ajoute une nouvelle étape à une recette spécifique.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "RecetteID": {
+                                        "type": "integer",
+                                        "description": "Identifiant de la recette associée à l'étape"
+                                    },
+                                    "Description": {
+                                        "type": "string",
+                                        "description": "Description de l'étape"
+                                    },
+                                    "Position": {
+                                        "type": "integer",
+                                        "description": "Position de l'étape dans la recette"
+                                    }
+                                },
+                                "required": ["RecetteID", "Description", "Position"]
+                            },
+                            "example": {
+                                "RecetteID": 1,
+                                "Description": "Couper les légumes",
+                                "Position": 1
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Étape créée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Etape"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requête invalide ou données manquantes"
+                    },
+                    "500": {
+                        "description": "Erreur interne du serveur"
+                    }
+                }
+            }
+        },
+        "/etapes/ajouter-multiples": {
+            "post": {
+                "tags": ["etapes"],
+                "summary": "Ajoute plusieurs étapes à une recette",
+                "description": "Permet de créer et d'ajouter plusieurs étapes à une recette en une seule requête.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "RecetteID": {
+                                            "type": "integer",
+                                            "description": "Identifiant de la recette"
+                                        },
+                                        "Description": {
+                                            "type": "string",
+                                            "description": "Description détaillée de l'étape"
+                                        },
+                                        "Position": {
+                                            "type": "integer",
+                                            "description": "Position de l'étape dans la recette"
+                                        }
+                                    },
+                                    "required": ["RecetteID", "Description", "Position"]
+                                }
+                            },
+                            "example": [
+                                {
+                                    "RecetteID": 1,
+                                    "Description": "Préparer les ingrédients",
+                                    "Position": 1
+                                },
+                                {
+                                    "RecetteID": 1,
+                                    "Description": "Mélanger les ingrédients",
+                                    "Position": 2
+                                }
+                            ]
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Étapes ajoutées avec succès à la recette"
+                    },
+                    "400": {
+                        "description": "Requête invalide ou données manquantes"
+                    },
+                    "500": {
+                        "description": "Erreur serveur lors de l'ajout des étapes"
+                    }
+                }
+            }
+        },
+        "/etapes/{etapeId}": {
+            "get": {
+                "tags": ["etapes"],
+                "summary": "Récupère une étape par son ID",
+                "parameters": [
+                    {
+                        "name": "etapeId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Étape trouvée"
+                    },
+                    "404": {
+                        "description": "Étape non trouvée"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["etapes"],
+                "summary": "Mise à jour d'une étape",
+                "parameters": [
+                    {
+                        "name": "etapeId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Étape mise à jour avec succès"
+                    },
+                    "404": {
+                        "description": "Étape non trouvée"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["etapes"],
+                "summary": "Supprime une étape",
+                "parameters": [
+                    {
+                        "name": "etapeId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Étape supprimée avec succès"
+                    },
+                    "404": {
+                        "description": "Étape non trouvée"
+                    }
+                }
+            }
+        },
+        "/gardeMangers": {
+            "get": {
+                "tags": ["gardeManger"],
+                "summary": "Liste tous les éléments du garde-manger",
+                "responses": {
+                    "200": {
+                        "description": "Liste récupérée avec succès"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["gardeManger"],
+                "summary": "Ajoute un nouvel élément au garde-manger",
+                "responses": {
+                    "201": {
+                        "description": "Élément ajouté avec succès"
+                    }
+                }
+            }
+        },
+        "/gardeMangers/ajouter-multiples": {
+            "post": {
+                "tags": ["gardeManger"],
+                "summary": "Ajoute plusieurs éléments au garde-manger",
+                "description": "Permet d'ajouter plusieurs éléments au garde-manger de l'utilisateur en une seule requête.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "AlimentID": {
+                                            "type": "integer",
+                                            "description": "Identifiant de l'aliment"
+                                        },
+                                        "Quantite": {
+                                            "type": "integer",
+                                            "description": "Quantité de l'aliment"
+                                        },
+                                        "Unite": {
+                                            "type": "string",
+                                            "description": "Unité de mesure de l'aliment (g, kg, l, ml, etc.)"
+                                        }
+                                    },
+                                    "required": ["AlimentID", "Quantite", "Unite"]
+                                }
+                            },
+                            "example": [
+                                {
+                                    "AlimentID": 1,
+                                    "Quantite": 500,
+                                    "Unite": "g"
+                                },
+                                {
+                                    "AlimentID": 2,
+                                    "Quantite": 2,
+                                    "Unite": "pcs"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Éléments ajoutés avec succès au garde-manger"
+                    },
+                    "400": {
+                        "description": "Requête invalide ou données manquantes"
+                    },
+                    "500": {
+                        "description": "Erreur serveur"
+                    }
+                }
+            }
+        },
+        "/gardeMangers/{gardeMangerId}": {
+            "get": {
+                "tags": ["gardeManger"],
+                "summary": "Récupère un élément du garde-manger par son ID",
+                "parameters": [
+                    {
+                        "name": "gardeMangerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Élément trouvé"
+                    },
+                    "404": {
+                        "description": "Élément non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["gardeManger"],
+                "summary": "Met à jour un élément du garde-manger",
+                "parameters": [
+                    {
+                        "name": "gardeMangerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Élément mis à jour avec succès"
+                    },
+                    "404": {
+                        "description": "Élément non trouvé"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["gardeManger"],
+                "summary": "Supprime un élément du garde-manger",
+                "parameters": [
+                    {
+                        "name": "gardeMangerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Élément supprimé avec succès"
+                    },
+                    "404": {
+                        "description": "Élément non trouvé"
+                    }
+                }
+            }
+        },
+        "/ingredientsRecette": {
+            "get": {
+                "tags": ["ingredientsRecette"],
+                "summary": "Liste tous les ingrédients des recettes",
+                "responses": {
+                    "200": {
+                        "description": "Liste des ingrédients récupérée avec succès"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["ingredientsRecette"],
+                "summary": "Ajoute un nouvel ingrédient à une recette",
+                "responses": {
+                    "201": {
+                        "description": "Ingrédient ajouté avec succès"
+                    }
+                }
+            }
+        },
+        "/ingredientsRecette/ajouter-multiples": {
+            "post": {
+                "tags": ["ingredientsRecette"],
+                "summary": "Ajoute plusieurs ingrédients à une recette",
+                "description": "Permet d'ajouter plusieurs ingrédients à une recette spécifique en une seule requête.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "RecetteID": {
+                                            "type": "integer",
+                                            "description": "Identifiant de la recette"
+                                        },
+                                        "AlimentID": {
+                                            "type": "integer",
+                                            "description": "Identifiant de l'aliment"
+                                        },
+                                        "Quantite": {
+                                            "type": "integer",
+                                            "description": "Quantité de l'ingrédient"
+                                        },
+                                        "Unite": {
+                                            "type": "string",
+                                            "description": "Unité de mesure de l'ingrédient (g, kg, l, ml, etc.)"
+                                        }
+                                    },
+                                    "required": [
+                                        "RecetteID",
+                                        "AlimentID",
+                                        "Quantite",
+                                        "Unite"
+                                    ]
+                                }
+                            },
+                            "example": [
+                                {
+                                    "RecetteID": 1,
+                                    "AlimentID": 5,
+                                    "Quantite": 100,
+                                    "Unite": "g"
+                                },
+                                {
+                                    "RecetteID": 1,
+                                    "AlimentID": 6,
+                                    "Quantite": 2,
+                                    "Unite": "pcs"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Ingrédients ajoutés avec succès à la recette"
+                    },
+                    "400": {
+                        "description": "Requête invalide ou données manquantes"
+                    },
+                    "500": {
+                        "description": "Erreur serveur lors de l'ajout des ingrédients"
+                    }
+                }
+            }
+        },
+        "/ingredientsRecette/{ingredientId}": {
+            "get": {
+                "tags": ["ingredientsRecette"],
+                "summary": "Récupère un ingrédient de recette par son ID",
+                "parameters": [
+                    {
+                        "name": "ingredientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ingrédient trouvé"
+                    },
+                    "404": {
+                        "description": "Ingrédient non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["ingredientsRecette"],
+                "summary": "Met à jour un ingrédient de recette",
+                "parameters": [
+                    {
+                        "name": "ingredientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ingrédient mis à jour avec succès"
+                    },
+                    "404": {
+                        "description": "Ingrédient non trouvé"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["ingredientsRecette"],
+                "summary": "Supprime un ingrédient de recette",
+                "parameters": [
+                    {
+                        "name": "ingredientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ingrédient supprimé avec succès"
+                    },
+                    "404": {
+                        "description": "Ingrédient non trouvé"
+                    }
+                }
+            }
+        },
+        "/recettes": {
+            "get": {
+                "tags": ["recettes"],
+                "summary": "Liste toutes les recettes",
+                "responses": {
+                    "200": {
+                        "description": "Liste des recettes récupérée avec succès"
+                    }
+                }
+            }
+        },
+        "/recettes/ajouter": {
+            "post": {
+                "tags": ["recettes"],
+                "summary": "Crée une nouvelle recette",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Nom": {
+                                        "type": "string"
+                                    },
+                                    "TempsDePreparation": {
+                                        "type": "integer"
+                                    },
+                                    "TempsDeCuisson": {
+                                        "type": "integer"
+                                    },
+                                    "NiveauDeDifficulte": {
+                                        "type": "string",
+                                        "enum": ["facile", "moyen", "difficile", "expert"]
+                                    },
+                                    "NombreDePersonnes": {
+                                        "type": "integer"
+                                    },
+                                    "CaloriesParPersonne": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": [
+                                    "Nom",
+                                    "TempsDePreparation",
+                                    "TempsDeCuisson",
+                                    "NiveauDeDifficulte",
+                                    "NombreDePersonnes",
+                                    "CaloriesParPersonne"
+                                ]
+                            },
+                            "example": {
+                                "Nom": "Poké bowl",
+                                "TempsDePreparation": 90,
+                                "TempsDeCuisson": 15,
+                                "NiveauDeDifficulte": "moyen",
+                                "NombreDePersonnes": 2,
+                                "CaloriesParPersonne": 500
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Recette créée avec succès"
+                    }
+                }
+            }
+        },
+        "/recettes/suggestions": {
+            "post": {
+                "tags": ["recettes"],
+                "summary": "Suggestion de recette",
+                "description": "Fournit des suggestions de recettes basées sur une liste d'identifiants d'aliments.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "aliments": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "description": "Liste des identifiants des aliments"
+                                    }
+                                },
+                                "required": ["aliments"]
+                            },
+                            "example": {
+                                "aliments": [1, 2]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Suggestions de recettes fournies avec succès"
+                    },
+                    "400": {
+                        "description": "Requête invalide"
+                    }
+                }
+            }
+        },
+        "/recettes/{recetteId}": {
+            "get": {
+                "tags": ["recettes"],
+                "summary": "Récupère une recette par son ID",
+                "parameters": [
+                    {
+                        "name": "recetteId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recette trouvée"
+                    },
+                    "404": {
+                        "description": "Recette non trouvée"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["recettes"],
+                "summary": "Met à jour une recette",
+                "parameters": [
+                    {
+                        "name": "recetteId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recette mise à jour avec succès"
+                    },
+                    "404": {
+                        "description": "Recette non trouvée"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["recettes"],
+                "summary": "Supprime une recette",
+                "parameters": [
+                    {
+                        "name": "recetteId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Recette supprimée avec succès"
+                    },
+                    "404": {
+                        "description": "Recette non trouvée"
+                    }
+                }
+            }
+        },
+        "/roles": {
+            "get": {
+                "tags": ["roles"],
+                "summary": "Liste tous les rôles",
+                "responses": {
+                    "200": {
+                        "description": "Liste des rôles récupérée avec succès"
+                    }
+                }
+            }
+        },
+        "/users/requestReset": {
+            "post": {
+                "tags": ["users"],
+                "summary": "Demande de réinitialisation du mot de passe",
+                "description": "Envoie un email à l'utilisateur avec un lien pour réinitialiser le mot de passe.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "description": "Email de l'utilisateur pour la réinitialisation du mot de passe"
+                                    }
+                                },
+                                "required": ["Email"]
+                            },
+                            "example": {
+                                "Email": "ingredio.noreply@francois-szczepkowski.be"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Email de réinitialisation envoyé.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "description": "Message confirmant l'envoi de l'email de réinitialisation"
+                                        }
+                                    },
+                                    "example": {
+                                        "message": "Email de réinitialisation envoyé."
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Email non trouvé dans la base de données"
+                    },
+                    "500": {
+                        "description": "Erreur serveur lors de la tentative de réinitialisation"
+                    }
+                }
+            }
+        },
+
+        "/users": {
+            "get": {
+                "tags": ["users"],
+                "summary": "Liste tous les utilisateurs",
+                "responses": {
+                    "200": {
+                        "description": "Liste des utilisateurs récupérée avec succès"
+                    }
+                }
+            }
+        },
+        "/users/{userId}": {
+            "get": {
+                "tags": ["users"],
+                "summary": "Récupère un utilisateur par son ID",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur trouvé"
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["users"],
+                "summary": "Met à jour un utilisateur",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Pseudo": {
+                                        "type": "string"
+                                    },
+                                    "Email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur mis à jour avec succès"
+                    },
+                    "400": {
+                        "description": "Requête invalide"
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["users"],
+                "summary": "Supprime un utilisateur",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Utilisateur supprimé avec succès"
+                    },
+                    "404": {
+                        "description": "Utilisateur non trouvé"
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "tags": ["authentification"],
+                "summary": "Connexion d'un utilisateur",
+                "description": "Authentifie l'utilisateur et renvoie un token JWT.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "login": {
+                                        "type": "string",
+                                        "description": "Pseudo ou email de l'utilisateur"
+                                    },
+                                    "MotDePasse": {
+                                        "type": "string",
+                                        "description": "Mot de passe de l'utilisateur"
+                                    }
+                                },
+                                "required": ["login", "MotDePasse"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Connexion réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "description": "Token JWT pour authentification"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Identifiants invalides"
+                    }
+                }
+            }
+        },
+        "/users/register": {
+            "post": {
+                "tags": ["authentification"],
+                "summary": "Inscription d'un nouvel utilisateur",
+                "description": "Crée un nouveau compte utilisateur.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "Pseudo": {
+                                        "type": "string"
+                                    },
+                                    "Email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "MotDePasse": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["Pseudo", "Email", "MotDePasse"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Utilisateur créé avec succès"
+                    },
+                    "400": {
+                        "description": "Demande invalide ou utilisateur déjà existant"
+                    }
+                }
+            }
+        }
+    },
+
+    "components": {
+        "schemas": {
+            "Aliment": {
+                "type": "object",
+                "properties": {
+                    "AlimentID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Nom": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "UserID": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "required": ["Nom", "UserID"]
+            },
+            "Etape": {
+                "type": "object",
+                "properties": {
+                    "EtapeID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "RecetteID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Description": {
+                        "type": "string"
+                    },
+                    "Position": {
+                        "type": "integer"
+                    }
+                },
+                "required": ["RecetteID", "Description"]
+            },
+            "GardeManger": {
+                "type": "object",
+                "properties": {
+                    "GardeMangerID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "UserID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "AlimentID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Quantite": {
+                        "type": "integer"
+                    },
+                    "Unite": {
+                        "type": "string",
+                        "enum": [
+                            "g",
+                            "l",
+                            "pcs",
+                            "cs",
+                            "cc",
+                            "kg",
+                            "ml",
+                            "tasse",
+                            "pincée"
+                        ]
+                    }
+                },
+                "required": ["UserID", "AlimentID", "Quantite", "Unite"]
+            },
+            "IngredientsRecette": {
+                "type": "object",
+                "properties": {
+                    "IngredientRecetteID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "AlimentID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "RecetteID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Quantite": {
+                        "type": "integer"
+                    },
+                    "Unite": {
+                        "type": "string",
+                        "enum": [
+                            "g",
+                            "l",
+                            "pcs",
+                            "cs",
+                            "cc",
+                            "kg",
+                            "ml",
+                            "tasse",
+                            "pincée"
+                        ]
+                    }
+                },
+                "required": ["AlimentID", "RecetteID", "Quantite", "Unite"]
+            },
+            "Recette": {
+                "type": "object",
+                "properties": {
+                    "RecetteID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Nom": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "UserID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "TempsDePreparation": {
+                        "type": "integer"
+                    },
+                    "TempsDeCuisson": {
+                        "type": "integer"
+                    },
+                    "NiveauDeDifficulte": {
+                        "type": "string",
+                        "enum": ["facile", "moyen", "difficile", "expert"]
+                    },
+                    "NombreDePersonnes": {
+                        "type": "integer"
+                    },
+                    "CaloriesParPersonne": {
+                        "type": "integer"
+                    }
+                },
+                "required": ["Nom", "UserID", "NiveauDeDifficulte"]
+            },
+            "Role": {
+                "type": "object",
+                "properties": {
+                    "RoleID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Nom": {
+                        "type": "string",
+                        "enum": ["superAdmin", "admin", "users"]
+                    },
+                    "Poids": {
+                        "type": "integer"
+                    }
+                },
+                "required": ["Nom", "Poids"]
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "UserID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "Pseudo": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "Email": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "format": "email"
+                    },
+                    "MotDePasse": {
+                        "type": "string"
+                    },
+                    "RoleID": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "ResetPasswordToken": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "ResetPasswordExpires": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                },
+                "required": ["Pseudo", "Email", "MotDePasse"]
+            }
+        }
+    }
+}

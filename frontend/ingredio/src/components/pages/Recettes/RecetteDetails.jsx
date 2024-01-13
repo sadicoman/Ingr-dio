@@ -12,7 +12,7 @@ import IconesFleches from "../../btn/IconesFleches";
 import "./recettes.scss";
 import IconModifier from "../GardeManger/IconeModifier";
 import IconeSupprimer from "../GardeManger/iconeSupprimer";
-import Header from "../../templates/Header/Header";
+// import Header from "../../templates/Header/Header";
 
 const RecetteDetails = () => {
     const [recette, setRecette] = useState(null);

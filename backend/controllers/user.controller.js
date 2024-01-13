@@ -17,7 +17,7 @@ exports.registerUser = async (req, res) => {
     try {
         const { Pseudo, Email, MotDePasse } = req.body;
 
-        console.log("Inscription reçue:", req.body);
+        // console.log("Inscription reçue:", req.body);
 
         // Vérifier si l'utilisateur existe déjà
         const userExists = await User.findOne({ where: { Email } });
@@ -48,8 +48,8 @@ exports.loginUser = async (req, res) => {
         const { login, MotDePasse } = req.body; // login peut être soit l'email, soit le pseudo
 
         // Log les valeurs spécifiques extraites de la requête
-        console.log("Login: ", login);
-        console.log("MotDePasse: ", MotDePasse);
+        // console.log("Login: ", login);
+        // console.log("MotDePasse: ", MotDePasse);
 
         // Trouvez l'utilisateur par email ou pseudo
         const user = await User.findOne({
@@ -73,7 +73,7 @@ exports.loginUser = async (req, res) => {
         }
 
         // Log le résultat de la comparaison du mot de passe
-        console.log("Mot de passe valide: ", passwordIsValid);
+        // console.log("Mot de passe valide: ", passwordIsValid);
 
         // Si le mot de passe est correct, générez un token
         const token = jwt.sign({ id: user.UserID }, process.env.JWT_SECRET, {
@@ -135,17 +135,17 @@ exports.requestPasswordReset = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "Email non trouvé." });
         }
-        console.log("ici la bas");
+        // console.log("ici la bas");
         // Générer un token de réinitialisation de mot de passe
         const resetToken = jwt.sign({ id: user.UserID }, process.env.JWT_SECRET, {
             expiresIn: "1h", // le token expire en 1 heure
         });
-        console.log("ici la");
+        // console.log("ici la");
         // Enregistrer le token de réinitialisation dans la base de données avec une expiration
         // Ici vous devez ajouter un champ à votre modèle User pour stocker le token et sa date d'expiration
         user.ResetPasswordToken = resetToken;
         user.ResetPasswordExpires = Date.now() + 3600000; // 1 heure
-        console.log("ici");
+        // console.log("ici");
         await user.save();
         console.log("ici en bas");
         // Envoyer l'email avec le lien de réinitialisation
@@ -155,7 +155,7 @@ exports.requestPasswordReset = async (req, res) => {
             `<p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant: <a href="https://yourfrontend.com/reset-password?token=${resetToken}">Réinitialiser le mot de passe</a></p>`,
         );
         // ...
-        console.log("ici en bas email");
+        // console.log("ici en bas email");
         res.status(200).json({ message: "Email de réinitialisation envoyé." });
     } catch (error) {
         console.error(

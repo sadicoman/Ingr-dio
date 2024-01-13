@@ -2,7 +2,6 @@ const GardeManger = require("../models/GardeManger");
 const Aliment = require("../models/Aliment");
 
 const gardeMangerController = {
-
     obtenirContenu: async (req, res) => {
         try {
             const userId = req.userId;
@@ -23,23 +22,23 @@ const gardeMangerController = {
     },
 
     ajouterAliment: async (req, res) => {
-        console.log("Données reçues:", req.body);
+        // console.log("Données reçues:", req.body);
         try {
             const userId = req.userId;
             const { nomAliment, Quantite, Unite } = req.body;
 
-            console.log("Nom Aliment:", nomAliment); // Log individuel
-            console.log("Quantite:", Quantite);
-            console.log("Unite:", Unite);
+            // console.log("Nom Aliment:", nomAliment); // Log individuel
+            // console.log("Quantite:", Quantite);
+            // console.log("Unite:", Unite);
 
             // Log pour déboguer
-            console.log("Requête reçue :", nomAliment, Quantite, Unite);
+            // console.log("Requête reçue :", nomAliment, Quantite, Unite);
 
             // Trouver l'ID de l'aliment basé sur son nom
             const aliment = await Aliment.findOne({ where: { Nom: nomAliment } });
 
             // Log pour déboguer
-            console.log("Aliment trouvé :", aliment);
+            // console.log("Aliment trouvé :", aliment);
 
             if (!aliment) {
                 return res.status(404).send("Aliment non trouvé.");

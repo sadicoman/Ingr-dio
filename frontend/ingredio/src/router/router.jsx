@@ -29,7 +29,7 @@ const router = createBrowserRouter([
                 element: <Register />,
             },
             {
-                path: "landingPage", // Utilisation de PrivateRoute ici
+                path: "landingPage",
                 element: (
                     <PrivateRoute>
                         <LandingPage />
@@ -76,7 +76,6 @@ const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
-            // Ajoutez d'autres routes publiques ou protégées ici
         ],
     },
 ]);

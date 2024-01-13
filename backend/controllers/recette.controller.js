@@ -65,10 +65,10 @@ const RecetteController = {
 
     getSuggestionsRecettes: async (req, res) => {
         try {
-            console.log("Aliments reçus:", req.body.aliments);
+            // console.log("Aliments reçus:", req.body.aliments);
             // Liste des ID d'aliments du garde-manger de l'utilisateur
             const alimentsGardeManger = req.body.aliments;
-            console.log("Aliments du garde-manger:", alimentsGardeManger);
+            // console.log("Aliments du garde-manger:", alimentsGardeManger);
 
             // Recherche des recettes qui utilisent ces aliments
             const recettesPotentielles = await Recette.findAll({
@@ -82,7 +82,7 @@ const RecetteController = {
                 ],
             });
 
-            console.log("Recettes potentielles trouvées:", recettesPotentielles);
+            // console.log("Recettes potentielles trouvées:", recettesPotentielles);
 
             // Filtrer et trier les recettes selon vos critères
             const recettesSuggerees = filtrerEtTrierRecettes(
@@ -90,7 +90,7 @@ const RecetteController = {
                 alimentsGardeManger,
             );
 
-            console.log("Recettes suggérées:", recettesSuggerees);
+            // console.log("Recettes suggérées:", recettesSuggerees);
 
             res.json(recettesSuggerees);
         } catch (error) {

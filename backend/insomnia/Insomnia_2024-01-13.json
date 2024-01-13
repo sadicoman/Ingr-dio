@@ -1,0 +1,1419 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2024-01-13T22:05:37.214Z",
+    "__export_source": "insomnia.desktop.app:v8.5.1",
+    "resources": [
+        {
+            "_id": "req_4cd9944c174545b1987b138d69af6449",
+            "parentId": "fld_005b25076b23481ba8d083ff14e4bda7",
+            "modified": 1700642147724,
+            "created": 1700252970340,
+            "url": "http://localhost:8000/etapes/1",
+            "name": "Supprimer une Étape Spécifique",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_9c42d11766624517a7633cf4ef7fc06b"
+                },
+                {
+                    "id": "pair_a2482efac8f74c2898c67a86fa21a418",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700244210177,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_005b25076b23481ba8d083ff14e4bda7",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1700243102164,
+            "created": 1700243102164,
+            "name": "etape Recette",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1700243102164,
+            "_type": "request_group"
+        },
+        {
+            "_id": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "parentId": null,
+            "modified": 1699008427470,
+            "created": 1699008427470,
+            "name": "ingredio",
+            "description": "",
+            "scope": "design",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_707f8997366c46fea166f68557a6a1d9",
+            "parentId": "fld_005b25076b23481ba8d083ff14e4bda7",
+            "modified": 1701165095560,
+            "created": 1700252599672,
+            "url": "http://localhost:8000/etapes/1",
+            "name": "Mettre à Jour une Étape Spécifique",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"RecetteID\": 1,\n  \"Description\": \"Description de l'étape 3\",\n  \"Position\": 3\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_38e7b340a1c54d2ba325c2115cf9c03a"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_9c42d11766624517a7633cf4ef7fc06b"
+                },
+                {
+                    "id": "pair_a2482efac8f74c2898c67a86fa21a418",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMTY1MDgwLCJleHAiOjE3MDEyNTE0ODB9.680iGq61VGcpjXhZ_iPhbdRIn9b1H8-g8F454XxqYMI",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700244210077,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_7da5deb7c7af4dd083e32629ee64063a",
+            "parentId": "fld_005b25076b23481ba8d083ff14e4bda7",
+            "modified": 1701165235801,
+            "created": 1700244209977,
+            "url": "http://localhost:8000/etapes/ajouter-multiples",
+            "name": "Ajouter plusieurs étapes",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "[\n  {\n    \"RecetteID\": 2,\n    \"Description\": \"Faire bouillir à feu moyen 500ml d’eau, baisser à feu très doux puis verser le riz et couvrir. Cuisson : 10 min.\",\n    \"Position\": 1\n  },\n  {\n    \"RecetteID\": 2,\n    \"Description\": \"Couper en lamelles le steak et le faire revenir à la poêle dans de l’huile.\",\n    \"Position\": 2\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Placer les edamame surgelés au micro-ondes à 800W durant 7 min.\",\n    \"Position\": 3\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Sans enlever le couvercle, couper le feu du riz et laisser reposer 15 min.\",\n    \"Position\": 4\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Emincer les échalotes et oignons jeunes.\",\n    \"Position\": 5\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Râper la carotte.\",\n    \"Position\": 6\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Ajouter au riz 4-5 cuillères à soupe de vinaigre de riz et une cuillère à café de sel, puis mélanger.\",\n    \"Position\": 7\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Couper en morceaux le saumon cru, la feta et la betterave. Réserver.\",\n    \"Position\": 8\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Répartir dans les bols en ajoutant le maïs et les cubes de jambon. Garnir d’oeufs de poisson, d’oignon frit et de sauce soja/teriyaki.\",\n    \"Position\": 9\n  },\n\t{\n    \"RecetteID\": 2,\n    \"Description\": \"Laisser les bols 15-20 min au frigo.\",\n    \"Position\": 10\n  }\n]\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_40d7c53126744c44a4661b7c8bca119a"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_e8a5ab39f6f149a4a78c3a66d2c4ac8a"
+                },
+                {
+                    "id": "pair_2b3807e88d3743fb998d5dd67f8019e4",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMTY1MDgwLCJleHAiOjE3MDEyNTE0ODB9.680iGq61VGcpjXhZ_iPhbdRIn9b1H8-g8F454XxqYMI",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700244209977,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_464cb2f98201453b84871ee5bc3998f4",
+            "parentId": "fld_005b25076b23481ba8d083ff14e4bda7",
+            "modified": 1700642135756,
+            "created": 1700243104525,
+            "url": "http://localhost:8000/etapes/ajouter",
+            "name": "Ajouter une étape à une recette",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"RecetteID\": 1,\n  \"Description\": \"Description de l'étape 3\",\n  \"Position\": 3\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_0e1a4ba316194fc4993b5a0f86854473"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_9c42d11766624517a7633cf4ef7fc06b"
+                },
+                {
+                    "id": "pair_a2482efac8f74c2898c67a86fa21a418",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700243104525,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_dd5ec43c1c3b4b38a632ca6cb69d5273",
+            "parentId": "fld_005b25076b23481ba8d083ff14e4bda7",
+            "modified": 1701164809312,
+            "created": 1700243303628,
+            "url": "http://localhost:8000/etapes/recette/2",
+            "name": "Obtenir toutes les étapes d'une recette spécifique",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_be540dffb59f42308c582b0858bf3786"
+                },
+                {
+                    "id": "pair_c484066a3e7f4dbda2afffe691dd083f",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMTY0Nzg4LCJleHAiOjE3MDEyNTExODh9.F5uPrjPhcYZJQF5tA2QHbp--T9eNhFynKgztzp2TI9s",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700243104425,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_d23626c5a9134d38afcbc5265a026140",
+            "parentId": "fld_db1a7d83fc8f4212a3d7b00e4cc978ba",
+            "modified": 1700642124528,
+            "created": 1700248715384,
+            "url": "http://localhost:8000/ingredientsRecettes/1",
+            "name": "Supprimer un Ingrédient Spécifique d'une Recette",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_78b2682c711547aab8d8f428896fa0af"
+                },
+                {
+                    "id": "pair_357d46f3f5be48dea717cf730419d1f0",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700244075893,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_db1a7d83fc8f4212a3d7b00e4cc978ba",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1700232725540,
+            "created": 1700232725540,
+            "name": "ingredients Recette",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1700232725540,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_3b20eb3773ec4547ba7e578f320b8c00",
+            "parentId": "fld_db1a7d83fc8f4212a3d7b00e4cc978ba",
+            "modified": 1700642117537,
+            "created": 1700248644667,
+            "url": "http://localhost:8000/ingredientsRecettes/1",
+            "name": " Mettre à Jour un Ingrédient Spécifique dans une Recette",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"AlimentID\": 5,\n\t\"RecetteID\": 1,\n\t\"Quantite\": 100,\n\t\"Unite\": \"gramme\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_b64f8637c73d4cfea2c0bcb3e116b5ba"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_78b2682c711547aab8d8f428896fa0af"
+                },
+                {
+                    "id": "pair_357d46f3f5be48dea717cf730419d1f0",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700244075793,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_f7da9dd6dd8848669a255f27b08ff778",
+            "parentId": "fld_db1a7d83fc8f4212a3d7b00e4cc978ba",
+            "modified": 1701100991426,
+            "created": 1700244075693,
+            "url": "http://localhost:8000/ingredientsRecettes/ajouter-multiples",
+            "name": "Ajouter plusieurs ingrédients",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "[\n\t{\n    \"AlimentID\": 34,\n    \"RecetteID\": 2,\n    \"Quantite\": 2,\n    \"Unite\": \"cs\"\n  },\n\t{\n    \"AlimentID\": 35,\n    \"RecetteID\": 2,\n    \"Quantite\": 700,\n    \"Unite\": \"ml\"\n  }\n]\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_b64f8637c73d4cfea2c0bcb3e116b5ba"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_78b2682c711547aab8d8f428896fa0af"
+                },
+                {
+                    "id": "pair_357d46f3f5be48dea717cf730419d1f0",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMDc1Nzg1LCJleHAiOjE3MDExNjIxODV9.riE1tG9znoW58V-TkYCDJ6DX8DmOQJLnZha2_JD3b8E",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700244075693,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_25d2710ae1e34a87a4f1bf4b777932f2",
+            "parentId": "fld_db1a7d83fc8f4212a3d7b00e4cc978ba",
+            "modified": 1700642091352,
+            "created": 1700232728918,
+            "url": "http://localhost:8000/ingredientsRecettes/ajouter",
+            "name": "Ajouter un ingrédient à une recette",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"AlimentID\": 6,\n  \"RecetteID\": 1,\n  \"Quantite\": 450,\n  \"Unite\": \"gramme\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_c6395005014c43b498188128a5faec81"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_fce3878ea526420f8dd5a248bad1e70d"
+                },
+                {
+                    "id": "pair_495425851e3149c0820618215e15e26a",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700232728918,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_e7d477843c8d41c59e3cb732b927d278",
+            "parentId": "fld_db1a7d83fc8f4212a3d7b00e4cc978ba",
+            "modified": 1701175147274,
+            "created": 1700236485782,
+            "url": "http://localhost:8000/ingredientsRecettes/recette/2",
+            "name": "Obtenir les ingrédients d'une recette spécifique",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_2159079d7f4742ab859762706c506ebb"
+                },
+                {
+                    "id": "pair_58d72e2ef3904ed7b3604a87d3489a00",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMTY1MDgwLCJleHAiOjE3MDEyNTE0ODB9.680iGq61VGcpjXhZ_iPhbdRIn9b1H8-g8F454XxqYMI",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700232728818,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_ec18f68a14464217ba842ce65d061051",
+            "parentId": "fld_5ad68c746dc243d4bfa77fa06c99670e",
+            "modified": 1701173021706,
+            "created": 1701169475066,
+            "url": "http://localhost:8000/recettes/suggestions",
+            "name": "/recettes/suggestions",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n    \"aliments\": [1, 2]\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.5",
+                    "id": "pair_d26307d4798c4d7ba19a5bcc4a714fc4"
+                },
+                {
+                    "id": "pair_65aabd6fe895454db31eb6e43cb91c9d",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMTY1MDgwLCJleHAiOjE3MDEyNTE0ODB9.680iGq61VGcpjXhZ_iPhbdRIn9b1H8-g8F454XxqYMI",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1701169475066,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_5ad68c746dc243d4bfa77fa06c99670e",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1705179344648,
+            "created": 1700232102940,
+            "name": "Recette",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1700232102940,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_fcfce05aeffc4a7bb69b0dcc52b3a1bb",
+            "parentId": "fld_5ad68c746dc243d4bfa77fa06c99670e",
+            "modified": 1700642081876,
+            "created": 1700248144857,
+            "url": "http://localhost:8000/recettes/1",
+            "name": "Supprimer une Recette Spécifique",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_7197afee20644459b9692956c7cc27a3"
+                },
+                {
+                    "id": "pair_ca169fd927e74c8a94a121622c25a734",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700232105548,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_988b8884a0e848b4839dac0618781aa8",
+            "parentId": "fld_5ad68c746dc243d4bfa77fa06c99670e",
+            "modified": 1700642076798,
+            "created": 1700248102108,
+            "url": "http://localhost:8000/recettes/1",
+            "name": "Mettre à Jour une Recette Spécifique",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"Nom\": \"Nom de la recette\",\n  \"TempsDePreparation\": 30,\n  \"TempsDeCuisson\": 45,\n  \"NiveauDeDifficulte\": \"moyen\",\n  \"NombreDePersonnes\": 4,\n  \"CaloriesParPersonne\": 500\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_29c89ee859c0493facfd5579df65e0a3"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_7197afee20644459b9692956c7cc27a3"
+                },
+                {
+                    "id": "pair_ca169fd927e74c8a94a121622c25a734",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700232105448,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_d20414efd9724983a4f1abfa3d8dd6e2",
+            "parentId": "fld_5ad68c746dc243d4bfa77fa06c99670e",
+            "modified": 1701100176129,
+            "created": 1700232105348,
+            "url": "http://localhost:8000/recettes/ajouter",
+            "name": "Ajouter",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"Nom\": \"Poké bowl\",\n  \"TempsDePreparation\": 90,\n  \"TempsDeCuisson\": 15,\n  \"NiveauDeDifficulte\": \"moyen\",\n  \"NombreDePersonnes\": 2,\n  \"CaloriesParPersonne\": 500\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_29c89ee859c0493facfd5579df65e0a3"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_7197afee20644459b9692956c7cc27a3"
+                },
+                {
+                    "id": "pair_ca169fd927e74c8a94a121622c25a734",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMDc1Nzg1LCJleHAiOjE3MDExNjIxODV9.riE1tG9znoW58V-TkYCDJ6DX8DmOQJLnZha2_JD3b8E",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700232105348,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_c9d032f8b5d44467a349aa6df80f6971",
+            "parentId": "fld_5ad68c746dc243d4bfa77fa06c99670e",
+            "modified": 1701079676820,
+            "created": 1700247985776,
+            "url": "http://localhost:8000/recettes/1",
+            "name": "Obtenir une Recette Spécifique par ID",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_0a176da2af214c1280110bc55d7940f0"
+                },
+                {
+                    "id": "pair_e917b4f88c504e62bd572771b52650e8",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMDc1Nzg1LCJleHAiOjE3MDExNjIxODV9.riE1tG9znoW58V-TkYCDJ6DX8DmOQJLnZha2_JD3b8E",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700232105298,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_bb46b232a18149feb713532a185069b1",
+            "parentId": "fld_5ad68c746dc243d4bfa77fa06c99670e",
+            "modified": 1701175095340,
+            "created": 1700232603040,
+            "url": "http://localhost:8000/recettes",
+            "name": "Obtenir toutes les recettes",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_0a176da2af214c1280110bc55d7940f0"
+                },
+                {
+                    "id": "pair_e917b4f88c504e62bd572771b52650e8",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMTY1MDgwLCJleHAiOjE3MDEyNTE0ODB9.680iGq61VGcpjXhZ_iPhbdRIn9b1H8-g8F454XxqYMI",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700232105248,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_4832869095b843f4a182dad4f26efe22",
+            "parentId": "fld_4c0e458dacd8432680a23b410b2c018e",
+            "modified": 1700642051540,
+            "created": 1700146796275,
+            "url": "http://localhost:8000/gardeMangers/supprimer/4",
+            "name": "Supprimer un Aliment",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_69a2174b27744386aad32948f7c08683"
+                },
+                {
+                    "id": "pair_b49f4c4f3e18479b9ecd106ebe9ab1de",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwMTQ3MTU1LCJleHAiOjE3MDAyMzM1NTV9.dxaRT3QelqgCMYmPFFQ0TeOQcph2k9B0EMIe5lIB5Zk"
+            },
+            "metaSortKey": -1700146796275,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_4c0e458dacd8432680a23b410b2c018e",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1699625307027,
+            "created": 1699625307027,
+            "name": "Garde Manger",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1699625307028,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_bfee9cf58d134267934a92c313d896a8",
+            "parentId": "fld_4c0e458dacd8432680a23b410b2c018e",
+            "modified": 1700792622248,
+            "created": 1699629726969,
+            "url": "http://localhost:8000/gardeMangers/mettre-a-jour/19",
+            "name": " Mettre à Jour un Aliment",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"AlimentID\": 5,\n  \"Quantite\": 500,\n  \"Unite\": \"gramme\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_4a2913cbb0a248be9ea6240243ec4584"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.0",
+                    "id": "pair_9d0c6dc48d5f4c29a547b7b71d43322c"
+                },
+                {
+                    "id": "pair_91b0e1f2bdbe4abbb2d39d078d2082cc",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNzY0NjYxLCJleHAiOjE3MDA4NTEwNjF9.iLcyUHhaWJV4BddbDqSW7EhH4_ZJZGRyx54FaRc1R3M",
+                    "description": ""
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwMTQ3MTU1LCJleHAiOjE3MDAyMzM1NTV9.dxaRT3QelqgCMYmPFFQ0TeOQcph2k9B0EMIe5lIB5Zk"
+            },
+            "metaSortKey": -1699629726969,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_2a151c523b514b349b164cceb8768aa1",
+            "parentId": "fld_4c0e458dacd8432680a23b410b2c018e",
+            "modified": 1701098975789,
+            "created": 1700245832175,
+            "url": "http://localhost:8000/gardeMangers/ajouter-multiples",
+            "name": "create Multiple",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "[\n    { \"AlimentID\": 1, \"Quantite\": 5, \"Unite\": \"gramme\" },\n    { \"AlimentID\": 2, \"Quantite\": 3, \"Unite\": \"piece\" }\n]\n\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_bf6f09ada99a4e9fbe0e59e9bad54110"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_cd0228d7fc71428a864b29ec8b002f0a"
+                },
+                {
+                    "id": "pair_4bb5161476d14b64b4dc205f638bf56d",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699627912726.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_5a05263474ad4dd291f1c519a91b15cc",
+            "parentId": "fld_4c0e458dacd8432680a23b410b2c018e",
+            "modified": 1700148680475,
+            "created": 1699626098484,
+            "url": "http://localhost:8000/gardeMangers/ajouter",
+            "name": "Ajouter",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"AlimentID\": 9,\n  \"Quantite\": 1,\n  \"Unite\": \"piece\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_e60feb9bb7ae434ba7eb36522fa0a367"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.0",
+                    "id": "pair_145799ad2cce42e2a6c76c337979f5d7"
+                },
+                {
+                    "id": "pair_a2a0431c95fa44ef9ad1c585e9c195c8",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwMTQ3MTU1LCJleHAiOjE3MDAyMzM1NTV9.dxaRT3QelqgCMYmPFFQ0TeOQcph2k9B0EMIe5lIB5Zk",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699626098484,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_a148f9914bd84e5e934bba5bb9c0eb58",
+            "parentId": "fld_4c0e458dacd8432680a23b410b2c018e",
+            "modified": 1700778246691,
+            "created": 1700763408750,
+            "url": "http://localhost:8000/gardeMangers/ajouter",
+            "name": "Ajouter 2",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"nomAliment\": \"melon\",\n  \"Quantite\": 1,\n  \"Unite\": \"piece\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_e60feb9bb7ae434ba7eb36522fa0a367"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.0",
+                    "id": "pair_145799ad2cce42e2a6c76c337979f5d7"
+                },
+                {
+                    "id": "pair_a2a0431c95fa44ef9ad1c585e9c195c8",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNzY0NjYxLCJleHAiOjE3MDA4NTEwNjF9.iLcyUHhaWJV4BddbDqSW7EhH4_ZJZGRyx54FaRc1R3M",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699626097303.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_86a716586c0e4fc696af0e196a66e663",
+            "parentId": "fld_4c0e458dacd8432680a23b410b2c018e",
+            "modified": 1701175172608,
+            "created": 1699626096123,
+            "url": "http://localhost:8000/gardeMangers/",
+            "name": "Contenu",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.0",
+                    "id": "pair_13ca23eece3f4ee98765b59ab312ad6a"
+                },
+                {
+                    "id": "pair_b72d1bc5710a4d9a978bcb0fa973cf4d",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMTY1MDgwLCJleHAiOjE3MDEyNTE0ODB9.680iGq61VGcpjXhZ_iPhbdRIn9b1H8-g8F454XxqYMI",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699626096123,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_b3679aa889e24f7f8c6a5a8de0aef479",
+            "parentId": "fld_a2f9a8bc4c30434d84edc26990589630",
+            "modified": 1699626607383,
+            "created": 1699539506380,
+            "url": "http://localhost:8000/aliments/10",
+            "name": "Supprimer un aliment par ID",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0",
+                    "id": "pair_25ebb416753a47d8bff18a10c9e7fae9"
+                },
+                {
+                    "id": "pair_eac3100c23e94124b3cd9ca27be00495",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjk5NTI4NjYyLCJleHAiOjE2OTk2MTUwNjJ9.tWiMPlygaJ9dxkjgS7EC07t9VUpky4Yn_F6nvZQIRH8",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699530486302,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_a2f9a8bc4c30434d84edc26990589630",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1699465803148,
+            "created": 1699465803148,
+            "name": "Aliment",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1699465803148,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_f1e4bb816698457eb941a9a7884236a3",
+            "parentId": "fld_a2f9a8bc4c30434d84edc26990589630",
+            "modified": 1700851741863,
+            "created": 1699530486202,
+            "url": "http://localhost:8000/aliments/17",
+            "name": "Mettre à jour un aliment par ID",
+            "description": "",
+            "method": "PUT",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{ \n\t\"Nom\": \"cornichon pickles\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_044b0ddd255747599d66327a6839eed1"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0",
+                    "id": "pair_e1cdae2b1bdf466dab758b227418eb10"
+                },
+                {
+                    "id": "pair_8c635f5c34dd4e14a645cdd1c5671b85",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwODUxNzMyLCJleHAiOjE3MDA5MzgxMzJ9.cWg7BbT9_MKCYBuURU5JlrxpWwjI2owlINNHm5HC8l4",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699530486202,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_5b504d6c17924e6a95543870e08167a3",
+            "parentId": "fld_a2f9a8bc4c30434d84edc26990589630",
+            "modified": 1701098664064,
+            "created": 1700247156832,
+            "url": "http://localhost:8000/aliments/createMultiple",
+            "name": "create Multiple",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "[\n    { \"Nom\": \"Riz (sushi)\"},\n    { \"Nom\": \"Steak\"},\n\t\t{ \"Nom\": \"Saumon cru\"},\n\t\t{ \"Nom\": \"Edamame\"},\n\t\t{ \"Nom\": \"Maïs (grains)\"},\n\t\t{ \"Nom\": \"Cubes de jambon\"},\n\t\t{ \"Nom\": \"Feta\"},\n\t\t{ \"Nom\": \"Betterave\"},\n\t\t{ \"Nom\": \"Echalote\"},\n\t { \"Nom\": \"Oignon jeune\"},\n\t { \"Nom\": \"Carotte râpée\"},\n\t { \"Nom\": \"Oignon frit\"},\n\t { \"Nom\": \"Oeufs de poisson\"},\n\t { \"Nom\": \"Sauce teriyaki\"},\n\t { \"Nom\": \"Sauce soja\"},\n\t { \"Nom\": \"Huile\"},\n\t { \"Nom\": \"Eau\"}\n]\n"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_bf6f09ada99a4e9fbe0e59e9bad54110"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.2",
+                    "id": "pair_cd0228d7fc71428a864b29ec8b002f0a"
+                },
+                {
+                    "id": "pair_4bb5161476d14b64b4dc205f638bf56d",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAxMDc1Nzg1LCJleHAiOjE3MDExNjIxODV9.riE1tG9znoW58V-TkYCDJ6DX8DmOQJLnZha2_JD3b8E",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699530289414.375,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_89a16d2968be437592da1fcd45c902eb",
+            "parentId": "fld_a2f9a8bc4c30434d84edc26990589630",
+            "modified": 1700642035747,
+            "created": 1699465849051,
+            "url": "http://localhost:8000/aliments",
+            "name": "Créer",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{ \n\t\"AlimentID\": 12,\n\t\"Nom\": \"Farine\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json",
+                    "id": "pair_725c070d0c414a04817b9d2cd3171299"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0",
+                    "id": "pair_f733b05814014610a4e65b12e2e90221"
+                },
+                {
+                    "id": "pair_3ea7741821644844b72e470980a2b86a",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwMTQ3MTU1LCJleHAiOjE3MDAyMzM1NTV9.dxaRT3QelqgCMYmPFFQ0TeOQcph2k9B0EMIe5lIB5Zk",
+                "disabled": false
+            },
+            "metaSortKey": -1699530223818.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_2e27dd6c41bc4e5a8e364c6161da8ae8",
+            "parentId": "fld_a2f9a8bc4c30434d84edc26990589630",
+            "modified": 1700642027532,
+            "created": 1699530333137,
+            "url": "http://localhost:8000/aliments/1",
+            "name": "Obtenir un aliment par ID",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0",
+                    "id": "pair_dcc7b2f52206482e912f1972ddeb4194"
+                },
+                {
+                    "id": "pair_527ac119076841b391f5d29c894e601b",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNjQxOTg1LCJleHAiOjE3MDA3MjgzODV9.6G1n4D2UP5jjkN1uo3tmOgkV2r1Sf_ZtdAa_YUdeRYw",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699529961435,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_7aaf33dfa498445187707226b2e4be5f",
+            "parentId": "fld_a2f9a8bc4c30434d84edc26990589630",
+            "modified": 1700764748238,
+            "created": 1699529961335,
+            "url": "http://localhost:8000/aliments",
+            "name": "Liste des Aliments",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0",
+                    "id": "pair_40d22e4f9e914fb1a332c3c6061b2f0e"
+                },
+                {
+                    "id": "pair_e0969135773b44e69ea661500e12a351",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwNzY0NjYxLCJleHAiOjE3MDA4NTEwNjF9.iLcyUHhaWJV4BddbDqSW7EhH4_ZJZGRyx54FaRc1R3M",
+                    "description": ""
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699529961335,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_3e3b62b3b25c4edbb249b636fc7d52b5",
+            "parentId": "fld_e1053c685ecd4dbda178ac66e48bcf75",
+            "modified": 1699264014200,
+            "created": 1699024308570,
+            "url": "http://localhost:8000/users/requestReset",
+            "name": "requestPasswordReset",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"Email\": \"ingredio.noreply@francois-szczepkowski.be\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" },
+                { "name": "User-Agent", "value": "insomnia/8.3.0" }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699024308570,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_e1053c685ecd4dbda178ac66e48bcf75",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1699010261465,
+            "created": 1699010261465,
+            "name": "Users",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1699010261465,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_442fa2ab923a46359596e6a0762fa2c5",
+            "parentId": "fld_e1053c685ecd4dbda178ac66e48bcf75",
+            "modified": 1700841807352,
+            "created": 1699018193929,
+            "url": "http://localhost:8000/users/profile",
+            "name": "Get User Profile",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.3.0",
+                    "id": "pair_f88cf8dd69b445fcaca2a0a98b7ea36a"
+                },
+                {
+                    "id": "pair_fad72c3550ed44d990551eff7ceddeb6",
+                    "name": "Authorization",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzAwODQxNzg4LCJleHAiOjE3MDA5MjgxODh9.-EuI4fkJudZY9JTvqkD5raZdG9OV8Q_h37Vx9y6GJEI",
+                    "description": ""
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjk5NDY5OTU4LCJleHAiOjE2OTk1NTYzNTh9.QcUmQl7d8s0lhULokT_utBuJrcNAg1GDFKLeOvCuBvU"
+            },
+            "metaSortKey": -1699018193929,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_6c3d8ec6b0e74f1a9c26870cc945ae91",
+            "parentId": "fld_e1053c685ecd4dbda178ac66e48bcf75",
+            "modified": 1700661254311,
+            "created": 1699015057110,
+            "url": "http://localhost:8000/users/login",
+            "name": "login",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"login\": \"email@exemple.com\",\n  \"MotDePasse\": \"motdepasse123\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" },
+                { "name": "User-Agent", "value": "insomnia/8.3.0" }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699015057110,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_c55fab3c2d3f4617981e23ea3a3bbbcb",
+            "parentId": "fld_e1053c685ecd4dbda178ac66e48bcf75",
+            "modified": 1700753719343,
+            "created": 1700753697301,
+            "url": "http://localhost:8000/users/login",
+            "name": "login sadi",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"login\": \"Sadicoman\",\n  \"MotDePasse\": \"Insecte#1499\"\n}"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" },
+                { "name": "User-Agent", "value": "insomnia/8.3.0" }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699012661212.5,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_730369063fcb4b5bba87843c53a1444a",
+            "parentId": "fld_e1053c685ecd4dbda178ac66e48bcf75",
+            "modified": 1700676938073,
+            "created": 1699008542634,
+            "url": "http://localhost:8000/users/register",
+            "name": "register",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"Pseudo\": \"Sg1\",\n  \"Email\": \"fakirano14pro@gmail.com\",\n  \"MotDePasse\": \"Stargate#1499\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" },
+                { "name": "User-Agent", "value": "insomnia/8.3.0" }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699010265315,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_c1dcc55db1054cecb1a36d7d9637c064",
+            "parentId": "fld_e1053c685ecd4dbda178ac66e48bcf75",
+            "modified": 1699263773496,
+            "created": 1699263726693,
+            "url": "http://localhost:8000/users/register",
+            "name": "register fra",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"Pseudo\": \"ingredio\",\n  \"Email\": \"ingredio.noreply@francois-szczepkowski.be\",\n  \"MotDePasse\": \"motdepasse123#ingredio\"\n}\n"
+            },
+            "parameters": [],
+            "headers": [
+                { "name": "Content-Type", "value": "application/json" },
+                { "name": "User-Agent", "value": "insomnia/8.3.0" }
+            ],
+            "authentication": {},
+            "metaSortKey": -1699010265265,
+            "isPrivate": false,
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_64de661a5a9ffdd614b87768f0d0b215805020fc",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1699008427478,
+            "created": 1699008427478,
+            "name": "Base Environment",
+            "data": {},
+            "dataPropertyOrder": null,
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1699008427478,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_64de661a5a9ffdd614b87768f0d0b215805020fc",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1699008427482,
+            "created": 1699008427482,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        },
+        {
+            "_id": "spc_cb4e4bed78434ac9b27fbe660846104d",
+            "parentId": "wrk_881f5079ffb444b5b09087e908c8569b",
+            "modified": 1699259322737,
+            "created": 1699008520593,
+            "fileName": "ingredio",
+            "contents": "Page introuvable",
+            "contentType": "yaml",
+            "_type": "api_spec"
+        }
+    ]
+}
