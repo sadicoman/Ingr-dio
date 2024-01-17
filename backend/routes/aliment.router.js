@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const alimentController = require("../controllers/aliment.controller");
 const verifyToken = require("../middleware/verifyToken");
+const upload = require("../middleware/imageUpload");
 
 // Middleware pour capturer les erreurs async
 const asyncHandler = (fn) => (req, res, next) =>
@@ -14,7 +15,15 @@ router.get("/", verifyToken, asyncHandler(alimentController.getAllAliments));
 router.get("/:id", verifyToken, asyncHandler(alimentController.getAlimentById));
 
 // Route pour créer un nouvel aliment
-router.post("/", verifyToken, asyncHandler(alimentController.createAliment));
+// router.post("/", verifyToken, asyncHandler(alimentController.createAliment));
+
+// Route pour créer un nouvel aliment (avec upload d'image)
+router.post(
+    "/",
+    verifyToken,
+    upload.single("image"),
+    asyncHandler(alimentController.createAliment),
+);
 
 // Route pour créer plusieurs aliments
 router.post("/createMultiple", verifyToken, alimentController.createMultipleAliments);

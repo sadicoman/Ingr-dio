@@ -38,7 +38,9 @@ async function syncDb() {
         const models = require("../models/relations");
 
         // await sequelize.sync({ force: true });
-        await sequelize.sync({}); // ou { force: false }
+        // await sequelize.sync({ alter: true });
+        await sequelize.sync({});
+        // ou { force: false }
         console.log("Tous les modèles ont été synchronisés avec succès.");
     } catch (error) {
         console.error("Erreur lors de la synchronisation des modèles:", error);

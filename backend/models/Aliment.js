@@ -24,6 +24,13 @@ const Aliment = sequelize.define("Aliment", {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    ImageUrl: {
+        type: DataTypes.STRING,
+        allowNull: true, // Rendre ce champ facultatif
+        // validate: {
+        //     isUrl: true, // Valider que c'est une URL valide (si vous stockez l'URL de l'image)
+        // },
+    },
 });
 
 module.exports = Aliment;

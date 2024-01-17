@@ -2,41 +2,59 @@
 const Aliment = require("../models/Aliment");
 const User = require("../models/User"); // Assurez-vous que le modèle User est correctement importé.
 
-// Fonction pour normaliser le nom de l'aliment
-const normalizeName = (name) => {
-    return typeof name === "string" ? name.toLowerCase().trim() : "";
-};
+const { uploadAndConvertImage2 } = require("./imageController");
+const normalizeName = require("../utils/normalizeName");
+const upload = require("../middleware/imageUpload");
+const { convertToWebP } = require("../utils/imageConverter");
+const path = require("path");
+const fs = require("fs");
+const imageController = require("./imageController");
 
-// Créer un nouvel aliment
 exports.createAliment = async (req, res) => {
-    const { Nom } = req.body; // Extraction du nom de l'aliment depuis le corps de la requête
-    console.log(req.userId); // Utilisation de req.userId maintenant
-
-    // Vérification pour s'assurer que Nom est fourni et est une chaîne non vide
+    // Extraction et validation du nom
+    const { Nom } = req.body;
     if (!Nom || typeof Nom !== "string" || !Nom.trim()) {
         return res.status(400).send("Le nom de l'aliment est requis.");
     }
 
-    const nomNormalise = normalizeName(Nom); // Normalisation du nom de l'aliment
+    const nomNormalise = normalizeName(Nom);
 
     try {
-        // Vérifie si l'aliment existe déjà dans la base de données
-        const existingAliment = await Aliment.findOne({ where: { Nom: nomNormalise } });
-
-        // Si l'aliment existe déjà, renvoyer un conflit
+        // Vérification de l'existence de l'aliment
+        const existingAliment = await Aliment.findOne({
+            where: { Nom: nomNormalise },
+        });
         if (existingAliment) {
             return res.status(409).send("Cet aliment existe déjà.");
         }
 
-        // Créer un nouvel aliment avec les données de la requête et l'ID de l'utilisateur
+        let imageUrl = null;
+
+        // Traitement de l'image si elle est présente
+        if (req.file) {
+            const inputPath = req.file.path;
+            const outputPath = path.join(
+                __dirname,
+                "../uploads/destination",
+                req.file.filename + ".webp",
+            );
+
+            await convertToWebP(inputPath, outputPath);
+            imageUrl = outputPath
+                .replace(/\\/g, "/")
+                .replace(/^.*\/uploads\//, "/uploads/");
+        }
+        console.log(imageUrl);
+        // Création de l'aliment dans la base de données
         const aliment = await Aliment.create({
-            ...req.body,
             Nom: nomNormalise,
-            UserID: req.userId, // Utilisation de req.userId
+            UserID: req.userId, // Assurez-vous que req.userId est correctement défini
+            ImageUrl: imageUrl,
         });
-        res.status(201).json(aliment); // Renvoie l'aliment créé avec le code de statut 201
-    } catch (error) {
-        res.status(500).send(error.message); // Gestion des erreurs serveur
+
+        res.status(201).json(aliment);
+    } catch (err) {
+        res.status(500).send("Erreur lors de la création de l'aliment: " + err.message);
     }
 };
 
@@ -52,6 +70,7 @@ exports.createMultipleAliments = async (req, res) => {
                 ...aliment,
                 Nom: normalizeName(aliment.Nom),
                 UserID: req.userId, // Assurez-vous que req.userId est disponible
+                ImageUrl: aliment.ImageUrl, // Assurez-vous d'inclure l'ImageUrl
             };
         });
 
@@ -90,8 +109,8 @@ exports.getAlimentById = async (req, res) => {
 // Mettre à jour un aliment
 exports.updateAliment = async (req, res) => {
     const { id } = req.params; // Extraction de l'identifiant de l'aliment
-    const { Nom } = req.body; // Extraction du nom de l'aliment
-    const nomNormalise = normalizeName(Nom); // Normalisation du nom
+    const { Nom, ImageUrl } = req.body; // Extraction du nom de l'aliment et de l'URL de l'image
+    const nomNormalise = Nom ? normalizeName(Nom) : undefined; // Normalisation du nom
 
     try {
         const aliment = await Aliment.findByPk(id); // Trouver l'aliment par son identifiant
@@ -105,7 +124,7 @@ exports.updateAliment = async (req, res) => {
         }
 
         // Vérifier l'unicité du nom si changement de nom
-        if (Nom && Nom !== aliment.Nom) {
+        if (nomNormalise && nomNormalise !== aliment.Nom) {
             const existingAliment = await Aliment.findOne({
                 where: { Nom: nomNormalise },
             });
@@ -114,8 +133,13 @@ exports.updateAliment = async (req, res) => {
             }
         }
 
+        // Préparation des données à mettre à jour
+        const updateData = {};
+        if (nomNormalise) updateData.Nom = nomNormalise;
+        if (ImageUrl) updateData.ImageUrl = ImageUrl; // Mise à jour de l'ImageUrl si elle est fournie
+
         // Mise à jour de l'aliment
-        await aliment.update({ Nom: nomNormalise });
+        await aliment.update(updateData);
         res.status(200).json(aliment); // Renvoie l'aliment mis à jour avec un code 200
     } catch (error) {
         res.status(500).send(error.message); // Gestion des erreurs serveur
