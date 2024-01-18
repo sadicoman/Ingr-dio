@@ -52,11 +52,37 @@ const Aliments = () => {
         }
     };
 
+    // const handleAjoutAliment = async () => {
+    //     if (!nouvelAliment) return;
+    //     try {
+    //         await creerAliment({ Nom: nouvelAliment });
+    //         setNouvelAliment("");
+    //         chargerAliments();
+    //     } catch (error) {
+    //         console.error("Erreur lors de l'ajout de l'aliment", error);
+    //     }
+    // };
+
+    const [imageFile, setImageFile] = useState(null);
+    const fileInputRef = useRef(null);
+
     const handleAjoutAliment = async () => {
         if (!nouvelAliment) return;
+
+        // Création de FormData pour l'envoi multipart
+        const formData = new FormData();
+        formData.append("Nom", nouvelAliment);
+        if (imageFile) {
+            formData.append("image", imageFile);
+        }
+
         try {
-            await creerAliment({ Nom: nouvelAliment });
+            await creerAliment(formData);
             setNouvelAliment("");
+            setImageFile(null); // Réinitialise l'état du fichier
+            if (fileInputRef.current) {
+                fileInputRef.current.value = ""; // Réinitialise le champ de saisie de fichier
+            }
             chargerAliments();
         } catch (error) {
             console.error("Erreur lors de l'ajout de l'aliment", error);
@@ -99,13 +125,21 @@ const Aliments = () => {
                             type="text"
                             value={nouvelAliment}
                             onChange={(e) => setNouvelAliment(e.target.value)}
-                            // placeholder="Nom de l'aliment"
                         />
                         <div className="cut" ref={cutRef}></div>
                         <label className="iLabel" ref={labelRef}>
                             Nom de l'aliment
                         </label>
                     </div>
+                    <div className="input-container ic2">
+                        <input
+                            className="input--fichier"
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={(e) => setImageFile(e.target.files[0])}
+                        />
+                    </div>
+
                     <button className="submit" onClick={handleAjoutAliment}>
                         Ajouter Aliment
                     </button>
@@ -113,6 +147,16 @@ const Aliments = () => {
                 <ul className="aliments__list">
                     {aliments.map((aliment) => (
                         <li className="aliments__el" key={aliment.AlimentID}>
+                            <img
+                                className="aliments__img"
+                                src={
+                                    aliment.ImageUrl
+                                        ? `http://localhost:8000${aliment.ImageUrl}`
+                                        : "src/assets/images/aliments.webp"
+                                }
+                                alt={aliment.Nom}
+                            />
+
                             <h4 className="title title--niveau5 aliment__nom">
                                 {aliment.Nom}
                             </h4>
@@ -149,6 +193,7 @@ const Aliments = () => {
                         </li>
                     ))}
                 </ul>
+
                 {alimentAModifier && (
                     <FormModificationAliment
                         alimentAModifier={alimentAModifier}

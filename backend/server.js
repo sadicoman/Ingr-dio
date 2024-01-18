@@ -17,6 +17,9 @@ app.use(
     }),
 );
 
+// Serveur les images statiques du dossier 'uploads'
+app.use("/uploads", express.static("uploads"));
+
 // Test de la connexion à la base de données
 dbUtils.testDbConnection();
 
