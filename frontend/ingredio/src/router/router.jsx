@@ -10,6 +10,7 @@ import Profil from "../components/pages/Profil/Profil.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 import Aliments from "../components/pages/Aliments/Aliments.jsx";
 import RecetteDetails from "../components/pages/Recettes/RecetteDetails.jsx";
+import ResetPassword from "../components/pages/ResetPassword/ResetPassword.jsx";
 
 const router = createBrowserRouter([
     {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
                         <Profil />
                     </PrivateRoute>
                 ),
+            },
+            {
+                path: "reset-password",
+                element: <ResetPassword />,
             },
         ],
     },

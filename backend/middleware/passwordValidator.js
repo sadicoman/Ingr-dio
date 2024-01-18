@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
     if (erreurs.length > 0) {
         return res.status(400).json({
             message: "Validation du mot de passe échouée.",
-            erreurs: erreurs,
+            erreurs: erreurs, // Assurez-vous que les erreurs sont correctement renvoyées ici
         });
     }
 

@@ -24,6 +24,6 @@ router.put("/profile", verifyToken, userController.updateUserProfile);
 router.post("/requestReset", userController.requestPasswordReset);
 
 // POST : Réinitialisation de mot de passe
-router.post("/resetPassword", userController.resetPassword);
+router.post("/resetPassword", passwordValidator, userController.resetPassword);
 
 module.exports = router;

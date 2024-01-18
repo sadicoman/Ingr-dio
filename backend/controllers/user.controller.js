@@ -152,7 +152,7 @@ exports.requestPasswordReset = async (req, res) => {
         sendEmail(
             user.Email,
             "Demande de réinitialisation de mot de passe",
-            `<p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant: <a href="https://yourfrontend.com/reset-password?token=${resetToken}">Réinitialiser le mot de passe</a></p>`,
+            `<p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant: <a href="http://localhost:5173/reset-password?token=${resetToken}">Réinitialiser le mot de passe</a></p>`,
         );
         // ...
         // console.log("ici en bas email");
@@ -171,45 +171,44 @@ exports.requestPasswordReset = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
     try {
-        const { token, nouveauMotDePasse } = req.body;
+        const { token, MotDePasse } = req.body;
+
+        // Étape 1 : Recherche de l'utilisateur par le token de réinitialisation
         const user = await User.findOne({
             where: {
                 ResetPasswordToken: token,
-                ResetPasswordExpires: {
-                    [Op.gt]: Date.now(),
-                },
+                ResetPasswordExpires: { [Op.gt]: Date.now() }, // Vérifie si le token n'a pas expiré
             },
         });
 
+        // Étape 2 : Vérification si l'utilisateur a été trouvé
         if (!user) {
+            console.log("Token de réinitialisation invalide ou expiré.");
             return res
                 .status(400)
                 .json({ message: "Token de réinitialisation invalide ou expiré." });
         }
 
-        // Réinitialiser le mot de passe
-        const salt = bcrypt.genSaltSync(10);
-        user.MotDePasse = bcrypt.hashSync(nouveauMotDePasse, salt);
+        // Étape 3 : Réinitialisation du mot de passe
+        console.log("Utilisateur trouvé, réinitialisation du mot de passe...");
+
+        user.MotDePasse = MotDePasse; // Utilisation du mot de passe fourni
+
         user.ResetPasswordToken = null;
         user.ResetPasswordExpires = null;
+
+        // Sauvegarde de l'utilisateur mis à jour
         await user.save();
 
-        // Envoyer une confirmation de réinitialisation de mot de passe
-        await sendEmail(
-            user.Email,
-            "Demande de réinitialisation de mot de passe",
-            `<p>Pour réinitialiser votre mot de passe, veuillez cliquer sur le lien suivant: <a href="https://yourfrontend.com/reset-password?token=${resetToken}">Réinitialiser le mot de passe</a></p>`,
-        );
+        console.log("Mot de passe réinitialisé avec succès.");
 
-        // Réponse en cas de succès
-        res.status(200).json({ message: "Email de réinitialisation envoyé." });
-
+        // Étape 4 : Répondez avec un message de succès
         res.status(200).json({ message: "Mot de passe réinitialisé avec succès." });
     } catch (error) {
-        // Gestion des erreurs lors de l'envoi de l'email
+        console.error("Erreur lors de la réinitialisation du mot de passe:", error);
         res.status(500).json({
-            message: "Erreur lors de la demande de réinitialisation du mot de passe.",
-            error: error.message, // Ajouter cette ligne pour le débogage
+            message: "Erreur lors de la réinitialisation du mot de passe.",
+            error: error.message,
         });
     }
 };
