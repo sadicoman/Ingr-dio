@@ -29,7 +29,8 @@ router.post(
 router.post("/createMultiple", verifyToken, alimentController.createMultipleAliments);
 
 // Route pour mettre à jour un aliment par ID
-router.put("/:id", verifyToken, asyncHandler(alimentController.updateAliment));
+// router.put("/:id", verifyToken, asyncHandler(alimentController.updateAliment));
+router.put("/:id", verifyToken, upload.single("image"), alimentController.updateAliment);
 
 // Route pour supprimer un aliment par ID
 router.delete("/:id", verifyToken, asyncHandler(alimentController.deleteAliment));

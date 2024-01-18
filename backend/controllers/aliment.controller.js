@@ -59,24 +59,31 @@ exports.createAliment = async (req, res) => {
 };
 
 // Créer plusieurs nouveaux aliments
+// Créer plusieurs nouveaux aliments
 exports.createMultipleAliments = async (req, res) => {
     try {
-        // Récupération de la liste des aliments depuis la requête
-        const alimentsList = req.body; // Cela doit être un tableau d'objets aliment
+        const alimentsList = req.body; // Tableau d'objets aliment
 
-        // Traitement de chaque aliment
-        const processedAliments = alimentsList.map((aliment) => {
-            return {
-                ...aliment,
-                Nom: normalizeName(aliment.Nom),
-                UserID: req.userId, // Assurez-vous que req.userId est disponible
-                ImageUrl: aliment.ImageUrl, // Assurez-vous d'inclure l'ImageUrl
-            };
-        });
+        const processedAliments = await Promise.all(
+            alimentsList.map(async (aliment) => {
+                const nomNormalise = normalizeName(aliment.Nom);
+                const existingAliment = await Aliment.findOne({
+                    where: { Nom: nomNormalise },
+                });
 
-        // Création des aliments en base de données
+                if (existingAliment) {
+                    throw new Error(`Aliment ${aliment.Nom} existe déjà.`);
+                }
+
+                return {
+                    Nom: nomNormalise,
+                    UserID: req.userId, // Assurez-vous que req.userId est défini
+                    ImageUrl: aliment.ImageUrl, // L'image doit être traitée séparément
+                };
+            }),
+        );
+
         const createdAliments = await Aliment.bulkCreate(processedAliments);
-
         res.status(201).json(createdAliments);
     } catch (error) {
         res.status(500).send(error.message);
@@ -107,42 +114,99 @@ exports.getAlimentById = async (req, res) => {
 };
 
 // Mettre à jour un aliment
+// exports.updateAliment = async (req, res) => {
+//     const { id } = req.params; // Extraction de l'identifiant de l'aliment
+//     const { Nom, ImageUrl } = req.body; // Extraction du nom de l'aliment et de l'URL de l'image
+//     const nomNormalise = Nom ? normalizeName(Nom) : undefined; // Normalisation du nom
+
+//     try {
+//         const aliment = await Aliment.findByPk(id); // Trouver l'aliment par son identifiant
+//         if (!aliment) {
+//             return res.status(404).send("Aliment non trouvé."); // Si non trouvé, renvoie un code 404
+//         }
+
+//         // Vérifier les permissions de l'utilisateur avant mise à jour
+//         if (aliment.UserID !== req.userId /* et d'autres vérifications de rôle */) {
+//             return res.status(403).send("Action non autorisée."); // Si non autorisé, renvoie un code 403
+//         }
+
+//         // Vérifier l'unicité du nom si changement de nom
+//         if (nomNormalise && nomNormalise !== aliment.Nom) {
+//             const existingAliment = await Aliment.findOne({
+//                 where: { Nom: nomNormalise },
+//             });
+//             if (existingAliment) {
+//                 return res.status(409).send("Un aliment avec ce nom existe déjà."); // Si le nom existe déjà, renvoie un code 409
+//             }
+//         }
+
+//         // Préparation des données à mettre à jour
+//         const updateData = {};
+//         if (nomNormalise) updateData.Nom = nomNormalise;
+//         if (ImageUrl) updateData.ImageUrl = ImageUrl; // Mise à jour de l'ImageUrl si elle est fournie
+
+//         // Mise à jour de l'aliment
+//         await aliment.update(updateData);
+//         res.status(200).json(aliment); // Renvoie l'aliment mis à jour avec un code 200
+//     } catch (error) {
+//         res.status(500).send(error.message); // Gestion des erreurs serveur
+//     }
+// };
+// Mettre à jour un aliment avec image
 exports.updateAliment = async (req, res) => {
-    const { id } = req.params; // Extraction de l'identifiant de l'aliment
-    const { Nom, ImageUrl } = req.body; // Extraction du nom de l'aliment et de l'URL de l'image
-    const nomNormalise = Nom ? normalizeName(Nom) : undefined; // Normalisation du nom
+    const { id } = req.params;
+    let { Nom } = req.body;
+    let imageUrl = null;
 
     try {
-        const aliment = await Aliment.findByPk(id); // Trouver l'aliment par son identifiant
+        const aliment = await Aliment.findByPk(id);
         if (!aliment) {
-            return res.status(404).send("Aliment non trouvé."); // Si non trouvé, renvoie un code 404
+            return res.status(404).send("Aliment non trouvé.");
         }
 
-        // Vérifier les permissions de l'utilisateur avant mise à jour
-        if (aliment.UserID !== req.userId /* et d'autres vérifications de rôle */) {
-            return res.status(403).send("Action non autorisée."); // Si non autorisé, renvoie un code 403
-        }
+        // Vérifier les permissions de l'utilisateur ici, si nécessaire
 
-        // Vérifier l'unicité du nom si changement de nom
-        if (nomNormalise && nomNormalise !== aliment.Nom) {
-            const existingAliment = await Aliment.findOne({
-                where: { Nom: nomNormalise },
-            });
-            if (existingAliment) {
-                return res.status(409).send("Un aliment avec ce nom existe déjà."); // Si le nom existe déjà, renvoie un code 409
+        // Traitement du nom de l'aliment
+        if (Nom) {
+            Nom = normalizeName(Nom);
+            const existingAliment = await Aliment.findOne({ where: { Nom } });
+            if (existingAliment && existingAliment.AlimentID !== aliment.AlimentID) {
+                return res.status(409).send("Un aliment avec ce nom existe déjà.");
             }
+        } else {
+            Nom = aliment.Nom; // Garder le nom existant si aucun nouveau nom n'est fourni
         }
 
-        // Préparation des données à mettre à jour
-        const updateData = {};
-        if (nomNormalise) updateData.Nom = nomNormalise;
-        if (ImageUrl) updateData.ImageUrl = ImageUrl; // Mise à jour de l'ImageUrl si elle est fournie
+        // Traitement de l'image si elle est présente
+        if (req.file) {
+            const inputPath = req.file.path;
+            const outputPath = path.join(
+                __dirname,
+                "../uploads/destination",
+                req.file.filename + ".webp",
+            );
+
+            await convertToWebP(inputPath, outputPath);
+            imageUrl = outputPath
+                .replace(/\\/g, "/")
+                .replace(/^.*\/uploads\//, "/uploads/");
+
+            // Supprimer l'ancienne image si nécessaire
+            if (aliment.ImageUrl && fs.existsSync(aliment.ImageUrl)) {
+                fs.unlinkSync(aliment.ImageUrl);
+            }
+        } else {
+            imageUrl = aliment.ImageUrl; // Garder l'URL de l'image existante si aucune nouvelle image n'est fournie
+        }
 
         // Mise à jour de l'aliment
-        await aliment.update(updateData);
-        res.status(200).json(aliment); // Renvoie l'aliment mis à jour avec un code 200
+        await aliment.update({ Nom, ImageUrl: imageUrl });
+
+        res.status(200).json(aliment);
     } catch (error) {
-        res.status(500).send(error.message); // Gestion des erreurs serveur
+        res.status(500).send(
+            "Erreur lors de la mise à jour de l'aliment: " + error.message,
+        );
     }
 };
 
