@@ -13,6 +13,8 @@ import "../../btn/btn.scss";
 import IconeSupprimer from "../GardeManger/iconeSupprimer";
 import IconModifier from "../GardeManger/IconeModifier";
 import "./Aliments.scss";
+import IconeDownload from "../../formulaire/IconeDownload";
+import IconesImagesUpload from "../../formulaire/IconesImagesUpload";
 
 const Aliments = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -64,7 +66,6 @@ const Aliments = () => {
     // };
 
     const [imageFile, setImageFile] = useState(null);
-    const fileInputRef = useRef(null);
 
     const handleAjoutAliment = async () => {
         if (!nouvelAliment) return;
@@ -112,10 +113,18 @@ const Aliments = () => {
         }
     };
 
+    const [files, setFiles] = useState([]);
+    const fileInputRef = useRef(null);
+
+    const handleFileChange = (e) => {
+        const newFiles = Array.from(e.target.files);
+        setFiles((prevFiles) => [...prevFiles, ...newFiles]);
+    };
+
     return (
         <>
             <Header />
-            <section className="section">
+            <section className="section section--margin">
                 <h2 className="title">Aliments</h2>
                 <div className="form">
                     <h3 className="title title--niveau3">Nouvel aliment</h3>
@@ -131,15 +140,42 @@ const Aliments = () => {
                             Nom de l'aliment
                         </label>
                     </div>
-                    <div className="input-container ic2">
-                        <input
-                            className="input--fichier"
-                            type="file"
-                            ref={fileInputRef}
-                            onChange={(e) => setImageFile(e.target.files[0])}
-                        />
+                    <div className="ic2">
+                        <div className="input-container--fichier">
+                            <input
+                                className="input--fichier"
+                                id="upload-file"
+                                type="file"
+                                ref={fileInputRef}
+                                onChange={handleFileChange}
+                                multiple
+                            />
+                            <label
+                                className={`label__fichier ${
+                                    files.length > 0 ? "noVisible" : ""
+                                }`}
+                                htmlFor="upload-file"
+                            >
+                                <div className="label__container">
+                                    <IconeDownload className="icon" />
+                                    <span>Drag and drop your files here</span>
+                                    <span>or click to browse your files</span>
+                                </div>
+                            </label>
+                            <span
+                                className={`label__fichier--end ${
+                                    files.length > 0 ? "visible" : ""
+                                }`}
+                            >
+                                <div className="label__container">
+                                    <IconesImagesUpload />
+                                    <span className="files-counter">
+                                        {files.length} file(s)
+                                    </span>
+                                </div>
+                            </span>
+                        </div>
                     </div>
-
                     <button className="submit" onClick={handleAjoutAliment}>
                         Ajouter Aliment
                     </button>
