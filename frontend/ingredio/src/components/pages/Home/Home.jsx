@@ -2,10 +2,12 @@ import "./Home.scss";
 // import Menu__register__login from "../../templates/Menu__register__login/Menu__register__login";
 import { Link } from "react-router-dom";
 import MenuHome from "../../templates/Menu_Home/MenuHome";
+import Loading from "./Loading/Loading";
 
 const Home = () => {
     return (
         <>
+            <Loading />
             <MenuHome />
             <main>
                 <section className="section hero">

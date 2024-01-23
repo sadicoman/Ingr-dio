@@ -47,3 +47,6 @@ node_modules/
 
 # TypeScript compiled files
 *.tsbuildinfo
+
+
+*.npmrc
