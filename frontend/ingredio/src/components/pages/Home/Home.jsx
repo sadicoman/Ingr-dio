@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import "./Home.scss";
 // import Menu__register__login from "../../templates/Menu__register__login/Menu__register__login";
 import { Link } from "react-router-dom";
@@ -10,21 +11,19 @@ const Home = () => {
             <Loading />
             <MenuHome />
             <main>
-                <section className="section hero">
-                    <h1 className="title">
-                        Ingredio: Votre Assistant Culinaire Intelligent
-                    </h1>
-                    <p>
-                        Transformez les ingrédients de votre garde-manger en délicieuses
-                        recettes avec Ingrédio. Une solution innovante pour cuisiner
-                        intelligemment et sans gaspillage.
-                    </p>
-                    <Link to="/register" className="btn-primary">
+                <section className="section__hero">
+                    <div className="section section__hero--contain">
+
+                   
+                    <h1 className="title">Ingredio</h1>
+                    <div className="section__hero--middleLine"></div>
+                    <Link to="/register" className="btn btn--primary pgrid-start4 pgrid-end7">
                         Commencez l'Aventure Culinaire
-                    </Link>
+                    </Link> 
+                    </div>
                 </section>
 
-                <section className="section features">
+                <section className="section section--features">
                     <div className="feature-item">
                         <h2 className="title title--niveau2">
                             Des Idées Recettes Inspirées
@@ -50,7 +49,7 @@ const Home = () => {
                     </div>
                 </section>
 
-                <section className="section testimonials">
+                <section className="section section--testimonials">
                     <h2 className="title title--niveau2">
                         Leurs Aventures Culinaires avec Ingrédio
                     </h2>
@@ -64,7 +63,7 @@ const Home = () => {
                     </blockquote>
                 </section>
 
-                <section className="section call-to-action">
+                <section className="section section--call-to-action">
                     <h2 className="title title--niveau2">
                         Prêt à transformer votre expérience culinaire?
                     </h2>

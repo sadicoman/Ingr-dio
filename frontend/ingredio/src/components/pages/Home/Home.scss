@@ -1,0 +1,45 @@
+.section__hero {
+    width: 100vw;
+    height: 90vh;
+    background: rgba(0, 0, 0, 0.6) url("src/assets/images/fondHome.png") no-repeat center
+        center / cover;
+
+    background-blend-mode: overlay;
+
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: inherit;
+
+    .title {
+        color: var(--color-surface);
+        text-align: center;
+    }
+
+    &--contain {
+        padding-top: 3rem;
+    }
+
+    &--middleLine {
+        height: 0px;
+        width: 2px;
+        background: #fff;
+        margin: 40px auto;
+        position: relative;
+    }
+
+    .btn--primary {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+        width: auto;
+        height: inherit;
+        border-radius: 5px;
+        justify-content: center;
+        padding: 1.2rem;
+    }
+    .title,
+    
+    .btn--primary {
+        opacity: 0;
+    }
+}

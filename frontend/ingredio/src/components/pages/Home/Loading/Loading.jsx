@@ -16,7 +16,10 @@ const Loading = () => {
             .to(".f2", { y: 0, duration: 0.6 })
             .to(".flip-img1", { display: "none", duration: 0 })
             .to(".f2", { y: "-100%", onComplete: startVideo })
-            .to(".load-container", { autoAlpha: 0, duration: 0.8, delay: 0.7 });
+            .to(".load-container", { autoAlpha: 0, duration: 0.8, delay: 0.7 })
+            .to(".title", { autoAlpha: 1, y: 0 }, "-=0.1")
+            .to(".section__hero--middleLine", { height: 200 }, "-=0.2")
+            .to(".btn--primary", { autoAlpha: 1, y: 0 }, "-=0.2");
 
         function startVideo() {
             const video = document.querySelector("video");
