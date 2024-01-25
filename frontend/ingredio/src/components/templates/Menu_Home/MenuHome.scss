@@ -5,10 +5,11 @@
 
     .registerLogin__list {
         display: flex;
+        flex-direction: column;
         justify-content: flex-end;
 
-        .registerLogin__el {
-            margin-right: var(--margin-mb);
-        }
+        // .registerLogin__el {
+        //     margin-right: var(--margin-mb);
+        // }
     }
 }

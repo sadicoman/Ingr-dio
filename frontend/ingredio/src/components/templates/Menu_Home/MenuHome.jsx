@@ -4,7 +4,7 @@ import "./MenuHome.scss";
 
 const MenuHome = () => {
     return (
-        <header className="header">
+        <header className="header header--home">
             <Logo className="logo" />
             <Menu__register__login />
         </header>

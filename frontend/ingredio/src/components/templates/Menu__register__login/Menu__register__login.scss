@@ -1,0 +1,132 @@
+.header--home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .circle {
+        background: var(--color-primary);
+        border-radius: 50% 0 50% 50%;
+        height: 0;
+        opacity: 1;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: all 0.3s cubic-bezier(0, 0.995, 0.99, 1);
+        width: 0;
+        z-index: 2;
+
+        &.open {
+            border-radius: 0;
+            height: 100vh;
+            transition: all 0.4s cubic-bezier(0, 0.995, 0.99, 1);
+            width: 100vw;
+        }
+    }
+    .nav {
+        display: none;
+
+        &.open {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 2;
+            overflow-y: scroll;
+
+            .registerLogin__lien {
+                color: var(--color-on-primary);
+                display: inline-block;
+                font-size: 18px;
+                letter-spacing: 3px;
+                margin: 0.5em;
+                padding: 1em;
+                text-decoration: none;
+                text-transform: uppercase;
+                -webkit-transition: all 0.4s cubic-bezier(0, 0.995, 0.99, 1);
+                transition: all 0.4s cubic-bezier(0, 0.995, 0.99, 1);
+            }
+        }
+    }
+}
+
+.navBtn {
+    background-color: inherit;
+    border: none;
+    color: var(--color-on-primary);
+    cursor: pointer;
+    height: 40px;
+    justify-self: end;
+    padding: 0;
+    width: 40px;
+    z-index: 3;
+
+    .btn--sanstexte {
+        overflow: hidden;
+        position: relative;
+        display: none;
+    }
+    .navBtn__svg {
+        fill: var(--color-primary);
+        cursor: pointer;
+        path {
+            cursor: pointer;
+        }
+    }
+    &.open {
+        .navBtn__svg {
+            display: inherit;
+        }
+
+        .navBtn__svg {
+            fill: #fff;
+        }
+    }
+}
+.circle {
+    overflow: hidden;
+}
+
+@media screen and (min-width: 1400px) {
+    .circle,
+    .navBtn {
+        display: none;
+    }
+    .header--home {
+        .nav {
+            display: inline-block;
+            overflow: inherit;
+
+            .registerLogin__list {
+                display: inline-flex;
+                flex-direction: row;
+
+                .registerLogin__el {
+                    margin-right: var(--margin-mb);
+                }
+            }
+        }
+    }
+
+    .menu__el {
+        padding-right: 1em;
+        text-align: center;
+        opacity: inherit;
+    }
+    .menu__lien {
+        color: var(--color-on-background);
+        text-transform: inherit;
+        letter-spacing: 1px;
+        padding: 0.5em;
+        font-size: 0.8em;
+        transition: inherit;
+
+        &:hover,
+        .darkSvg:hover {
+            color: var(--color-primary);
+            fill: var(--color-primary);
+        }
+    }
+}
