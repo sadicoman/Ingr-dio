@@ -38,8 +38,11 @@
         padding: 1.2rem;
     }
     .title,
-    
     .btn--primary {
         opacity: 0;
     }
+}
+.commentaire__container {
+    display: flex;
+    gap: var(--margin-mb);
 }
