@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import MenuHome from "../../templates/Menu_Home/MenuHome";
 import Loading from "./Loading/Loading";
 import Commentaire from "./Commentaire/Commentaire";
+import SectionCardVideo from "./SectionCardVideo/SectionCardVideo";
 
 const Home = () => {
     const cardData = [
@@ -36,40 +37,17 @@ const Home = () => {
                         <div className="section__hero--middleLine"></div>
                         <Link
                             to="/register"
-                            className="btn btn--primary pgrid-start4 pgrid-end7"
+                            className="btn btn--primary tgrid-start2 tgrid-end4 pgrid-start4 pgrid-end7"
                         >
                             Commencez l'Aventure Culinaire
                         </Link>
                     </div>
                 </section>
+                <div className="section">
+                    <SectionCardVideo />
+                </div>
 
-                <section className="section section--features">
-                    <div className="feature-item">
-                        <h2 className="title title--niveau2">
-                            Des Idées Recettes Inspirées
-                        </h2>
-                        <p>
-                            Saisissez les ingrédients que vous avez, et laissez Ingrédio
-                            vous proposer des recettes créatives et adaptées.
-                        </p>
-                    </div>
-                    <div className="feature-item">
-                        <h2 className="title title--niveau2">Garde-Manger Intelligent</h2>
-                        <p>
-                            Gérez vos stocks et découvrez des recettes pour utiliser au
-                            mieux ce que vous possédez.
-                        </p>
-                    </div>
-                    <div className="feature-item">
-                        <h2 className="title title--niveau2">Cuisine Zéro Gaspillage</h2>
-                        <p>
-                            Utilisez tous vos ingrédients avant qu'ils n'expirent, pour
-                            une cuisine responsable et durable.
-                        </p>
-                    </div>
-                </section>
-
-                <section className="section section--testimonials">
+                <section className="section section--bas section--testimonials">
                     <h2 className="title title--niveau2">
                         Leurs Aventures Culinaires avec Ingrédio
                     </h2>
@@ -85,13 +63,11 @@ const Home = () => {
                         ))}
                     </blockquote>
                 </section>
-
+                {/* 
                 <section className="section section--call-to-action">
-                    <h2 className="title title--niveau2">
-                        Prêt à transformer votre expérience culinaire?
-                    </h2>
+
                     <Link to="/register">Rejoignez Ingrédio aujourd'hui</Link>
-                </section>
+                </section> */}
             </main>
         </>
     );

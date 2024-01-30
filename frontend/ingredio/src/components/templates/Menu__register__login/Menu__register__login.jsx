@@ -34,8 +34,11 @@ const Menu__register__login = () => {
                         </Link>
                     </li>
                     <li className="registerLogin__el">
-                        <Link className="registerLogin__lien" to="/register">
-                            S'enregistrer
+                        <Link
+                            className="registerLogin__lien registerLogin__lien--secondary"
+                            to="/register"
+                        >
+                            Devenir membre
                         </Link>
                     </li>
                 </ul>

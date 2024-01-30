@@ -55,11 +55,17 @@
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 32px 32px;
     }
+    .tgrid-start2 {
+        grid-column-start: 2;
+    }
     .tgrid-start3 {
         grid-column-start: 3;
     }
     .tgrid-end3 {
         grid-column-end: 3;
+    }
+    .tgrid-end4 {
+        grid-column-end: 4;
     }
     /*Grid palcement*/
     .column--span4 {

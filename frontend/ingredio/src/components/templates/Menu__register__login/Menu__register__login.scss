@@ -105,6 +105,31 @@
 
                 .registerLogin__el {
                     margin-right: var(--margin-mb);
+
+                    .registerLogin__lien {
+                        background-color: var(--color-primary);
+                        color: var(--color-on-primary);
+                        width: auto;
+                        height: inherit;
+                        border-radius: 5px;
+                        justify-content: center;
+                        padding: 0.5rem 1rem;
+
+                        &:hover {
+                            background-color: var(--color-primary-hover);
+                        }
+
+                        &--secondary {
+                            background-color: inherit;
+                            color: var(--color-primary);
+                            border: 2px solid var(--color-primary);
+
+                            &:hover {
+                                background-color: var(--color-primary-hover);
+                                color: var(--color-on-primary);
+                            }
+                        }
+                    }
                 }
             }
         }
