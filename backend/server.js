@@ -13,7 +13,12 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Configuration de CORS pour accepter les requêtes de votre frontend
 app.use(
     cors({
-        origin: ["http://127.0.0.1:5173", "http://localhost:5173"], // URL de votre frontend
+        origin: [
+            "http://127.0.0.1:5173",
+            "http://localhost:5173",
+            "http://26.92.53.49:5173",
+            "http://26.47.62.76:5173",
+        ], // URL de votre frontend
     }),
 );
 

@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useState, useRef } from "react";
 import { getUserProfile } from "../../../services/auth.service";
 import {
@@ -15,87 +17,100 @@ import IconModifier from "../GardeManger/IconeModifier";
 import "./Aliments.scss";
 import IconeDownload from "../../formulaire/IconeDownload";
 import IconesImagesUpload from "../../formulaire/IconesImagesUpload";
+import AlertPopup from "../../AlertPopup/AlertPopup";
 
 const Aliments = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [aliments, setAliments] = useState([]);
     const [nouvelAliment, setNouvelAliment] = useState("");
     const [alimentAModifier, setAlimentAModifier] = useState(null);
-    const labelRef = useRef(null);
+    const [imageFile, setImageFile] = useState(null);
+    const [files, setFiles] = useState([]);
+    const fileInputRef = useRef(null);
     const cutRef = useRef(null);
+    const labelRef = useRef(null);
+    const [popupInfo, setPopupInfo] = useState({ message: "", type: "" });
 
     useEffect(() => {
         if (labelRef.current && cutRef.current) {
             const labelWidth1 = labelRef.current.offsetWidth;
             cutRef.current.style.width = `${labelWidth1}px`;
         }
-        const fetchUserProfile = async () => {
-            try {
-                const profile = await getUserProfile();
-                setUserInfo(profile);
-            } catch (error) {
-                console.error(
-                    "Erreur lors de la récupération des infos utilisateur",
-                    error,
-                );
-            }
-        };
-
-        fetchUserProfile();
-        chargerAliments();
     }, []);
 
-    const chargerAliments = async () => {
+    useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        fetchUserProfileAndAliments();
+    }, []);
+
+    const fetchUserProfileAndAliments = async () => {
         try {
-            const response = await obtenirTousAliments();
-            setAliments(response.data);
+            const profile = await getUserProfile();
+            setUserInfo(profile);
+            const alimentsResponse = await obtenirTousAliments();
+            setAliments(alimentsResponse.data);
         } catch (error) {
-            console.error("Erreur lors du chargement des aliments", error);
+            console.error("Erreur lors du chargement des données", error);
         }
     };
 
-    // const handleAjoutAliment = async () => {
-    //     if (!nouvelAliment) return;
-    //     try {
-    //         await creerAliment({ Nom: nouvelAliment });
-    //         setNouvelAliment("");
-    //         chargerAliments();
-    //     } catch (error) {
-    //         console.error("Erreur lors de l'ajout de l'aliment", error);
-    //     }
-    // };
+    useEffect(() => {
+        if (aliments.length > 0) {
+            animateAliments();
+        }
+    }, [aliments]);
 
-    const [imageFile, setImageFile] = useState(null);
+    const animateAliments = () => {
+        gsap.fromTo(
+            ".aliments__el",
+            { opacity: 0, x: -200 },
+            { opacity: 1, x: 0, duration: 1, stagger: 0.2 },
+        );
+    };
 
-    const handleAjoutAliment = async () => {
+    const handleAjoutAliment = async (e) => {
+        e.preventDefault();
         if (!nouvelAliment) return;
 
-        // Création de FormData pour l'envoi multipart
         const formData = new FormData();
         formData.append("Nom", nouvelAliment);
         if (imageFile) {
-            formData.append("image", imageFile);
+            formData.append("image", imageFile, imageFile.name);
         }
 
         try {
             await creerAliment(formData);
             setNouvelAliment("");
-            setImageFile(null); // Réinitialise l'état du fichier
+            setImageFile(null);
             if (fileInputRef.current) {
-                fileInputRef.current.value = ""; // Réinitialise le champ de saisie de fichier
+                fileInputRef.current.value = "";
             }
-            chargerAliments();
+            fetchUserProfileAndAliments(); // Re-fetch aliments
+            setPopupInfo({ message: "Aliment ajouté avec succès!", type: "success" });
         } catch (error) {
             console.error("Erreur lors de l'ajout de l'aliment", error);
+            setPopupInfo({ message: "Échec de l'ajout de l'aliment.", type: "error" });
+        }
+    };
+
+    const handleFileChange = (e) => {
+        if (e.target.files[0]) {
+            setImageFile(e.target.files[0]);
+            setFiles((prevFiles) => [...prevFiles, e.target.files[0]]);
         }
     };
 
     const handleSuppressionAliment = async (id) => {
         try {
             await supprimerAliment(id);
-            chargerAliments();
+            fetchUserProfileAndAliments(); // Refresh the aliments list after deletion
+            setPopupInfo({ message: "Aliment supprimé avec succès!", type: "success" });
         } catch (error) {
             console.error("Erreur lors de la suppression de l'aliment", error);
+            setPopupInfo({
+                message: "Échec de la suppression de l'aliment.",
+                type: "error",
+            });
         }
     };
 
@@ -107,23 +122,28 @@ const Aliments = () => {
         try {
             await mettreAJourAliment(id, nouvellesDonnees);
             setAlimentAModifier(null);
-            chargerAliments();
+            fetchUserProfileAndAliments(); // Refresh the aliments list after update
+            setPopupInfo({ message: "Aliment modifié avec succès!", type: "success" });
         } catch (error) {
             console.error("Erreur lors de la modification de l'aliment", error);
+            setPopupInfo({
+                message: "Échec de la modification de l'aliment.",
+                type: "error",
+            });
         }
-    };
-
-    const [files, setFiles] = useState([]);
-    const fileInputRef = useRef(null);
-
-    const handleFileChange = (e) => {
-        const newFiles = Array.from(e.target.files);
-        setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     };
 
     return (
         <>
             <Header />
+            {popupInfo.message && (
+                <AlertPopup
+                    message={popupInfo.message}
+                    type={popupInfo.type}
+                    onClose={() => setShowPopup(false)}
+                />
+            )}
+
             <section className="section section--margin">
                 <h2 className="title">Aliments</h2>
                 <div className="form">
@@ -134,9 +154,16 @@ const Aliments = () => {
                             type="text"
                             value={nouvelAliment}
                             onChange={(e) => setNouvelAliment(e.target.value)}
+                            // placeholder="Nom de l'aliment"
                         />
-                        <div className="cut" ref={cutRef}></div>
-                        <label className="iLabel" ref={labelRef}>
+                        <div
+                            className={`cut ${nouvelAliment ? "cut--actif" : ""}`}
+                            ref={cutRef}
+                        ></div>
+                        <label
+                            className={`iLabel ${nouvelAliment ? "iLabel--actif" : ""}`}
+                            ref={labelRef}
+                        >
                             Nom de l'aliment
                         </label>
                     </div>
@@ -180,24 +207,30 @@ const Aliments = () => {
                         Ajouter Aliment
                     </button>
                 </div>
+                {alimentAModifier && (
+                    <FormModificationAliment
+                        alimentAModifier={alimentAModifier}
+                        onSubmit={handleModification}
+                        onCancel={() => setAlimentAModifier(null)}
+                    />
+                )}
                 <ul className="aliments__list">
                     {aliments.map((aliment) => (
-                        <li className="aliments__el" key={aliment.AlimentID}>
-                            <img
-                                className="aliments__img"
-                                src={
-                                    aliment.ImageUrl
-                                        ? `http://localhost:8000${aliment.ImageUrl}`
-                                        : "src/assets/images/aliments.webp"
-                                }
-                                alt={aliment.Nom}
-                            />
-
-                            <h4 className="title title--niveau5 aliment__nom">
-                                {aliment.Nom}
-                            </h4>
-                            {aliment.UserID === userInfo?.id && (
-                                <>
+                        <>
+                            <li className="aliments__el" key={aliment.AlimentID}>
+                                <img
+                                    className="aliments__img"
+                                    src={
+                                        aliment.ImageUrl
+                                            ? `http://localhost:8000${aliment.ImageUrl}`
+                                            : "src/assets/images/aliments.webp"
+                                    }
+                                    alt={aliment.Nom}
+                                />
+                                <h4 className="title title--niveau5 aliment__nom">
+                                    {aliment.Nom}
+                                </h4>
+                                {aliment.UserID === userInfo?.id && (
                                     <div className="aliment__btn">
                                         <button
                                             className="btn btn--modifier"
@@ -224,18 +257,11 @@ const Aliments = () => {
                                             </span>
                                         </button>
                                     </div>
-                                </>
-                            )}
-                        </li>
+                                )}
+                            </li>
+                        </>
                     ))}
                 </ul>
-
-                {alimentAModifier && (
-                    <FormModificationAliment
-                        alimentAModifier={alimentAModifier}
-                        onSubmit={handleModification}
-                    />
-                )}
             </section>
         </>
     );

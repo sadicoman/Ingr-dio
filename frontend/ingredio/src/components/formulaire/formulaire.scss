@@ -119,6 +119,10 @@
         text-align: center;
         width: 100%;
         margin-bottom: 30px;
+
+        &:hover {
+            background-color: var(--color-primary-hover);
+        }
     }
 
     .submit:active {

@@ -1,0 +1,38 @@
+.alert-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: white;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    z-index: 1000; // Assurez-vous qu'elle est au-dessus d'autres éléments
+
+    &__icon {
+        // Styles pour les icônes
+    }
+
+    &__title {
+        color: #333;
+    }
+
+    &__close {
+        margin-left: auto;
+        cursor: pointer;
+    }
+
+    &.success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    &.error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    // Ajoutez d'autres styles de type au besoin
+}

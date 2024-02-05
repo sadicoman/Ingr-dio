@@ -13,7 +13,7 @@
     --color-background-tertiary: #c5dfe5;
     --color-surface: #ffffff; /* Blanc pur pour les surfaces */
     --color-ok: #2ecc71; /* Vert pour les confirmations ou succès */
-    --color-error: #e74c3c; /* Rouge pour les erreurs */
+    --color-error: hsl(0, 100%, 75%); /* Rouge pour les erreurs */
     --color-primary-hover: #1e8449; /* Une nuance plus foncée de vert pour le survol */
     --color-on-burger: #ecf0f1; /* Couleur du texte ou icône sur le bouton burger */
     --color-on-border-background: #95a5a6; /* Gris pour les bordures ou arrière-plans contrastés */

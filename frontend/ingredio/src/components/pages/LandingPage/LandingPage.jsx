@@ -1,39 +1,61 @@
-// Dans LandingPage.jsx
 import { useEffect, useState } from "react";
 import { getUserProfile } from "../../../services/auth.service";
 import { recetteService } from "../../../services/recette.service";
 import "./LandingPage.scss";
 import Header from "../../templates/Header/Header";
+import LoaderChargement from "../../LoaderChargement/LoaderChargement";
 
 const LandingPage = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [latestRecipes, setLatestRecipes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Vérifie si c'est la première visite de l'utilisateur
+    const isFirstVisit = localStorage.getItem("isFirstVisit") === null;
 
     useEffect(() => {
-        const fetchUserProfile = async () => {
+        const fetchData = async () => {
             try {
-                const profile = await getUserProfile();
+                if (isFirstVisit) {
+                    // Marque le début du chargement
+                    setLoading(true);
+                    // Enregistrer que l'utilisateur a déjà visité la page
+                    localStorage.setItem("isFirstVisit", "false");
+                } else {
+                    // Si ce n'est pas la première visite, ne pas afficher le loader
+                    setLoading(false);
+                }
+
+                const profilePromise = getUserProfile();
+                const recipesPromise = recetteService.getLatestRecipes(5);
+
+                // Utiliser Promise.all pour attendre que toutes les promesses soient résolues
+                const [profile, response] = await Promise.all([
+                    profilePromise,
+                    recipesPromise,
+                ]);
+
                 setUserInfo(profile);
-            } catch (error) {
-                console.error(
-                    "Erreur lors de la récupération des informations de l'utilisateur",
-                    error,
-                );
-            }
-        };
-
-        const fetchLatestRecipes = async () => {
-            try {
-                const response = await recetteService.getLatestRecipes(5);
                 setLatestRecipes(response.data);
-            } catch (error) {
-                console.error("Erreur lors du chargement des dernières recettes", error);
+            } catch (err) {
+                setError("Erreur lors du chargement des données");
+                console.error(err);
+            } finally {
+                if (isFirstVisit) {
+                    // Introduit un délai minimal pour l'affichage du loader
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 3000); // 3000 ms de délai minimum pour l'affichage du loader
+                }
             }
         };
 
-        fetchUserProfile();
-        fetchLatestRecipes();
+        fetchData();
     }, []);
+
+    if (loading) return <LoaderChargement />;
+    if (error) return <div>{error}</div>;
 
     return (
         <>
@@ -42,9 +64,7 @@ const LandingPage = () => {
             <main>
                 <section className="section">
                     {userInfo ? (
-                        <h2 className="title title--niveau2">
-                            Bienvenue, {userInfo.pseudo}
-                        </h2>
+                        <h2 className="title title--niveau2">Bienvenue, {userInfo.pseudo}</h2>
                     ) : (
                         <h2 className="title title--niveau2">Bienvenue</h2>
                     )}

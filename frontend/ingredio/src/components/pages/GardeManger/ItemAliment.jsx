@@ -12,6 +12,15 @@ const ItemAliment = ({ aliment, onSupprimer, onModifier }) => {
     return (
         <li className="aliments__el aliment__card">
             <h4 className="title title--niveau5 aliment__nom">{aliment.aliment.Nom}</h4>
+            <img
+                className="aliments__img"
+                src={
+                    aliment.aliment.ImageUrl
+                        ? `http://localhost:8000${aliment.aliment.ImageUrl}`
+                        : "src/assets/images/aliments.webp"
+                }
+                alt={aliment.aliment.Nom}
+            />
             <p>
                 Quantité : {aliment.Quantite} {aliment.Unite}
             </p>

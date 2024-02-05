@@ -17,6 +17,7 @@
     border-radius: 0.2rem;
     border: 0.1rem solid #c8c8c8;
     box-sizing: border-box;
+    width: 100%;
 
     .button__text {
         transform: translateX(16px);
@@ -25,6 +26,8 @@
 
 .header--login {
     align-items: center;
+    display: flex;
+    justify-content: space-between;
 
     .header__retour {
         display: flex;
@@ -37,4 +40,10 @@
     display: flex;
     align-items: center;
     gap: var(--margin-mb);
+}
+
+@media screen and (min-width: 768px) {
+    .btn__mdpOublier {
+        width: inherit;
+    }
 }

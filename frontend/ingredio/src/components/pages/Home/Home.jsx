@@ -6,6 +6,9 @@ import MenuHome from "../../templates/Menu_Home/MenuHome";
 import Loading from "./Loading/Loading";
 import Commentaire from "./Commentaire/Commentaire";
 import SectionCardVideo from "./SectionCardVideo/SectionCardVideo";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect } from "react";
 
 const Home = () => {
     const cardData = [
@@ -25,6 +28,29 @@ const Home = () => {
         },
         // Ajoutez d'autres données de carte ici
     ];
+
+    useEffect(() => {
+        // Assurez-vous que les animations GSAP s'exécutent après le montage du composant
+        gsap.registerPlugin(ScrollTrigger);
+
+        const tl4 = gsap.timeline();
+        // Animation en X
+        tl4.fromTo(
+            ".card",
+            { opacity: 0, x: -200 }, // État initial (from)
+            { opacity: 1, x: 0, duration: 1, stagger: 0.5 }, // État final (to)
+        );
+
+        // Associez la timeline au ScrollTrigger
+        ScrollTrigger.create({
+            animation: tl4,
+            trigger: ".section--testimonials",
+            start: "top center",
+            end: "bottom top",
+            toggleActions: "play none none none",
+            once: true,
+        });
+    }, []);
 
     return (
         <>

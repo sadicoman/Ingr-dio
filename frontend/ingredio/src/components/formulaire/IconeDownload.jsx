@@ -1,6 +1,6 @@
 const IconeDownload = (props) => (
     <svg
-        ariaHidden="true"
+        aria-hidden="true"
         className="icon icon--xl color-contrast-higher ddf__icon-cloud"
         viewBox="0 0 64 64"
     >

@@ -370,9 +370,19 @@ const RecetteDetails = () => {
                             className="ingredient__el"
                             key={ingredient.IngredientRecetteID}
                         >
+                            <img
+                                className="aliments__img"
+                                src={
+                                    ingredient.ImageUrl
+                                        ? `http://localhost:8000${ingredient.ImageUrl}`
+                                        : "/src/assets/images/aliments.webp"
+                                }
+                                alt={ingredient.aliment.Nom}
+                            />
                             <h3 className="title title--niveau5 ingredient__nom">
                                 {ingredient.aliment.Nom}
                             </h3>
+
                             <p>
                                 {ingredient.Quantite} {ingredient.Unite}
                             </p>
