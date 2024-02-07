@@ -1,3 +1,9 @@
+.section__recettes--container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--margin-mb);
+}
+
 .recette__card {
     position: relative;
     display: flex;
@@ -168,7 +174,7 @@
     gap: 4rem;
 }
 
-.aliments__img{
+.aliments__img {
     width: 100%;
     max-width: 10rem;
     border-radius: 1rem;
@@ -176,7 +182,30 @@
 
 @media screen and (min-width: 768px) {
     .recette__container {
-        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: var(--margin-mb);
+    }
+    .section__recettes--container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .primary__list {
+        flex-wrap: wrap;
+        justify-content: center;
+        flex-direction: inherit;
+        gap: var(--margin-mb);
+    }
+    .ingredient__list {
+        .ingredient__el {
+            min-width: inherit;
+        }
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .ingredient__el {
+        min-width: inherit;
     }
 }

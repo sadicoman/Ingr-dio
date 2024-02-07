@@ -439,7 +439,22 @@ const Recettes = () => {
         <>
             <Header />
             <section className="section">
-                <h1 className="title">Recettes</h1>
+                <div className="section__recettes--container">
+                    <h1 className="title">Recettes</h1>
+                    <div>
+                        <button className="btn btn--add" onClick={handleAddClick}>
+                            <span className="button__text">Nouvelle Recette</span>
+                            <span className="button__icon">
+                                <IconeAjouter />
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                {showForm && (
+                    <FormulaireRecette onSubmit={ajouterRecette} formType={"add"} />
+                )}
+
                 <h2 className="title title--niveau2">Recettes recommandées :</h2>
                 <div className="recette__container">
                     {recettesRecommandees.length > 0 ? (
@@ -518,20 +533,7 @@ const Recettes = () => {
                     ))}
                 </div>
             </section>
-            <section className="section section--bas">
-                <div>
-                    <button className="btn btn--add" onClick={handleAddClick}>
-                        <span className="button__text">Nouvelle Recette</span>
-                        <span className="button__icon">
-                            <IconeAjouter />
-                        </span>
-                    </button>
-                </div>
 
-                {showForm && (
-                    <FormulaireRecette onSubmit={ajouterRecette} formType={"add"} />
-                )}
-            </section>
             <Outlet />
         </>
     );

@@ -85,16 +85,16 @@
 
     &.btn--add {
         width: 200px;
-        background-color: #1cca68;
+        background-color: hsl(145, 70%, 65%);
         &:hover {
-            background: #34ed84;
+            background: hsl(145, 75%, 70%);
 
             .button__icon {
                 transform: translateX(0);
             }
         }
         .button__icon {
-            background: #34ed84;
+            background: hsl(145, 75%, 70%);
             transform: translateX(160px);
             &:hover {
                 transform: translateX(0);
