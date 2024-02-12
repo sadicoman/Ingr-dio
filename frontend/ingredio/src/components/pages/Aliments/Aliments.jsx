@@ -54,17 +54,47 @@ const Aliments = () => {
         }
     };
 
+    // useEffect(() => {
+    //     if (aliments.length > 0) {
+    //         animateAliments();
+    //     }
+    // }, [aliments]);
+
+    // const animateAliments = () => {
+    //     gsap.fromTo(
+    //         ".aliments__el",
+    //         { opacity: 0, x: -200 },
+    //         { opacity: 1, x: 0, duration: 1, stagger: 1 },
+    //     );
+    // };
+
+
     useEffect(() => {
         if (aliments.length > 0) {
             animateAliments();
         }
+        return () => {
+            ScrollTrigger.getAll().forEach((instance) => instance.kill());
+            gsap.killTweensOf(".aliments__el");
+        };
     }, [aliments]);
 
     const animateAliments = () => {
         gsap.fromTo(
             ".aliments__el",
-            { opacity: 0, x: -200 },
-            { opacity: 1, x: 0, duration: 1, stagger: 0.2 },
+            { y: 100, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                stagger: 0.2,
+                duration: 0.5,
+                scrollTrigger: {
+                    trigger: ".aliments__list",
+                    start: "top 75%",
+                    end: "bottom 25%",
+                    toggleActions: "play none none none",
+                },
+            }
         );
     };
 

@@ -404,93 +404,26 @@ const RecetteDetails = () => {
 
             <div className="section">
                 {showForm && (
-                    <form className="form" onSubmit={handleSubmit(handleFormSubmit)}>
-                        {/* Formulaire de modification de la recette */}
-                        <div className="input-container ic2">
-                            <input
-                                className="input"
-                                {...register("nom")}
-                                // placeholder="Nom de la recette"
-                            />
-                            <div className="cut cut--actif" ref={addToCutRefs}></div>
-                            <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
-                                Nom de la recette
-                            </label>
-                        </div>
-                        <div className="input-container ic2">
-                            {/* ici */}
-                            <input
-                                className="input"
-                                {...register("TempsDePreparation")}
-                                // placeholder="Temps de préparation"
-                                type="number"
-                            />
-                            <div className="cut cut--actif" ref={addToCutRefs}></div>
-                            <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
-                                Temps de préparation
-                            </label>
-                        </div>
-                        <div className="input-container ic2">
-                            <input
-                                className="input"
-                                {...register("TempsDeCuisson")}
-                                // placeholder="Temps de cuisson"
-                                type="number"
-                            />
-                            <div className="cut cut--actif" ref={addToCutRefs}></div>
-                            <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
-                                Temps de cuisson
-                            </label>
-                        </div>
-                        <div className="input-container ic2">
-                            <select className="input" {...register("NiveauDeDifficulte")}>
-                                <option value="facile">Facile</option>
-                                <option value="moyen">Moyen</option>
-                                <option value="difficile">Difficile</option>
-                                <option value="expert">Expert</option>
-                            </select>
-                        </div>
-                        <div className="input-container ic2">
-                            <input
-                                className="input"
-                                {...register("NombreDePersonnes")}
-                                // placeholder="Nombre de personnes"
-                                type="number"
-                            />
-                            <div className="cut cut--actif" ref={addToCutRefs}></div>
-                            <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
-                                Nombre de personnes
-                            </label>
-                        </div>
-                        <div className="input-container ic2">
-                            <input
-                                className="input"
-                                {...register("CaloriesParPersonne")}
-                                // placeholder="Calories par personne"
-                                type="number"
-                            />
-                            <div className="cut cut--actif" ref={addToCutRefs}></div>
-                            <label className="iLabel iLabel--actif" ref={addToLabelRefs}>
-                                Calories par personne
-                            </label>
-                        </div>
-                        {/* Champs pour les ingrédients */}
-                        {ingredientsFields.map((field, index) => (
-                            <div className="ingredients__container" key={field.id}>
-                                <div className="input-container ic2 input-container--invisible">
-                                    <input
-                                        className="input"
-                                        {...register(
-                                            `ingredients.${index}.IngredientRecetteID`,
-                                        )}
-                                        type="hidden"
-                                    />
-                                </div>
+                    <div className="form__recetteDetails">
+                        <form
+                            className="form form--recetteDetails"
+                            onSubmit={handleSubmit(handleFormSubmit)}
+                        >
+                            <div className="form__fermer">
+                                <button
+                                    className="fermer__btn"
+                                    onClick={() => setShowForm(false)}
+                                >
+                                    X
+                                </button>
+                            </div>
+                            <div className="ingredients__container ingredients__container--first">
+                                {/* Formulaire de modification de la recette */}
                                 <div className="input-container ic2">
                                     <input
                                         className="input"
-                                        {...register(`ingredients.${index}.nomAliment`)}
-                                        // placeholder="Nom de l'aliment"
+                                        {...register("nom")}
+                                        // placeholder="Nom de la recette"
                                     />
                                     <div
                                         className="cut cut--actif"
@@ -500,15 +433,34 @@ const RecetteDetails = () => {
                                         className="iLabel iLabel--actif"
                                         ref={addToLabelRefs}
                                     >
-                                        Nom de l'aliment
+                                        Nom de la recette
+                                    </label>
+                                </div>
+                                <div className="input-container ic2">
+                                    {/* ici */}
+                                    <input
+                                        className="input"
+                                        {...register("TempsDePreparation")}
+                                        // placeholder="Temps de préparation"
+                                        type="number"
+                                    />
+                                    <div
+                                        className="cut cut--actif"
+                                        ref={addToCutRefs}
+                                    ></div>
+                                    <label
+                                        className="iLabel iLabel--actif"
+                                        ref={addToLabelRefs}
+                                    >
+                                        Temps de préparation
                                     </label>
                                 </div>
                                 <div className="input-container ic2">
                                     <input
                                         className="input"
-                                        {...register(`ingredients.${index}.Quantite`)}
+                                        {...register("TempsDeCuisson")}
+                                        // placeholder="Temps de cuisson"
                                         type="number"
-                                        // placeholder="Quantité"
                                     />
                                     <div
                                         className="cut cut--actif"
@@ -518,60 +470,84 @@ const RecetteDetails = () => {
                                         className="iLabel iLabel--actif"
                                         ref={addToLabelRefs}
                                     >
-                                        Quantité
+                                        Temps de cuisson
                                     </label>
                                 </div>
                                 <div className="input-container ic2">
                                     <select
                                         className="input"
-                                        {...register(`ingredients.${index}.Unite`)}
+                                        {...register("NiveauDeDifficulte")}
                                     >
-                                        <option value="g">g - Gramme</option>
-                                        <option value="l">l - Litre</option>
-                                        <option value="pcs">pcs - Pièce</option>
-                                        <option value="cs">cs - Cuillère à soupe</option>
-                                        <option value="cc">cc - Cuillère à café</option>
-                                        <option value="kg">kg - Kilogramme</option>
-                                        <option value="ml">ml - Millilitre</option>
-                                        <option value="tasse">tasse - Tasse</option>
-                                        <option value="pincée">pincée - Pincée</option>
+                                        <option value="facile">Facile</option>
+                                        <option value="moyen">Moyen</option>
+                                        <option value="difficile">Difficile</option>
+                                        <option value="expert">Expert</option>
                                     </select>
                                 </div>
                                 <div className="input-container ic2">
-                                    <button
-                                        type="button"
-                                        onClick={() => removeIngredient(index)}
+                                    <input
+                                        className="input"
+                                        {...register("NombreDePersonnes")}
+                                        // placeholder="Nombre de personnes"
+                                        type="number"
+                                    />
+                                    <div
+                                        className="cut cut--actif"
+                                        ref={addToCutRefs}
+                                    ></div>
+                                    <label
+                                        className="iLabel iLabel--actif"
+                                        ref={addToLabelRefs}
                                     >
-                                        Supprimer
-                                    </button>
+                                        Nombre de personnes
+                                    </label>
+                                </div>
+                                <div className="input-container ic2">
+                                    <input
+                                        className="input"
+                                        {...register("CaloriesParPersonne")}
+                                        // placeholder="Calories par personne"
+                                        type="number"
+                                    />
+                                    <div
+                                        className="cut cut--actif"
+                                        ref={addToCutRefs}
+                                    ></div>
+                                    <label
+                                        className="iLabel iLabel--actif"
+                                        ref={addToLabelRefs}
+                                    >
+                                        Calories par personne
+                                    </label>
                                 </div>
                             </div>
-                        ))}
-                        <div className="input-container ic2">
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    appendIngredient({
-                                        nomAliment: "",
-                                        Quantite: "",
-                                        Unite: "g",
-                                    })
-                                }
-                            >
-                                + Ajouter un ingrédient
-                            </button>
-                        </div>
-                        {/* Champs pour les étapes */}
-                        <div className="etapes__section">
-                            {etapesFields.map((field, index) => (
-                                <div className="etapes__container" key={field.id}>
+                            {/* Champs pour les ingrédients */}
+                            {ingredientsFields.map((field, index) => (
+                                <div className="ingredients__container" key={field.id}>
+                                    <div className="input-container ic2 input-container--invisible">
+                                        <input
+                                            className="input"
+                                            {...register(
+                                                `ingredients.${index}.IngredientRecetteID`,
+                                            )}
+                                            type="hidden"
+                                        />
+                                    </div>
+                                    <div className="btn--supprimer">
+                                        <button
+                                            type="button"
+                                            onClick={() => removeIngredient(index)}
+                                        >
+                                            Supprimer
+                                        </button>
+                                    </div>
                                     <div className="input-container ic2">
-                                        <textarea
-                                            className="input input--textarea"
-                                            {...register(`etapes.${index}.Description`)}
-                                            // placeholder={`Description de l'étape ${
-                                            //     index + 1
-                                            // }`}
+                                        <input
+                                            className="input"
+                                            {...register(
+                                                `ingredients.${index}.nomAliment`,
+                                            )}
+                                            // placeholder="Nom de l'aliment"
                                         />
                                         <div
                                             className="cut cut--actif"
@@ -581,30 +557,120 @@ const RecetteDetails = () => {
                                             className="iLabel iLabel--actif"
                                             ref={addToLabelRefs}
                                         >
-                                            {`Description de l'étape ${index + 1}`}
+                                            Nom de l'aliment
                                         </label>
-                                        <button
-                                            type="button"
-                                            onClick={() => removeEtape(index)}
+                                    </div>
+                                    <div className="input-container ic2">
+                                        <input
+                                            className="input"
+                                            {...register(`ingredients.${index}.Quantite`)}
+                                            type="number"
+                                            // placeholder="Quantité"
+                                        />
+                                        <div
+                                            className="cut cut--actif"
+                                            ref={addToCutRefs}
+                                        ></div>
+                                        <label
+                                            className="iLabel iLabel--actif"
+                                            ref={addToLabelRefs}
                                         >
-                                            Supprimer
-                                        </button>
+                                            Quantité
+                                        </label>
+                                    </div>
+                                    <div className="input-container ic2 input-container--bottom">
+                                        <select
+                                            className="input"
+                                            {...register(`ingredients.${index}.Unite`)}
+                                        >
+                                            <option value="g">g - Gramme</option>
+                                            <option value="l">l - Litre</option>
+                                            <option value="pcs">pcs - Pièce</option>
+                                            <option value="cs">
+                                                cs - Cuillère à soupe
+                                            </option>
+                                            <option value="cc">
+                                                cc - Cuillère à café
+                                            </option>
+                                            <option value="kg">kg - Kilogramme</option>
+                                            <option value="ml">ml - Millilitre</option>
+                                            <option value="tasse">tasse - Tasse</option>
+                                            <option value="pincée">
+                                                pincée - Pincée
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                             ))}
                             <div className="input-container ic2">
                                 <button
+                                    className="input-container__btn"
                                     type="button"
-                                    onClick={() => appendEtape({ Description: "" })}
+                                    onClick={() =>
+                                        appendIngredient({
+                                            nomAliment: "",
+                                            Quantite: "",
+                                            Unite: "g",
+                                        })
+                                    }
                                 >
-                                    + Ajouter une étape
+                                    + Ajouter un ingrédient
                                 </button>
                             </div>
-                        </div>
-                        <button className="submit" type="submit">
-                            Sauvegarder les modifications
-                        </button>
-                    </form>
+                            {/* Champs pour les étapes */}
+
+                            <div className="etapes__section ingredients__container">
+                                {etapesFields.map((field, index) => (
+                                    <div className="etapes__container" key={field.id}>
+                                        <div className="btn--supprimer">
+                                            <button
+                                                type="button"
+                                                onClick={() => removeEtape(index)}
+                                            >
+                                                Supprimer
+                                            </button>
+                                        </div>
+
+                                        <div className="input-container ic2">
+                                            <textarea
+                                                className="input input--textarea"
+                                                {...register(
+                                                    `etapes.${index}.Description`,
+                                                )}
+                                                // placeholder={`Description de l'étape ${
+                                                //     index + 1
+                                                // }`}
+                                            />
+                                            <div
+                                                className="cut cut--actif cut--etape"
+                                                ref={addToCutRefs}
+                                            ></div>
+                                            <label
+                                                className="iLabel iLabel--actif"
+                                                ref={addToLabelRefs}
+                                            >
+                                                {`Description de l'étape ${index + 1}`}
+                                            </label>
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className="input-container ic2">
+                                    <button
+                                        className="input-container__btn input-container__btn--etape "
+                                        type="button"
+                                        onClick={() => appendEtape({ Description: "" })}
+                                    >
+                                        + Ajouter une étape
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <button className="submit" type="submit">
+                                    Sauvegarder les modifications
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 )}
             </div>
         </>

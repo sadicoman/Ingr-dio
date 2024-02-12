@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 // import "../../formulaire/formulaire.scss";
 
-const FormModificationAliment = ({ aliment, onModifier, onAnnuler }) => {
+const FormModificationAliment = ({ aliment, onModifier, onAnnuler, onCancel }) => {
     const {
         register,
         handleSubmit,
@@ -41,70 +41,79 @@ const FormModificationAliment = ({ aliment, onModifier, onAnnuler }) => {
     };
 
     return (
-        <form className="form form--modifier" onSubmit={handleSubmit(onSubmit)}>
-            <div className="input-container ic2">
-                <div
-                    className={`containner__quantite ${
-                        quantite > 0 ? "containner__quantite--actif" : ""
-                    }`}
-                >
-                    <button
-                        className="btn--moin"
-                        type="button"
-                        onClick={diminuerQuantite}
+        <div className="form-container form-container--gardeManger">
+            <form className="form form--modifier" onSubmit={handleSubmit(onSubmit)}>
+                <button className="form-close-btn" onClick={onCancel}>
+                    &times;
+                </button>
+                <div className="input-container ic2">
+                    <div
+                        className={`containner__quantite ${
+                            quantite > 0 ? "containner__quantite--actif" : ""
+                        }`}
                     >
-                        -
-                    </button>
-                    <input
-                        className="input input--quantite"
-                        id="quantite"
-                        {...register("Quantite", { required: true })}
-                        type="number"
-                        value={quantite} // Lier l'état à l'input
-                        onChange={(e) => {
-                            const val = parseInt(e.target.value) || 0;
-                            setQuantite(val);
-                            setValue("Quantite", val); // Mettre à jour le champ dans useForm
-                        }}
-                    />
-                    <button
-                        className="btn--plus"
-                        type="button"
-                        onClick={augmenterQuantite}
-                    >
-                        +
-                    </button>
-                    <div className="cut"></div>
-                    <label className="iLabel ilabel--quantite">Quantité:</label>
-                    {errors.quantite && <span>Ce champ est requis</span>}
+                        <button
+                            className="btn--moin"
+                            type="button"
+                            onClick={diminuerQuantite}
+                        >
+                            -
+                        </button>
+                        <input
+                            className="input input--quantite"
+                            id="quantite"
+                            {...register("Quantite", { required: true })}
+                            type="number"
+                            value={quantite} // Lier l'état à l'input
+                            onChange={(e) => {
+                                const val = parseInt(e.target.value) || 0;
+                                setQuantite(val);
+                                setValue("Quantite", val); // Mettre à jour le champ dans useForm
+                            }}
+                        />
+                        <button
+                            className="btn--plus"
+                            type="button"
+                            onClick={augmenterQuantite}
+                        >
+                            +
+                        </button>
+                        <div className="cut"></div>
+                        <label className="iLabel ilabel--quantite">Quantité:</label>
+                        {errors.quantite && <span>Ce champ est requis</span>}
+                    </div>
                 </div>
-            </div>
-            <div className="input-container ic2">
-                <select
-                    className="input"
-                    id="unite"
-                    {...register("unite", { required: true })}
-                >
-                    <option value="g">g - Gramme</option>
-                    <option value="l">l - Litre</option>
-                    <option value="pcs">pcs - Pièce</option>
-                    <option value="cs">cs - Cuillère à soupe</option>
-                    <option value="cc">cc - Cuillère à café</option>
-                    <option value="kg">kg - Kilogramme</option>
-                    <option value="ml">ml - Millilitre</option>
-                    <option value="tasse">tasse - Tasse</option>
-                    <option value="pincée">pincée - Pincée</option>
-                </select>
+                <div className="input-container ic2">
+                    <select
+                        className="input"
+                        id="unite"
+                        {...register("unite", { required: true })}
+                    >
+                        <option value="g">g - Gramme</option>
+                        <option value="l">l - Litre</option>
+                        <option value="pcs">pcs - Pièce</option>
+                        <option value="cs">cs - Cuillère à soupe</option>
+                        <option value="cc">cc - Cuillère à café</option>
+                        <option value="kg">kg - Kilogramme</option>
+                        <option value="ml">ml - Millilitre</option>
+                        <option value="tasse">tasse - Tasse</option>
+                        <option value="pincée">pincée - Pincée</option>
+                    </select>
 
-                {errors.unite && <span>Ce champ est requis</span>}
-            </div>
-            <button className="submit" type="submit">
-                Sauvegarder
-            </button>
-            <button className="submit submit--annuler" type="button" onClick={onAnnuler}>
-                Annuler
-            </button>
-        </form>
+                    {errors.unite && <span>Ce champ est requis</span>}
+                </div>
+                <button className="submit" type="submit">
+                    Sauvegarder
+                </button>
+                <button
+                    className="submit submit--annuler"
+                    type="button"
+                    onClick={onAnnuler}
+                >
+                    Annuler
+                </button>
+            </form>
+        </div>
     );
 };
 

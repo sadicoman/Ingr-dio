@@ -13,6 +13,10 @@ import "./recettes.scss";
 import Header from "../../templates/Header/Header";
 import IconeAjouter from "../GardeManger/IconeAjouter";
 import IconeSupprimer from "../GardeManger/iconeSupprimer";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const FormulaireRecette = ({ recette, onSubmit }) => {
     const labelRefs = useRef([]);
@@ -356,6 +360,7 @@ const Recettes = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [recettesRecommandees, setRecettesRecommandees] = useState([]);
     const [showForm, setShowForm] = useState(false);
+    const recetteContainerRef = useRef(null);
 
     useEffect(() => {
         const chargerRecettesEtProfil = async () => {
@@ -369,7 +374,7 @@ const Recettes = () => {
                 console.error("Erreur lors du chargement des recettes: ", error);
             }
         };
-
+        gsap.registerPlugin(ScrollTrigger);
         chargerRecettesEtProfil();
     }, []);
 
@@ -435,10 +440,39 @@ const Recettes = () => {
         setShowForm(true);
     };
 
+    useEffect(() => {
+        if (recettes.length > 0) {
+            animateRecettes();
+        }
+        return () => {
+            ScrollTrigger.getAll().forEach((instance) => instance.kill());
+            gsap.killTweensOf(".recette__card");
+        };
+    }, [recettes]);
+
+    const animateRecettes = () => {
+        gsap.fromTo(
+            ".recette__card",
+            { autoAlpha: 0, y: 100 },
+            {
+                autoAlpha: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                scrollTrigger: {
+                    trigger: ".recette__container",
+                    start: "top bottom", // Modifié pour déclencher dès que le haut de l'élément atteint le bas du viewport
+                    end: "bottom 25%",
+                    toggleActions: "play none none none",
+                },
+            },
+        );
+    };
+
     return (
         <>
             <Header />
-            <section className="section">
+            <section className="section section--margin" ref={recetteContainerRef}>
                 <div className="section__recettes--container">
                     <h1 className="title">Recettes</h1>
                     <div>
@@ -488,6 +522,7 @@ const Recettes = () => {
                                             <Link
                                                 to={`/recettes/${recette.RecetteID}`}
                                                 key={recette.RecetteID}
+                                                className="recette__lien"
                                             >
                                                 voir plus
                                             </Link>

@@ -62,9 +62,11 @@ const LandingPage = () => {
             <Header />
 
             <main>
-                <section className="section">
+                <section className="section section--user">
                     {userInfo ? (
-                        <h2 className="title title--niveau2">Bienvenue, {userInfo.pseudo}</h2>
+                        <h2 className="title title--niveau2">
+                            Bienvenue, <span className="userInfo">{userInfo.pseudo}</span>
+                        </h2>
                     ) : (
                         <h2 className="title title--niveau2">Bienvenue</h2>
                     )}
@@ -72,14 +74,14 @@ const LandingPage = () => {
                 </section>
                 <section className="section">
                     <h3 className="title title--niveau3">Dernières Recettes Ajoutées</h3>
-                    <div className="latest-recipes">
+                    <ul className="latest-recipes__list">
                         {latestRecipes.map((recette) => (
-                            <div key={recette.RecetteID}>
+                            <li className="latest-recipes__el" key={recette.RecetteID}>
                                 <h4>{recette.Nom}</h4>
                                 {/* Autres détails de la recette */}
-                            </div>
+                            </li>
                         ))}
-                    </div>
+                    </ul>
                 </section>
             </main>
         </>

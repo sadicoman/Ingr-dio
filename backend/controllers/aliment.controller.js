@@ -59,7 +59,6 @@ exports.createAliment = async (req, res) => {
 };
 
 // Créer plusieurs nouveaux aliments
-// Créer plusieurs nouveaux aliments
 exports.createMultipleAliments = async (req, res) => {
     try {
         const alimentsList = req.body; // Tableau d'objets aliment

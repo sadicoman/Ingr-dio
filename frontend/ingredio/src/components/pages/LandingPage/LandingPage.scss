@@ -1,0 +1,19 @@
+.latest-recipes__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--margin-mb);
+
+    .latest-recipes__el {
+        padding: var(--margin-x-mb);
+        background-color: var(--color-background-secondary);
+    }
+}
+
+.userInfo {
+    color: var(--color-primary);
+    display: inline-block;
+}
+
+.userInfo::first-letter {
+    text-transform: uppercase;
+}

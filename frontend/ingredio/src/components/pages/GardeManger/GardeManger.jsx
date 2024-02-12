@@ -11,6 +11,8 @@ import FormModificationAliment from "./FormModificationAliment";
 import Header from "../../templates/Header/Header";
 import "../../formulaire/formulaire.scss";
 import "./GardeManger.scss";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const GardeManger = () => {
     const [aliments, setAliments] = useState([]);
@@ -89,6 +91,35 @@ const GardeManger = () => {
     //     }
     // };
 
+    useEffect(() => {
+        if (aliments.length > 0) {
+            animateAliments();
+        }
+        return () => {
+            ScrollTrigger.getAll().forEach((instance) => instance.kill());
+            gsap.killTweensOf(".aliments__el");
+        };
+    }, [aliments]);
+
+    const animateAliments = () => {
+        gsap.fromTo(
+            ".aliments__el",
+            { y: 100, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                stagger: 0.2,
+                duration: 0.5,
+                scrollTrigger: {
+                    trigger: ".aliments__list",
+                    start: "top 75%",
+                    end: "bottom 25%",
+                    toggleActions: "play none none none",
+                },
+            },
+        );
+    };
+
     return (
         <div>
             <Header />
@@ -105,6 +136,7 @@ const GardeManger = () => {
                         aliment={alimentAModifier}
                         onModifier={handleModificationAliment}
                         onAnnuler={() => setAlimentAModifier(null)}
+                        onCancel={() => setAlimentAModifier(null)}
                     />
                 )}
             </section>

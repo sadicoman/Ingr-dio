@@ -26,11 +26,9 @@ const Home = () => {
             author: "Sophie Laurent",
             stars: 5,
         },
-        // Ajoutez d'autres données de carte ici
     ];
 
     useEffect(() => {
-        // Assurez-vous que les animations GSAP s'exécutent après le montage du composant
         gsap.registerPlugin(ScrollTrigger);
 
         const tl4 = gsap.timeline();
@@ -89,11 +87,6 @@ const Home = () => {
                         ))}
                     </blockquote>
                 </section>
-                {/* 
-                <section className="section section--call-to-action">
-
-                    <Link to="/register">Rejoignez Ingrédio aujourd'hui</Link>
-                </section> */}
             </main>
         </>
     );

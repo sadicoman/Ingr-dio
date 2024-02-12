@@ -70,6 +70,11 @@
             span::first-letter {
                 text-transform: uppercase;
             }
+
+            .recette__lien {
+                cursor: pointer;
+                color: var(--color-primary);
+            }
         }
     }
     &--recomandees {
@@ -180,6 +185,25 @@
     border-radius: 1rem;
 }
 
+.etapes__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn--supprimer {
+    align-self: flex-end;
+    button {
+        border: none;
+        padding: 0.5rem;
+        border-radius: 0.3rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f0e8e8;
+        }
+    }
+}
+
 @media screen and (min-width: 768px) {
     .recette__container {
         flex-direction: row;
@@ -202,6 +226,79 @@
             min-width: inherit;
         }
     }
+}
+
+.form__recetteDetails {
+    position: fixed;
+    background-color: #00000094;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+
+    .form--recetteDetails {
+        // margin-top: 3rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+
+        .input-container__btn {
+            border: none;
+            padding: 1rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--color-background-tertiary);
+            }
+
+            &--etape {
+                &:hover {
+                    background-color: var(--color-background-secondary);
+                }
+            }
+        }
+    }
+    .form {
+        .cut {
+            &--etape {
+                width: 160px;
+                left: 60px;
+            }
+        }
+        .iLabel--actif {
+            left: 60px;
+        }
+    }
+
+    .ingredients__container--first {
+        padding-bottom: 3rem;
+    }
+    .form__fermer {
+        cursor: pointer;
+        align-self: flex-end;
+
+        .fermer__btn {
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.3rem;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f2ebeb;
+            }
+        }
+    }
+}
+
+.input-container--bottom {
+    margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 1400px) {

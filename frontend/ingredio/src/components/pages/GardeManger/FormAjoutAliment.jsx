@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 const FormAjoutAliment = ({ onAjout }) => {
     const { register, handleSubmit, setValue, reset } = useForm();
     const [quantite, setQuantite] = useState(0);
+    const [nomAlimentActive, setNomAlimentActive] = useState(false);
 
     // Création de références distinctes pour chaque label et cut
     const labelRef1 = useRef(null);
@@ -40,18 +41,31 @@ const FormAjoutAliment = ({ onAjout }) => {
     // Fonction pour vérifier si la quantité est non-nulle
     const isQuantiteActive = quantite >= 0;
 
+    useEffect(() => {
+        // Pour nomAliment
+        setNomAlimentActive(document.getElementById("nomAliment").value !== "");
+    }, [register]);
+
     return (
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
             <h2 className="title title--niveau2">Ajouter un nouveau aliment</h2>
             <div className="input-container ic1">
                 <input
                     className="input"
+                    id="nomAliment"
                     {...register("nomAliment")}
                     type="text"
+                    onChange={(e) => setNomAlimentActive(e.target.value !== "")}
                     // placeholder="Nom de l'aliment"
                 />
-                <div className="cut" ref={cutRef1}></div>
-                <label className="iLabel" ref={labelRef1}>
+                <div
+                    className={`cut ${nomAlimentActive ? "cut--actif" : ""}`}
+                    ref={cutRef1}
+                ></div>
+                <label
+                    className={`iLabel ${nomAlimentActive ? "iLabel--actif" : ""}`}
+                    ref={labelRef1}
+                >
                     Nom de l'aliment
                 </label>
             </div>
