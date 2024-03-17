@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { getUserProfile, resetPassword } from "../../../services/auth.service";
-import Logout from "../../logout/Logout";
+import Logout from "../../Logout/Logout";
 import Header from "../../templates/Header/Header";
 import "./Profil.scss";
 
