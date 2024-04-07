@@ -17,6 +17,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setError(null);
                 if (isFirstVisit) {
                     // Marque le début du chargement
                     setLoading(true);

@@ -12,77 +12,82 @@ import Aliments from "../components/pages/Aliments/Aliments.jsx";
 import RecetteDetails from "../components/pages/Recettes/RecetteDetails.jsx";
 import ResetPassword from "../components/pages/ResetPassword/ResetPassword.jsx";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-        children: [
-            {
-                path: "/",
-                element: <Home />,
-            },
-            {
-                path: "login",
-                element: <Login />,
-            },
-            {
-                path: "register",
-                element: <Register />,
-            },
-            {
-                path: "landingPage",
-                element: (
-                    <PrivateRoute>
-                        <LandingPage />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "recettes",
-                element: (
-                    <PrivateRoute>
-                        <Recettes />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "/recettes/:id",
-                element: (
-                    <PrivateRoute>
-                        <RecetteDetails />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "garde-manger",
-                element: (
-                    <PrivateRoute>
-                        <GardeManger />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "aliments",
-                element: (
-                    <PrivateRoute>
-                        <Aliments />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "profil",
-                element: (
-                    <PrivateRoute>
-                        <Profil />
-                    </PrivateRoute>
-                ),
-            },
-            {
-                path: "reset-password",
-                element: <ResetPassword />,
-            },
-        ],
-    },
-]);
+const router = createBrowserRouter(
+	[
+		{
+			path: "/",
+			element: <App />,
+			children: [
+				{
+					path: "/",
+					element: <Home />,
+				},
+				{
+					path: "login",
+					element: <Login />,
+				},
+				{
+					path: "register",
+					element: <Register />,
+				},
+				{
+					path: "landingPage",
+					element: (
+						<PrivateRoute>
+							<LandingPage />
+						</PrivateRoute>
+					),
+				},
+				{
+					path: "recettes",
+					element: (
+						<PrivateRoute>
+							<Recettes />
+						</PrivateRoute>
+					),
+				},
+				{
+					path: "/recettes/:id",
+					element: (
+						<PrivateRoute>
+							<RecetteDetails />
+						</PrivateRoute>
+					),
+				},
+				{
+					path: "garde-manger",
+					element: (
+						<PrivateRoute>
+							<GardeManger />
+						</PrivateRoute>
+					),
+				},
+				{
+					path: "aliments",
+					element: (
+						<PrivateRoute>
+							<Aliments />
+						</PrivateRoute>
+					),
+				},
+				{
+					path: "profil",
+					element: (
+						<PrivateRoute>
+							<Profil />
+						</PrivateRoute>
+					),
+				},
+				{
+					path: "reset-password",
+					element: <ResetPassword />,
+				},
+			],
+		},
+	],
+	{
+		basename: "/ingredio/", // Ajoutez votre chemin de base ici
+	},
+);
 
 export default router;
